@@ -1,5 +1,6 @@
 "use client"
 
+import { MobileNav } from "@/components/mobile-nav"
 import * as React from "react"
 import Link from "next/link"
 
@@ -111,8 +112,10 @@ export function SiteHeader() {
         </div>
         
         {/* MOBİL MENÜ İKONU */}
-        <button className="lg:hidden text-2xl p-2">☰</button>
-
+        {/* MOBİL MENÜ */}
+<div className="lg:hidden">
+  <MobileNav />
+</div>
       </div>
     </header>
   )
