@@ -3,6 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { Menu } from "lucide-react"
+import Image from "next/image"
 
 // Shadcn Bileşenleri
 import {
@@ -40,10 +41,17 @@ export function MobileNav() {
         {/* 1. BAŞLIK KISMI */}
         <SheetHeader className="text-left border-b border-gray-100 pb-6 mb-6">
           <SheetTitle className="text-2xl font-bold text-[#1e293b] flex items-center gap-3">
-            <div className="h-10 w-10 bg-[#00b074] rounded-full flex items-center justify-center text-white text-lg font-bold shadow-md">
-              F
-            </div>
-            Farma Works
+            {/* YENİ KOD */}
+<div className="relative h-12 w-12 shrink-0">
+    <Image 
+      src="/images/logo.png" 
+      alt="Farma Works Logo" 
+      fill
+      className="object-contain"
+    />
+</div>
+{/* Eğer logonuzda yazı varsa bu satırı silebilirsiniz: */}
+<span className="ml-2">Farma Works</span>
           </SheetTitle>
         </SheetHeader>
 

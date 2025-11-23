@@ -3,6 +3,7 @@
 import { MobileNav } from "@/components/mobile-nav"
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 
 import {
   NavigationMenu,
@@ -21,8 +22,17 @@ export function SiteHeader() {
         
         {/* 1. LOGO ALANI */}
         <Link href="/" className="flex items-center gap-2 min-w-fit">
-          <div className="h-8 w-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">F</div>
-          <span className="text-2xl font-bold text-blue-900 tracking-tight">Farma Works</span>
+          {/* YENİ KOD: Image bileşeni kullanıyoruz */}
+<div className="relative h-10 w-10 shrink-0">
+   <Image 
+     src="/images/logo.png" 
+     alt="Farma Works Logo" 
+     fill
+     className="object-contain"
+   />
+</div>
+{/* Yanındaki yazıyı ister tutun ister silin. Eğer logonuzda zaten yazı varsa bu satırı silebilirsiniz: */}
+<span className="text-2xl font-bold text-blue-900 tracking-tight hidden md:block">Farma Works</span>
         </Link>
 
         {/* 2. MENÜ ALANI (Masaüstü) */}
