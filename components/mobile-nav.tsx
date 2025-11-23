@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Menu, Activity } from "lucide-react" // İkonlar
+import { Menu } from "lucide-react"
 
 // Shadcn Bileşenleri
 import {
@@ -25,79 +25,88 @@ export function MobileNav() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      {/* 1. TETİKLEYİCİ BUTON (HAMBURGER) */}
+      
+      {/* HAMBURGER BUTONU */}
       <SheetTrigger asChild>
-        <button className="p-2 -mr-2 md:hidden text-gray-600 hover:text-gray-900">
+        <button className="p-2 -mr-2 md:hidden text-gray-700 hover:text-black transition">
           <Menu className="h-8 w-8" />
           <span className="sr-only">Menüyü Aç</span>
         </button>
       </SheetTrigger>
 
-      {/* 2. AÇILAN YAN PANEL */}
-      <SheetContent side="right" className="w-[300px] sm:w-[400px] overflow-y-auto">
+      {/* YAN PANEL İÇERİĞİ */}
+      <SheetContent side="right" className="w-[320px] sm:w-[400px] overflow-y-auto bg-white p-6">
         
-        <SheetHeader className="mb-6 text-left">
-          <SheetTitle className="text-2xl font-bold text-blue-900 flex items-center gap-2">
-            <div className="h-8 w-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm">F</div>
+        {/* 1. BAŞLIK KISMI */}
+        <SheetHeader className="text-left border-b border-gray-100 pb-6 mb-6">
+          <SheetTitle className="text-2xl font-bold text-[#1e293b] flex items-center gap-3">
+            <div className="h-10 w-10 bg-[#00b074] rounded-full flex items-center justify-center text-white text-lg font-bold shadow-md">
+              F
+            </div>
             Farma Works
           </SheetTitle>
         </SheetHeader>
 
-        <div className="flex flex-col gap-4 pb-10">
+        {/* 2. MENÜ LİSTESİ */}
+        <div className="flex flex-col gap-6">
           
-          {/* TEKİL LİNKLER */}
-          <MobileLink href="/" setOpen={setOpen}>
+          {/* Anasayfa */}
+          <MobileLink href="/" setOpen={setOpen} className="font-bold text-lg">
             Anasayfa
           </MobileLink>
 
           {/* AÇILIR MENÜ: KURUMSAL */}
           <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="kurumsal" className="border-b-0">
-              <AccordionTrigger className="py-2 font-semibold hover:no-underline">
+            <AccordionItem value="kurumsal" className="border-none">
+              <AccordionTrigger className="py-0 font-bold text-lg text-gray-800 hover:no-underline hover:text-[#00b074]">
                 Kurumsal
               </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-2 pl-4 border-l-2 border-gray-100 ml-2">
-                <MobileLink href="/kurumsal/hakkimizda" setOpen={setOpen}>Hakkımızda</MobileLink>
-                <MobileLink href="/kurumsal/insan-kaynaklari" setOpen={setOpen}>İnsan Kaynakları</MobileLink>
-                <MobileLink href="/kurumsal/kvkk" setOpen={setOpen}>KVKK</MobileLink>
+              <AccordionContent className="flex flex-col gap-3 pt-4 pl-4">
+                <MobileLink href="/kurumsal/hakkimizda" setOpen={setOpen} className="text-gray-600">› Hakkımızda</MobileLink>
+                <MobileLink href="/kurumsal/insan-kaynaklari" setOpen={setOpen} className="text-gray-600">› İnsan Kaynakları</MobileLink>
+                <MobileLink href="/kurumsal/kvkk" setOpen={setOpen} className="text-gray-600">› KVKK</MobileLink>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
 
           {/* AÇILIR MENÜ: ÜRÜNLERİMİZ */}
-          <Accordion type="single" collapsible className="w-full -mt-4">
-            <AccordionItem value="urunler" className="border-b-0">
-              <AccordionTrigger className="py-2 font-semibold hover:no-underline">
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="urunler" className="border-none">
+              <AccordionTrigger className="py-0 font-bold text-lg text-gray-800 hover:no-underline hover:text-[#00b074]">
                 Ürünlerimiz
               </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-2 pl-4 border-l-2 border-gray-100 ml-2">
-                <MobileLink href="/urunler/vitaminler" setOpen={setOpen}>Vitaminler</MobileLink>
-                <MobileLink href="/urunler/mineraller" setOpen={setOpen}>Mineraller</MobileLink>
-                <MobileLink href="/urunler/multivitaminler" setOpen={setOpen}>Multivitaminler</MobileLink>
-                <MobileLink href="/urunler/probiyotikler" setOpen={setOpen}>Probiyotikler</MobileLink>
-                <MobileLink href="/urunler/ozel-takviyeler" setOpen={setOpen}>Özel Takviyeler</MobileLink>
-                <MobileLink href="/urunler/kisisel-bakim" setOpen={setOpen}>Kişisel Bakım</MobileLink>
-                <MobileLink href="/urunler" setOpen={setOpen} className="font-bold text-[#00b074]">Tüm Ürünler</MobileLink>
+              <AccordionContent className="flex flex-col gap-3 pt-4 pl-4">
+                <MobileLink href="/urunler/vitaminler" setOpen={setOpen} className="text-gray-600">› Vitaminler</MobileLink>
+                <MobileLink href="/urunler/mineraller" setOpen={setOpen} className="text-gray-600">› Mineraller</MobileLink>
+                <MobileLink href="/urunler/multivitaminler" setOpen={setOpen} className="text-gray-600">› Multivitaminler</MobileLink>
+                <MobileLink href="/urunler/probiyotikler" setOpen={setOpen} className="text-gray-600">› Probiyotikler</MobileLink>
+                <MobileLink href="/urunler/ozel-takviyeler" setOpen={setOpen} className="text-gray-600">› Özel Takviyeler</MobileLink>
+                <MobileLink href="/urunler/kisisel-bakim" setOpen={setOpen} className="text-gray-600">› Kişisel Bakım</MobileLink>
+                <div className="my-2 border-t border-gray-100"></div>
+                <MobileLink href="/urunler" setOpen={setOpen} className="font-bold text-[#00b074]">Tüm Ürünleri Gör</MobileLink>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
 
           {/* DİĞER LİNKLER */}
-          <MobileLink href="/eczaneler" setOpen={setOpen}>
+          <MobileLink href="/eczaneler" setOpen={setOpen} className="font-bold text-lg">
             Eczaneler
           </MobileLink>
-          <MobileLink href="/saglik-onerileri" setOpen={setOpen}>
+          
+          <MobileLink href="/saglik-onerileri" setOpen={setOpen} className="font-bold text-lg">
             Sağlık Önerileri
           </MobileLink>
-          <MobileLink href="/bayimiz-ol" setOpen={setOpen}>
+          
+          <MobileLink href="/bayimiz-ol" setOpen={setOpen} className="font-bold text-lg">
             Bayimiz Ol
           </MobileLink>
           
-          <div className="mt-4">
+          {/* 3. ALT BUTON (İLETİŞİM) */}
+          <div className="mt-6 pt-6 border-t border-gray-100">
             <SheetClose asChild>
               <Link
                 href="/iletisim"
-                className="flex w-full items-center justify-center rounded-full bg-[#00b074] p-3 font-bold text-white hover:bg-[#00965e]"
+                className="flex w-full items-center justify-center rounded-xl bg-[#00b074] py-4 font-bold text-white shadow-lg hover:bg-[#00965e] transition active:scale-95"
               >
                 İletişim
               </Link>
@@ -110,7 +119,7 @@ export function MobileNav() {
   )
 }
 
-// Yardımcı Link Bileşeni (Tıklayınca menüyü kapatır)
+// Yardımcı Link Bileşeni
 interface MobileLinkProps {
   href: string
   setOpen: (open: boolean) => void
@@ -123,7 +132,7 @@ function MobileLink({ href, setOpen, children, className }: MobileLinkProps) {
     <Link
       href={href}
       onClick={() => setOpen(false)}
-      className={`block py-2 text-lg font-medium text-gray-600 hover:text-black ${className}`}
+      className={`text-gray-800 transition-colors hover:text-[#00b074] ${className}`}
     >
       {children}
     </Link>
