@@ -1,12 +1,30 @@
-import type { Metadata } from "next";
-// Dikkat: Import yolunda küçük harfli dosya adını kullanıyoruz
 import { OzelTakviyeContent } from "@/components/ozel-takviye-content";
+import { getStoryblokApi } from "@/lib/storyblok";
 
-export const metadata: Metadata = {
-  title: "Özel Takviyeler - Kolajen, Omega-3 ve Daha Fazlası",
-  description: "Spesifik sağlık ihtiyaçlarınız için geliştirilmiş premium takviye edici gıdalar. Kolajen, Omega-3, Q10 ve bitkisel ekstreler.",
+// --- STORYBLOK VERİ ÇEKME ---
+async function fetchData() {
+  const storyblokApi = getStoryblokApi();
+  
+  const { data } = await storyblokApi.get("cdn/stories", {
+    version: "draft",
+    content_type: "product",
+    filter_query: {
+      category: {
+        // DİKKAT: Storyblok'taki kategori adıyla birebir aynı olmalı (Türkçe karakterlere dikkat)
+        in: "Özel Takviyeler" 
+      }
+    }
+  });
+  
+  return data.stories;
+}
+
+export const metadata = {
+  title: "Özel Takviyeler",
+  description: "Kolajen, Omega-3 ve diğer özel destekler.",
 };
 
-export default function Page() {
-  return <OzelTakviyeContent />;
+export default async function OzelTakviyelerPage() {
+  const products = await fetchData();
+  return <OzelTakviyeContent products={products} />;
 }
