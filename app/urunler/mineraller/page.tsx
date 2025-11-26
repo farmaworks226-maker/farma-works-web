@@ -1,29 +1,39 @@
+import type { Metadata } from "next";
 import { MinerallerContent } from "@/components/mineraller-content";
 import { getStoryblokApi } from "@/lib/storyblok";
 
-// --- STORYBLOK VERİ ÇEKME ---
+// 1. SEO AYARLARI
+export const metadata: Metadata = {
+  title: "Mineral Takviyeleri",
+  description: "Vücudunuzun ihtiyaç duyduğu Magnezyum, İyot ve Zeolit gibi temel mineralleri en saf haliyle keşfedin.",
+};
+
+// 2. VERİ ÇEKME FONKSİYONU
 async function fetchData() {
   const storyblokApi = getStoryblokApi();
   
-  // DİKKAT: Filtrelemeyi kaldırdım, her şeyi çekiyoruz.
-  const { data } = await storyblokApi.get("cdn/stories", {
-    version: "draft", 
-    content_type: "product",
-    // filter_query KISMINI SİLDİK
-  });
-  
-  // TERMİNALE NE GELDİĞİNİ YAZDIRIYORUZ (Burayı kontrol edeceğiz)
-  console.log("STORYBLOK'TAN GELEN ÜRÜNLER:", JSON.stringify(data.stories, null, 2));
-
-  return data.stories;
+  try {
+    // Storyblok'tan 'product' tipindeki içerikleri çekiyoruz
+    const { data } = await storyblokApi.get("cdn/stories", {
+      version: "draft", // Canlıya alınca 'published' yapabilirsiniz
+      content_type: "product",
+      filter_query: {
+        category: {
+          in: "Mineraller" // Storyblok'taki kategori adıyla BİREBİR aynı olmalı (Büyük/Küçük harf)
+        }
+      }
+    });
+    return data.stories;
+  } catch (error) {
+    console.error("Storyblok Hatası:", error);
+    return [];
+  }
 }
 
-export const metadata = {
-  title: "Mineral Takviyeleri",
-  description: "Vücudunuzun ihtiyaç duyduğu temel mineraller.",
-};
-
+// 3. SAYFA BİLEŞENİ
 export default async function MinerallerPage() {
   const products = await fetchData();
+  
+  // Veriyi client bileşenine (MinerallerContent) gönderiyoruz
   return <MinerallerContent products={products} />;
 }

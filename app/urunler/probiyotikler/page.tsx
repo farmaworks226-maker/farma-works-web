@@ -1,27 +1,31 @@
-import { ProbiyotikContent } from "@/components/probiyotik-content";
+import type { Metadata } from "next";
+import { ProbiyotikContent } from "@/components/probiyotik-content"; // components'ten çağırıyoruz
 import { getStoryblokApi } from "@/lib/storyblok";
 
-// --- STORYBLOK VERİ ÇEKME ---
+export const metadata: Metadata = {
+  title: "Probiyotik ve Prebiyotik Takviyeleri",
+  description: "Sindirim sistemi dengesi ve bağışıklık için probiyotik çözümler.",
+};
+
 async function fetchData() {
   const storyblokApi = getStoryblokApi();
   
-  const { data } = await storyblokApi.get("cdn/stories", {
-    version: "draft",
-    content_type: "product",
-    filter_query: {
-      category: {
-        in: "Probiyotikler" // Storyblok'taki kategori adıyla birebir aynı olmalı
+  try {
+    const { data } = await storyblokApi.get("cdn/stories", {
+      version: "draft", 
+      content_type: "product",
+      filter_query: {
+        category: {
+          in: "Probiyotikler" // Storyblok'taki kategori adıyla BİREBİR aynı olmalı
+        }
       }
-    }
-  });
-  
-  return data.stories;
+    });
+    return data.stories;
+  } catch (error) {
+    console.error("Storyblok Hatası:", error);
+    return [];
+  }
 }
-
-export const metadata = {
-  title: "Probiyotik Takviyeleri",
-  description: "Sindirim sistemi ve bağışıklık için probiyotik çözümler.",
-};
 
 export default async function ProbiyotiklerPage() {
   const products = await fetchData();

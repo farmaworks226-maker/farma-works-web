@@ -1,27 +1,31 @@
-import { VitaminlerContent } from "@/components/vitaminler-content";
+import type { Metadata } from "next";
+import { VitaminlerContent } from "@/components/vitaminler-content"; // Yeni bileşeni çağırıyoruz
 import { getStoryblokApi } from "@/lib/storyblok";
 
-// --- STORYBLOK VERİ ÇEKME ---
+export const metadata: Metadata = {
+  title: "Vitamin Takviyeleri",
+  description: "Bağışıklık ve enerji için temel vitaminler.",
+};
+
 async function fetchData() {
   const storyblokApi = getStoryblokApi();
   
-  const { data } = await storyblokApi.get("cdn/stories", {
-    version: "draft",
-    content_type: "product",
-    filter_query: {
-      category: {
-        in: "Vitaminler" // Storyblok'taki kategori adıyla birebir aynı olmalı
+  try {
+    const { data } = await storyblokApi.get("cdn/stories", {
+      version: "draft",
+      content_type: "product",
+      filter_query: {
+        category: {
+          in: "Vitaminler" // Storyblok'taki kategori ismi (Dikkat: Mineraller DEĞİL)
+        }
       }
-    }
-  });
-  
-  return data.stories;
+    });
+    return data.stories;
+  } catch (error) {
+    console.error("Storyblok Hatası:", error);
+    return [];
+  }
 }
-
-export const metadata = {
-  title: "Vitamin Takviyeleri",
-  description: "Günlük C, D, B12 vitamini ihtiyaçlarınız için.",
-};
 
 export default async function VitaminlerPage() {
   const products = await fetchData();

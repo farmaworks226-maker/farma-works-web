@@ -1,27 +1,31 @@
+import type { Metadata } from "next";
 import { KisiselBakimContent } from "@/components/kisisel-bakim-content";
 import { getStoryblokApi } from "@/lib/storyblok";
 
-// --- STORYBLOK VERİ ÇEKME ---
+export const metadata: Metadata = {
+  title: "Dermo Kozmetik Kişisel Bakım Ürünleri",
+  description: "Cilt bariyerini güçlendiren serumlar, kremler ve saç bakım ürünleri. Bilimsel içerikli doğal bakım.",
+};
+
 async function fetchData() {
   const storyblokApi = getStoryblokApi();
   
-  const { data } = await storyblokApi.get("cdn/stories", {
-    version: "draft",
-    content_type: "product",
-    filter_query: {
-      category: {
-        in: "Kişisel Bakım" // DİKKAT: Storyblok'taki kategori ismiyle BİREBİR aynı olmalı
+  try {
+    const { data } = await storyblokApi.get("cdn/stories", {
+      version: "draft", 
+      content_type: "product",
+      filter_query: {
+        category: {
+          in: "Kişisel Bakım" // Storyblok'taki kategori adıyla BİREBİR aynı olmalı
+        }
       }
-    }
-  });
-  
-  return data.stories;
+    });
+    return data.stories;
+  } catch (error) {
+    console.error("Storyblok Hatası:", error);
+    return [];
+  }
 }
-
-export const metadata = {
-  title: "Kişisel Bakım Ürünleri",
-  description: "Cilt ve saç bakımınız için dermo kozmetik ürünler.",
-};
 
 export default async function KisiselBakimPage() {
   const products = await fetchData();
