@@ -63,7 +63,6 @@ export function KisiselBakimContent({ products }: { products: any[] }) {
     if (!content) return false;
     if (typeof content === 'string') return content.trim().length > 0;
     if (typeof content === 'object') {
-        // RichText kontrolü
         if (content.content && Array.isArray(content.content) && content.content.length > 0) return true;
     }
     return false;
@@ -316,7 +315,7 @@ export function KisiselBakimContent({ products }: { products: any[] }) {
                   </div>
                 )}
 
-                {/* Tablo (Sadece DOLU VERİ varsa) */}
+                {/* Tablo */}
                 {hasTableData(selectedProduct.active_ingredients) && (
                    <div className="overflow-x-auto my-4 border border-gray-200 rounded-lg shadow-sm">
                       <table className="w-full text-sm text-left">
