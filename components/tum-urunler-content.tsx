@@ -89,7 +89,7 @@ export function TumUrunlerContent({ products }: { products: any[] }) {
   // ⭐ HEADER RENK MAPİNG ⭐
   const getHeaderColor = (category: string) => {
     switch (category) {
-      case "mineraller": return "bg-blue-100 text-blue-900";
+      case "Mineraller": return "bg-blue-100 text-blue-900";
       case "Vitaminler": return "bg-orange-100 text-orange-900";
       case "Multivitaminler": return "bg-lime-100 text-lime-900";
       case "Probiyotikler": return "bg-emerald-100 text-emerald-900";

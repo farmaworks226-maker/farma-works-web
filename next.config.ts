@@ -1,25 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // TypeScript ve Eslint hatalarını build sırasında yoksay (Hızlı yayınlama için)
+  // TypeScript hatalarını build sırasında yoksay (Yayınlamayı engellemesin)
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  // Storyblok ve Unsplash resimlerine izin ver
+  // Resim optimizasyon hatalarını engelle
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'a.storyblok.com', // Storyblok resimleri için ŞART
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com', // Test resimleri için
+        hostname: '**', // Her yerden resim kabul et
       },
     ],
+    unoptimized: true,
   },
 };
 
