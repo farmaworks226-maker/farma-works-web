@@ -12,7 +12,7 @@ const DEFAULT_SLIDES = [
     title: "Doğanın Gücü, Bilimin Işığında.",
     description: "Farma Works ile en güvenilir ve doğal takviyelerle sağlığınızı destekleyin.",
     button_text: "Tüm Ürünleri İncele",
-    link: "/urunler"
+    link: { linktype: "url", url: "/urunler" }
   },
   {
     _uid: "2",
@@ -20,7 +20,7 @@ const DEFAULT_SLIDES = [
     title: "Sağlığınız Bizim İçin Değerli.",
     description: "Uluslararası kalite standartlarında üretim ve şeffaf içerik garantisi.",
     button_text: "Hikayemiz",
-    link: "/kurumsal/hakkimizda"
+    link: { linktype: "url", url: "/kurumsal/hakkimizda" }
   }
 ]
 
@@ -45,17 +45,27 @@ export function HeroSection({ slides }: { slides?: any[] }) {
         // Storyblok resim URL'si veya yerel resim
         const imgUrl = slide.image?.filename || "/images/hero.png";
         
-        // Storyblok link objesi kontrolü
+        // --- LINK OLUŞTURMA MANTIĞI (GÜNCELLENDİ) ---
         let btnLink = "#";
-        if (typeof slide.link === 'string') {
-            btnLink = slide.link;
-        } else if (slide.link && slide.link.cached_url) {
-            // Storyblok link objesi ise
-            btnLink = `/${slide.link.cached_url.replace(/^\//, "")}`;
-        } else if (slide.link && slide.link.url) {
-             btnLink = slide.link.url;
+        
+        if (slide.link) {
+            // 1. Eğer 'story' (Dahili Storyblok sayfası) ise
+            if (slide.link.linktype === 'story' && slide.link.cached_url) {
+                 btnLink = `/${slide.link.cached_url.replace(/^\//, "")}`;
+            } 
+            // 2. Eğer 'url' (Harici veya Manuel link) ise - Sizin durumunuz bu
+            else if (slide.link.linktype === 'url' && slide.link.url) {
+                 btnLink = slide.link.url;
+            }
+            // 3. Eski usül string gelirse
+            else if (typeof slide.link === 'string') {
+                 btnLink = slide.link;
+            }
+             // 4. cached_url varsa ve yukarıdakiler yoksa
+            else if (slide.link.cached_url) {
+                 btnLink = `/${slide.link.cached_url.replace(/^\//, "")}`;
+            }
         }
-
 
         return (
           <div
