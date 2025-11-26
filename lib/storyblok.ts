@@ -1,15 +1,14 @@
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 
-// Storyblok Başlatıcı
-storyblokInit({
-  accessToken: process.env.STORYBLOK_TOKEN, // .env dosyasındaki şifreyi kullanır
-  use: [apiPlugin],
+// Storyblok Başlatıcı ve API Oluşturucu
+export const getStoryblokApi = storyblokInit({
+  accessToken: process.env.STORYBLOK_TOKEN, // .env dosyasından token'ı alır
+  use: [apiPlugin], // <-- İŞTE EKSİK OLAN KRİTİK PARÇA BU
   apiOptions: {
-    // ÇÖZÜM: API Sürümünü manuel olarak V2'ye ayarlıyoruz (Daha stabil)
-    version: 'v2', 
-    region: 'eu' // Eğer space'i EU'da açtıysanız bunu da ekleyin
-  }
+    region: "eu", // Eğer space'iniz EU (Avrupa) bölgesindeyse bunu ekleyin
+    cache: {
+      type: "memory", // Geliştirme ortamı için önbellek ayarı
+      clear: "auto",
+    },
+  },
 });
-
-// Bu fonksiyonu sayfalarımızda veri çekerken kullanacağız
-export { getStoryblokApi } from "@storyblok/react/rsc";
