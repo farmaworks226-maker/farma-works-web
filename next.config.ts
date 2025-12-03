@@ -1,20 +1,23 @@
 import type { NextConfig } from "next";
 
+// BURASI DEĞİŞTİ: enabled: true yaptık.
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === true, 
+});
+
 const nextConfig: NextConfig = {
-  // TypeScript hatalarını build sırasında yoksay (Yayınlamayı engellemesin)
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Resim optimizasyon hatalarını engelle
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', // Her yerden resim kabul et
+        hostname: '**',
       },
     ],
-    unoptimized: true,
+    unoptimized: false,
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

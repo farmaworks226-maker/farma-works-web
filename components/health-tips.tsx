@@ -1,161 +1,155 @@
 "use client"
 
-import { useState } from "react"
-import { ChevronLeft, ChevronRight, Sun, Droplets, Utensils, Fish, Moon, Activity, Brain, Coffee } from "lucide-react"
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import Image from "next/image" // ✅ Next.js Image bileşeni eklendi
+import { Calendar, ArrowRight } from "lucide-react"
+import { storyblokEditable } from "@storyblok/react"
 
-// İPUCU VERİLERİ
-const TIPS = [
-  {
-    id: 1,
-    category: "Bağışıklık",
-    title: "Probiyotik Tüketimi",
-    description: "Bağırsak florası için düzenli probiyotik tüketin. Yoğurt, kefir gibi fermente gıdalar veya probiyotik takviyeler bağışıklık sisteminizi güçlendirir.",
-    icon: <Utensils className="w-8 h-8 text-white" />
-  },
-  {
-    id: 2,
-    category: "Vitamin Desteği",
-    title: "D Vitamini Alımı",
-    description: "Günde en az 15-20 dakika güneş ışığından faydalanın. Eksikliği durumunda kemik sağlığı ve bağışıklık için takviye almayı ihmal etmeyin.",
-    icon: <Sun className="w-8 h-8 text-white" />
-  },
-  {
-    id: 3,
-    category: "Hidrasyon",
-    title: "Bol Su Tüketin",
-    description: "Vücut fonksiyonlarının düzgün çalışması için günde en az 2-2.5 litre su için. Su, toksinlerin atılmasına ve cildin nemlenmesine yardımcı olur.",
-    icon: <Droplets className="w-8 h-8 text-white" />
-  },
-  {
-    id: 4,
-    category: "Kalp Sağlığı",
-    title: "Omega-3 Desteği",
-    description: "Kalp ve beyin sağlığı için haftada iki kez balık tüketin veya düzenli Omega-3 takviyesi alın. Hafızayı güçlendirir ve iltihabı azaltır.",
-    icon: <Fish className="w-8 h-8 text-white" />
-  },
-  {
-    id: 5,
-    category: "Dinlenme",
-    title: "Kaliteli Uyku",
-    description: "Günde 7-8 saat karanlık ve sessiz bir ortamda uyumaya özen gösterin. Kaliteli uyku, vücudun yenilenmesi için en önemli süreçtir.",
-    icon: <Moon className="w-8 h-8 text-white" />
-  },
-  {
-    id: 6,
-    category: "Hareket",
-    title: "Düzenli Egzersiz",
-    description: "Haftada en az 150 dakika orta tempolu yürüyüş veya egzersiz yapın. Hareket etmek kalp ritmini düzenler ve stresi azaltır.",
-    icon: <Activity className="w-8 h-8 text-white" />
-  },
-  {
-    id: 7,
-    category: "Zihin Sağlığı",
-    title: "Stres Yönetimi",
-    description: "Günlük hayatın stresinden uzaklaşmak için meditasyon veya nefes egzersizleri yapın. Zihinsel sağlık, fiziksel sağlık kadar önemlidir.",
-    icon: <Brain className="w-8 h-8 text-white" />
-  },
-  {
-    id: 8,
-    category: "Antioksidan",
-    title: "Yeşil Çay Tüketimi",
-    description: "Metabolizmayı hızlandırmak ve hücreleri korumak için günde 1 fincan yeşil çay tüketin. Güçlü bir antioksidan kaynağıdır.",
-    icon: <Coffee className="w-8 h-8 text-white" />
-  }
-]
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function HealthTips({ blok }: { blok: any }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [articles, setArticles] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-// İSTATİSTİK VERİLERİ
-const STATS = [
-  { number: "100+", label: "Sağlık İpucu" },
-  { number: "50+", label: "Ürün Çeşidi" },
-  { number: "15+", label: "Yıllık Deneyim" },
-  { number: "10K+", label: "Mutlu Müşteri" },
-]
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        // Aynı token'ı kullan: NEXT_PUBLIC_STORYBLOK_TOKEN
+        const token = process.env.NEXT_PUBLIC_STORYBLOK_TOKEN
+        if (!token) {
+          throw new Error("NEXT_PUBLIC_STORYBLOK_TOKEN tanımlı değil!")
+        }
 
-export function HealthTips() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+        // Public token için "published" kullan
+        const url = `https://api.storyblok.com/v2/cdn/stories?version=published&content_type=article&per_page=3&sort_by=first_published_at:desc&token=${token}`
+        
+        const response = await fetch(url)
+        if (!response.ok) {
+          const errorText = await response.text()
+          console.error("API Hatası:", response.status, errorText)
+          throw new Error(`API Hatası: ${response.status}`)
+        }
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === TIPS.length - 1 ? 0 : prev + 1))
-  }
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? TIPS.length - 1 : prev - 1))
-  }
+        const data = await response.json()
+        setArticles(data.stories || [])
+      } catch (err: unknown) { // 'any' yerine 'unknown' kullanıldı
+         
+        console.error("Fetch hatası:", err)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setError((err as any).message || "Makaleler yüklenemedi")
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchArticles()
+  }, [])
 
   return (
-    <section className="py-20 bg-[#f0fdf4] overflow-hidden"> {/* Açık yeşil arka plan */}
-      <div className="container mx-auto px-4">
-        
-        {/* --- SLIDER ALANI --- */}
-        <div className="relative max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-20 min-h-[300px] flex items-center justify-center">
-          
-          {/* Sol Ok */}
-          <button 
-            onClick={prevSlide}
-            className="absolute left-4 md:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-600 hover:text-[#10b981] hover:scale-110 transition z-10"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
+    <section {...storyblokEditable(blok)} className="min-h-screen bg-gray-50 py-20">
+      
+      {/* ÜST BAŞLIK */}
+      <div className="bg-[#00b074] py-20 text-center text-white mb-12">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl font-bold mb-4">
+            {blok?.title || "Sağlık Önerileri"}
+          </h1>
+          <p className="text-lg opacity-90 max-w-2xl mx-auto">
+            {blok?.description || "Sağlıklı yaşam için uzman tavsiyeleri, güncel araştırmalar ve bilimsel destekli öneriler."}
+          </p>
+        </div>
+      </div>
 
-          {/* Kart İçeriği */}
-          <div className="text-center w-full max-w-2xl transition-all duration-500 ease-in-out transform">
+      <div className="container mx-auto px-4 max-w-7xl">
+        {loading && (
+          <div className="text-center py-12 text-gray-500">Yükleniyor...</div>
+        )}
+
+        {error && (
+          <div className="text-center py-12 text-red-500">
+            <p className="font-bold">Hata:</p>
+            <p className="text-sm">{error}</p>
+          </div>
+        )}
+
+        {!loading && !error && articles.length === 0 && (
+          <div className="text-center py-12 text-gray-500">Henüz makale yok.</div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {articles.map((item) => {
+            const article = item.content
+            const date = item.published_at
+              ? new Date(item.published_at).toLocaleDateString("tr-TR")
+              : "Tarih Yok"
             
-            {/* İkon Kutusu */}
-            <div className="w-16 h-16 bg-[#10b981] rounded-xl mx-auto flex items-center justify-center mb-6 shadow-lg shadow-green-200">
-              {TIPS[currentIndex].icon}
-            </div>
+            const linkHref = item.full_slug?.startsWith("saglik-onerileri")
+              ? `/${item.full_slug}`
+              : `/saglik-onerileri/${item.slug}`
 
-            {/* Kategori Badge */}
-            <span className="inline-block bg-green-100 text-[#10b981] text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wide">
-              {TIPS[currentIndex].category}
-            </span>
+            return (
+              <Link
+                key={item.uuid}
+                href={linkHref}
+                className="group block"
+              >
+                <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-gray-100">
+                  
+                  {/* RESİM ALANI - DÜZELTİLDİ */}
+                  <div className="relative h-56 overflow-hidden">
+                    <span className="absolute top-4 left-4 z-10 bg-[#00b074] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                      {article?.category || "Genel"}
+                    </span>
+                    
+                    <Image
+                      src={article?.image?.filename || "https://via.placeholder.com/800x600?text=Gorsel+Yok"}
+                      alt={article?.title || "Makale"}
+                      fill // Kapsayıcıyı doldurur (responsive)
+                      className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
 
-            {/* Başlık ve Açıklama */}
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              {TIPS[currentIndex].title}
-            </h3>
-            <p className="text-gray-500 leading-relaxed text-lg">
-              {TIPS[currentIndex].description}
-            </p>
-          </div>
+                  <div className="p-6 flex flex-col flex-grow">
+                    <div className="flex items-center gap-2 text-gray-400 text-xs mb-3 font-medium">
+                      <Calendar className="w-3 h-3" />
+                      <span>{date}</span>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-[#00b074] transition-colors flex-grow">
+                      {article?.title}
+                    </h3>
+                    
+                    <p className="text-gray-600 text-sm mb-6 line-clamp-3">
+                      {article?.seo_description}
+                    </p>
+                    
+                    <div className="mt-auto pt-4 border-t border-gray-100">
+                      <span className="inline-flex items-center text-[#00b074] font-bold text-sm hover:text-[#00965e] transition-colors">
+                        Devamını Oku
+                        <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
 
-          {/* Sağ Ok */}
-          <button 
-            onClick={nextSlide}
-            className="absolute right-4 md:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-600 hover:text-[#10b981] hover:scale-110 transition z-10"
+      <div className="bg-[#00965e] py-16 mt-20">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Daha Fazla Sağlık Önerisi İçin
+          </h2>
+          <Link
+            href="/iletisim"
+            className="inline-block bg-white text-[#00965e] font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition shadow-lg"
           >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
-          {/* Alt Noktalar (Pagination) */}
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2">
-            {TIPS.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? "w-6 bg-[#10b981]" : "w-2 bg-gray-300"
-                }`}
-              />
-            ))}
-          </div>
-
+            Uzmanımıza Danışın
+          </Link>
         </div>
-
-        {/* --- İSTATİSTİK ALANI (Alt Kısım) --- */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center border-t border-green-100 pt-12 max-w-5xl mx-auto">
-          {STATS.map((stat, index) => (
-            <div key={index}>
-              <div className="text-3xl md:text-4xl font-bold text-[#10b981] mb-2">
-                {stat.number}
-              </div>
-              <div className="text-sm md:text-base text-gray-600 font-medium">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
       </div>
     </section>
   )

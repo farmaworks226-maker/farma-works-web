@@ -1,32 +1,29 @@
-import { storyblokInit, apiPlugin, getStoryblokApi } from "@storyblok/react/rsc";
+"use client";
 
-// BİLEŞENLERİ İMPORT EDİYORUZ
+import { storyblokInit, apiPlugin } from "@storyblok/react";
+
+// Bileşenleri İçe Aktar
 import { HeroSection } from "@/components/hero-section";
-import { HeroSlider } from "@/components/hero-slider"; // <-- EKLENDİ
+import { HeroSlider } from "@/components/hero-slider"; // <-- Slider Burada
 import { HealthMission } from "@/components/health-mission";
 import { ProductShowcase } from "@/components/product-showcase";
 import { HealthTips } from "@/components/health-tips";
 import Page from "@/components/Page";
+
+// Alt Bileşenler
 import { ShowcaseBanner } from "@/components/showcase-banner";
 import { PopularProducts } from "@/components/popular-products";
 import { ProductCategories } from "@/components/product-categories";
 import { FeaturesGrid } from "@/components/features-grid";
 import { CtaSection } from "@/components/cta-section";
 
-// EŞLEŞTİRME LİSTESİ
 const components = {
   page: Page,
-  
-  // Hero Alanı
   hero_slide: HeroSection,
-  hero_slider_container: HeroSlider, // <-- KRİTİK EŞLEŞTİRME
-
-  // Diğer Alanlar
+  hero_slider_container: HeroSlider, // <-- BU SATIR ŞART (Teknik isme dikkat)
   health_mission: HealthMission,
   product_showcase: ProductShowcase,
   health_tips: HealthTips,
-  
-  // Parçalanmış Bloklar
   showcase_banner: ShowcaseBanner,
   popular_products: PopularProducts,
   product_categories: ProductCategories,
@@ -34,19 +31,12 @@ const components = {
   cta_section: CtaSection
 };
 
-// 1. Storyblok'u Başlat
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
   use: [apiPlugin],
-  components, // <-- LİSTEYİ BURAYA VERİYORUZ
-  apiOptions: {
-    region: "eu",
-    cache: {
-      type: 'memory',
-      clear: 'auto',
-    },
-  },
+  components,
 });
 
-// 2. API'yi Dışa Aktar
-export { getStoryblokApi };
+export default function StoryblokProvider({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
+}

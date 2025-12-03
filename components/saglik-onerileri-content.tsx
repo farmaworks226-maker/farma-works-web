@@ -1,10 +1,11 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image" // ✅ Next.js Image bileşeni eklendi
 import { Calendar, ArrowRight } from "lucide-react"
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
-  
   if (!articles || articles.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-10 text-center">
@@ -18,7 +19,6 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      
       {/* 1. Üst Yeşil Header */}
       <div className="bg-[#00b074] py-20 text-center text-white">
         <div className="container mx-auto px-4">
@@ -32,36 +32,35 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
       {/* 2. Blog Kartları Grid */}
       <div className="container mx-auto px-4 py-16 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
           {articles.map((item) => {
             const article = item.content;
-            const date = item.published_at ? new Date(item.published_at).toLocaleDateString('tr-TR') : 'Yayınlanmadı';
+            const date = item.published_at 
+              ? new Date(item.published_at).toLocaleDateString('tr-TR')
+              : 'Yayınlanmadı';
 
             return (
-              <Link 
-                key={item.uuid} 
-                // BURASI SON ÇÖZÜM: Next.js'in beklediği en basit format. 
-                // Sadece slug'ı yolluyoruz, Next.js'in otomatik /saglik-onerileri/ eklemesi için.
-                href={`/saglik-onerileri/${item.slug}`} 
+              <Link
+                key={item.uuid}
+                href={`/saglik-onerileri/${item.slug}`}
                 className="group block"
               >
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-gray-100">
                   
-                  {/* Resim Alanı */}
+                  {/* Resim Alanı - DÜZELTİLDİ */}
                   <div className="relative h-56 overflow-hidden">
                     <span className="absolute top-4 left-4 z-10 bg-[#00b074] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
                       {article.category || "Genel"}
                     </span>
-                    <img 
-                      src={article.image?.filename || 'https://via.placeholder.com/400x300?text=Gorsel+Yok'} 
-                      alt={article.title} 
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    <Image
+                      src={article.image?.filename || 'https://via.placeholder.com/400x300?text=Gorsel+Yok'}
+                      alt={article.title}
+                      fill // Kapsayıcıyı doldurur
+                      className="object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
 
                   {/* İçerik Alanı */}
                   <div className="p-6 flex flex-col flex-grow">
-                    
                     {/* Tarih */}
                     <div className="flex items-center gap-2 text-gray-400 text-xs mb-3 font-medium">
                       <Calendar className="w-3 h-3" />
@@ -81,7 +80,8 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
                     {/* Devamını Oku Linki */}
                     <div className="mt-auto pt-4 border-t border-gray-100">
                       <span className="inline-flex items-center text-[#00b074] font-bold text-sm hover:text-[#00965e] transition-colors">
-                        Devamını Oku <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                        Devamını Oku 
+                        <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                       </span>
                     </div>
                   </div>
@@ -94,14 +94,16 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
 
       {/* 3. Alt CTA (Call To Action) - Footer'ın hemen üstü */}
       <div className="bg-[#00965e] py-16 mt-10">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Daha Fazla Sağlık Önerisi İçin</h2>
-          <Link href="/iletisim" className="inline-block bg-white text-[#00965e] font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition shadow-lg">
+          <Link 
+            href="/iletisim" 
+            className="inline-block bg-white text-[#00965e] font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition shadow-lg"
+          >
             Uzmanımıza Danışın
           </Link>
         </div>
       </div>
-      
     </div>
   )
 }

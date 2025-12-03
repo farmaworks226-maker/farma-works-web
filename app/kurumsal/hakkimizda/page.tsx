@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Hakkımızda", // Otomatik olarak "Hakkımızda | Farma Works" olacak
-  description: "Farma Works'ün kuruluş hikayesi, vizyonu, misyonu ve üretim kalitesi hakkında detaylı bilgi edinin.",
-};
+import type { Metadata } from "next"
 import Image from "next/image"
 import { Microscope, Award, Users, Heart, FlaskConical, Hexagon, Store, Factory } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Hakkımızda",
+  description: "Farma Works'ün kuruluş hikayesi, vizyonu, misyonu ve üretim kalitesi hakkında detaylı bilgi edinin.",
+}
 
 export default function HakkimizdaPage() {
   return (
@@ -15,7 +15,7 @@ export default function HakkimizdaPage() {
       <div className="container mx-auto px-4 py-20 text-center max-w-4xl">
         <h1 className="text-4xl font-bold text-[#1e293b] mb-6">Farma Works İlaç,</h1>
         <p className="text-lg text-gray-600 leading-relaxed">
-          Yüksek kalite standartlarına sahip gıda takviyeleriyle "optimum sağlığı" hedefleyen alanında inovatif, lider bir firmadır. 
+          Yüksek kalite standartlarına sahip gıda takviyeleriyle &quot;optimum sağlığı&quot; hedefleyen alanında inovatif, lider bir firmadır. 
           Hedefleri doğrultusunda üretim süreçlerini titizlik ve en son teknolojiye bağlı kalarak sürdürmektedir. 
           Yenilikçi ve geniş ürün yelpazesi ile sağlıklı yaşamın sürdürülebilirliği için çalışmalarına devam etmektedir.
         </p>
@@ -97,11 +97,17 @@ export default function HakkimizdaPage() {
 
       {/* 4. BÖLÜM: Aile Resmi ve Slogan */}
       <div className="w-full relative h-[400px] mb-20 bg-gray-200 flex items-center justify-center">
-        <img 
-          src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?auto=format&fit=crop&q=80&w=2000" 
-          alt="Mutlu Aile" 
-          className="w-full h-full object-cover absolute inset-0"
-        />
+        {/* Düzeltme: classname -> className ve Image Component Kullanımı */}
+        <div className="relative w-full h-full">
+            <Image
+            src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?auto=format&fit=crop&q=80&w=2000" 
+            alt="Mutlu Aile"
+            fill
+            className="object-cover"
+            priority // Sayfanın üstlerinde olduğu için hızlı yüklenmesi için
+            />
+        </div>
+        
         <div className="absolute inset-0 bg-black/20 flex items-end justify-center pb-8 z-10">
           <h2 className="text-2xl md:text-4xl font-bold text-white italic drop-shadow-lg text-center px-4">
             Farma Works optimum sağlık için yaşamın her anında!
@@ -154,7 +160,7 @@ export default function HakkimizdaPage() {
             </div>
             <div className="md:w-1/2 md:pl-12 text-center md:text-left">
               <h3 className="font-bold text-gray-900 mb-2">KALİTELİ ÜRETİM KOŞULLARI</h3>
-              <p className="text-sm text-gray-500">Ürünlerimiz Türkiye'de ISO, Haccp, Helal ve Kosher sertifikalı, iyi üretim koşullarına sahip tesislerde üst düzey hijyen ile üretilmektedir.</p>
+              <p className="text-sm text-gray-500">Ürünlerimiz Türkiye&apos;de ISO, Haccp, Helal ve Kosher sertifikalı, iyi üretim koşullarına sahip tesislerde üst düzey hijyen ile üretilmektedir.</p>
             </div>
           </div>
 
