@@ -5,7 +5,7 @@ import Image from "next/image"
 import { ArrowRight, X, Check, AlertCircle, Info, Thermometer, Tag } from "lucide-react"
 import { render as renderRichText } from "storyblok-rich-text-react-renderer"
 
-// KATEGORİ LİSTESİ
+// KATEGORİ LİSTESİ (Filtreleme için)
 const CATEGORIES = ["Tümü", "Mineraller", "Vitaminler", "Multivitaminler", "Probiyotikler", "Özel Takviyeler", "Kişisel Bakım"]
 
 // --- TİP TANIMLAMALARI ---
@@ -37,12 +37,13 @@ type ProductItem = {
 };
 
 // --- YARDIMCI FONKSİYONLAR ---
-
 const richTextOptions = {
   nodeResolvers: {
     'table': (children: React.ReactNode) => (
       <div className="overflow-x-auto my-6 border border-gray-200 rounded-lg shadow-sm">
-        <table className="w-full text-sm text-left border-collapse"><tbody className="divide-y divide-gray-100">{children}</tbody></table>
+        <table className="w-full text-sm text-left border-collapse">
+          <tbody className="divide-y divide-gray-100">{children}</tbody>
+        </table>
       </div>
     ),
     'tr': (children: React.ReactNode) => <tr className="hover:bg-gray-50 transition-colors">{children}</tr>,
@@ -99,11 +100,16 @@ const getCategoryColor = (category: string) => {
 }
 
 // --- ANA BİLEŞEN ---
-
 export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
   const [selectedCategory, setSelectedCategory] = useState("Tümü")
   const [selectedProduct, setSelectedProduct] = useState<ProductContent | null>(null)
   const [manualActiveImage, setManualActiveImage] = useState<string | null>(null)
+
+  // ✅ Modal kapatma fonksiyonu - setState burada yapılıyor
+  const handleCloseModal = () => {
+    setManualActiveImage(null)
+    setSelectedProduct(null)
+  }
 
   // Kategoriye göre filtreleme
   const filteredProducts = selectedCategory === "Tümü"
@@ -113,7 +119,7 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
         return productCategory.toLowerCase() === selectedCategory.toLowerCase();
       })
 
-  // Galeri listesini hesapla
+  // ✅ galleryList artık useMemo ile hesaplanıyor
   const galleryList = useMemo(() => {
     if (!selectedProduct) return []
 
@@ -133,27 +139,27 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
         }
       })
     }
+
     return Array.from(new Set(imagesList))
   }, [selectedProduct])
 
-  // Aktif resmi hesapla
+  // ✅ activeImage artık useMemo ile hesaplanıyor
   const activeImage = useMemo(() => {
     if (!selectedProduct) return ""
     if (manualActiveImage !== null) return manualActiveImage
     return selectedProduct.image?.filename || "/images/hero.png"
   }, [selectedProduct, manualActiveImage])
 
-  // Scroll kilitleme ve modal yönetimi
+  // ✅ useEffect sadece scroll kontrolü - HİÇBİR setState YOK
   useEffect(() => {
     if (selectedProduct) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
-      setManualActiveImage(null) // Modal kapanınca resmi sıfırla
     }
     
     return () => {
-       document.body.style.overflow = 'unset'
+      document.body.style.overflow = 'unset'
     }
   }, [selectedProduct])
 
@@ -168,6 +174,7 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
             Sağlığınız için özenle geliştirdiğimiz tüm ürün çeşitlerini buradan inceleyebilir, kategorilere göre filtreleyebilirsiniz.
           </p>
 
+          {/* Kategori Butonları */}
           <div className="flex flex-wrap justify-center gap-3">
             {CATEGORIES.map((cat) => (
               <button
@@ -203,6 +210,7 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
                   className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col cursor-pointer h-full"
                 >
                   <div className="relative h-80 bg-gray-100 overflow-hidden">
+                    {/* Kategori Etiketi (Renkli) */}
                     <span className={`absolute top-4 left-4 text-[10px] font-bold px-2 py-1 rounded border uppercase tracking-wide z-10 ${categoryColors}`}>
                       {category}
                     </span>
@@ -213,11 +221,13 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
                       className="object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
+
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-gray-900 font-bold text-lg mb-2 leading-snug min-h-[3rem]">
                       {product.name}
                     </h3>
                     
+                    {/* Kısa açıklama (Varsa) */}
                     {hasData(product.short_desc) && (
                       <div className="text-xs text-gray-500 line-clamp-2 mb-4">
                         {renderSafe(product.short_desc)}
@@ -246,7 +256,10 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative animate-in zoom-in-95 duration-200">
             
-            <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-red-100 hover:text-red-600 transition z-10"><X className="w-6 h-6" /></button>
+            {/* ✅ Kapatma butonu - handleCloseModal kullanıyor */}
+            <button onClick={handleCloseModal} className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-red-100 hover:text-red-600 transition z-10">
+              <X className="w-6 h-6" />
+            </button>
 
             <div className="p-6 md:p-10">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 border-b border-gray-100 pb-4 pr-10">
@@ -259,12 +272,12 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
                 <div className="lg:col-span-5 flex flex-col gap-4">
                   <div className="bg-gray-100 rounded-2xl h-[400px] border border-gray-200 overflow-hidden relative shadow-inner flex items-center justify-center">
                     {activeImage && (
-                        <Image 
-                            src={activeImage} 
-                            alt={selectedProduct.name || "Ürün Detay"} 
-                            fill
-                            className="object-cover" 
-                        />
+                      <Image 
+                        src={activeImage} 
+                        alt={selectedProduct.name || "Ürün Detay"} 
+                        fill
+                        className="object-cover" 
+                      />
                     )}
                   </div>
 
@@ -276,8 +289,8 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
                           onClick={() => setManualActiveImage(imgUrl)}
                           className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 bg-white transition-all ${
                             activeImage === imgUrl 
-                            ? "border-[#00b074] ring-2 ring-[#00b074]/20" 
-                            : "border-gray-100 hover:border-gray-300"
+                              ? "border-[#00b074] ring-2 ring-[#00b074]/20" 
+                              : "border-gray-100 hover:border-gray-300"
                           }`}
                         >
                           <Image 
@@ -297,13 +310,17 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
                   
                   <div>
                     <h3 className="font-bold text-gray-900 mb-2">Ürün Açıklaması</h3>
-                    <div className="text-gray-600 text-sm leading-relaxed">{renderSafe(selectedProduct.description)}</div>
+                    <div className="text-gray-600 text-sm leading-relaxed">
+                      {renderSafe(selectedProduct.description)}
+                    </div>
                   </div>
 
                   {hasData(selectedProduct.features) && (
                     <div>
                       <h3 className="font-bold text-gray-900 mb-2">Özellikler:</h3>
-                      <div className="text-sm text-gray-600">{renderSafe(selectedProduct.features)}</div>
+                      <div className="text-sm text-gray-600">
+                        {renderSafe(selectedProduct.features)}
+                      </div>
                     </div>
                   )}
 
@@ -317,68 +334,82 @@ export function TumUrunlerContent({ products }: { products: ProductItem[] }) {
 
               {/* ALT KUTULAR */}
               <div className="mt-8 grid md:grid-cols-2 gap-4 text-sm">
-                 {hasData(selectedProduct.ingredients) && (
-                   <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-2"><Info className="w-4 h-4 text-[#00b074]" /> İçerik</div>
-                      <div className="text-gray-600">{renderSafe(selectedProduct.ingredients)}</div>
-                   </div>
-                 )}
-                 {hasData(selectedProduct.usage) && (
-                   <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-2"><AlertCircle className="w-4 h-4 text-[#00b074]" /> Kullanım Şekli</div>
-                      <div className="text-gray-600">{renderSafe(selectedProduct.usage)}</div>
-                   </div>
-                 )}
+                {hasData(selectedProduct.ingredients) && (
+                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <div className="flex items-center gap-2 font-bold text-gray-900 mb-2">
+                      <Info className="w-4 h-4 text-[#00b074]" /> İçerik
+                    </div>
+                    <div className="text-gray-600">
+                      {renderSafe(selectedProduct.ingredients)}
+                    </div>
+                  </div>
+                )}
+
+                {hasData(selectedProduct.usage) && (
+                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <div className="flex items-center gap-2 font-bold text-gray-900 mb-2">
+                      <AlertCircle className="w-4 h-4 text-[#00b074]" /> Kullanım Şekli
+                    </div>
+                    <div className="text-gray-600">
+                      {renderSafe(selectedProduct.usage)}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Tablo */}
               {hasTableData(selectedProduct.active_ingredients) && selectedProduct.active_ingredients && (
-                 <div className="mt-4 overflow-x-auto border border-gray-200 rounded-lg">
-                    <table className="w-full text-sm text-left">
-                      <thead className="bg-gray-50 border-b border-gray-200">
-                        <tr>
-                          {selectedProduct.active_ingredients.thead?.map((h, k) => 
-                            <th key={k} className="px-6 py-3 font-bold text-gray-800">{h.value}</th>
-                          )}
+                <div className="mt-4 overflow-x-auto border border-gray-200 rounded-lg">
+                  <table className="w-full text-sm text-left">
+                    <thead className="bg-gray-50 border-b border-gray-200">
+                      <tr>
+                        {selectedProduct.active_ingredients.thead?.map((h, k) => 
+                          <th key={k} className="px-6 py-3 font-bold text-gray-800">{h.value}</th>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {selectedProduct.active_ingredients.tbody?.map((row, i) => (
+                        <tr key={i} className="hover:bg-gray-50">
+                          {row.body.map((cell, j) => (
+                            <td key={j} className={`px-6 py-4 ${j === 1 ? 'font-bold text-right' : ''}`}>{cell.value}</td>
+                          ))}
                         </tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-100">
-                        {selectedProduct.active_ingredients.tbody?.map((row, i) => (
-                          <tr key={i} className="hover:bg-gray-50">
-                            {row.body.map((cell, j) => (
-                              <td key={j} className={`px-6 py-4 ${j === 1 ? 'font-bold text-right' : ''}`}>{cell.value}</td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                 </div>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               )}
 
               {/* Alt Bilgiler */}
               <div className="mt-4 grid md:grid-cols-2 gap-4 text-sm">
                 {hasData(selectedProduct.warnings) && (
                   <div className="bg-[#fffbeb] border border-[#fcd34d] p-4 rounded-xl text-[#92400e]">
-                     <div className="flex items-center gap-2 font-bold mb-1"><AlertCircle className="w-4 h-4" /> Uyarılar:</div>
-                     <div>{renderSafe(selectedProduct.warnings)}</div>
+                    <div className="flex items-center gap-2 font-bold mb-1">
+                      <AlertCircle className="w-4 h-4" /> Uyarılar:
+                    </div>
+                    <div>{renderSafe(selectedProduct.warnings)}</div>
                   </div>
                 )}
 
                 {hasData(selectedProduct.storage) && (
                   <div className="bg-[#eff6ff] border border-[#bfdbfe] p-4 rounded-xl text-blue-900">
-                    <div className="flex items-center gap-2 font-bold mb-1"><Thermometer className="w-4 h-4" /> Saklama Koşulları:</div>
+                    <div className="flex items-center gap-2 font-bold mb-1">
+                      <Thermometer className="w-4 h-4" /> Saklama Koşulları:
+                    </div>
                     <div>{renderSafe(selectedProduct.storage)}</div>
                   </div>
                 )}
 
                 {hasData(selectedProduct.price) && (
                   <div className="bg-[#f0fdf4] border border-[#86efac] p-4 rounded-xl flex items-center justify-between col-span-full md:col-span-1">
-                     <div className="flex items-center gap-2 font-bold text-green-900"><Tag className="w-4 h-4" /> Satış Fiyatı:</div>
-                     <div className="text-xl font-extrabold text-[#00b074]">{selectedProduct.price}</div>
+                    <div className="flex items-center gap-2 font-bold text-green-900">
+                      <Tag className="w-4 h-4" /> Satış Fiyatı:
+                    </div>
+                    <div className="text-xl font-extrabold text-[#00b074]">{selectedProduct.price}</div>
                   </div>
                 )}
               </div>
-
             </div>
           </div>
         </div>

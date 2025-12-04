@@ -12,7 +12,9 @@ export function BayiForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("submitting");
+
     const formData = new FormData(e.currentTarget);
+
     try {
       const response = await fetch(`https://formspree.io/f/${FORM_ID}`, {
         method: "POST",
@@ -21,6 +23,7 @@ export function BayiForm() {
           'Accept': 'application/json'
         }
       });
+
       if (response.ok) {
         setStatus("success");
         (e.target as HTMLFormElement).reset();
@@ -28,7 +31,6 @@ export function BayiForm() {
         setStatus("error");
       }
     } catch {
-      // Hata detayı kullanılmadığı için değişkeni kaldırdık
       setStatus("error");
     }
   }
@@ -38,10 +40,10 @@ export function BayiForm() {
       <div className="bg-[#1e293b] py-16 text-center text-white">
         <h1 className="text-4xl font-bold">Bayimiz Olun</h1>
       </div>
-      
+
       <div className="container mx-auto px-4 py-16 max-w-5xl">
         <div className="grid md:grid-cols-12 gap-12 mb-16 items-start">
-          
+
           {/* Sol Taraf: Görsel Galeri */}
           <div className="md:col-span-5 grid grid-cols-2 gap-3">
             <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden relative">
@@ -90,7 +92,7 @@ export function BayiForm() {
         {/* Form Alanı */}
         <div className="bg-gray-50 p-8 rounded-xl border border-gray-200">
           <h2 className="text-xl font-bold text-gray-900 mb-6">Başvuru Formu</h2>
-          
+
           {status === "success" ? (
             <div className="text-center py-10">
               <div className="text-green-500 text-5xl mb-4">✓</div>
@@ -103,7 +105,7 @@ export function BayiForm() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <input type="hidden" name="_subject" value="Yeni Bayilik Başvurusu!" />
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-gray-700">Adı <span className="text-red-500">*</span></label>
@@ -134,6 +136,12 @@ export function BayiForm() {
                 <label className="text-sm font-semibold text-gray-700">Mesajınız</label>
                 <textarea name="Mesaj" rows={5} className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none resize-none"></textarea>
               </div>
+
+              {status === "error" && (
+                <div className="text-red-500 text-sm">
+                  Bir hata oluştu. Lütfen tekrar deneyin.
+                </div>
+              )}
 
               <button disabled={status === "submitting"} className="w-full bg-[#10b981] hover:bg-[#059669] text-white font-bold py-4 rounded-lg transition duration-300 disabled:opacity-50">
                 {status === "submitting" ? "Gönderiliyor..." : "Gönder"}

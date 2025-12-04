@@ -20,12 +20,13 @@ interface TableData {
 }
 
 // --- YARDIMCI FONKSİYONLAR ---
-
 const richTextOptions = {
   nodeResolvers: {
     'table': (children: React.ReactNode) => (
       <div className="overflow-x-auto my-6 border border-gray-200 rounded-lg shadow-sm">
-        <table className="w-full text-sm text-left border-collapse"><tbody className="divide-y divide-gray-100">{children}</tbody></table>
+        <table className="w-full text-sm text-left border-collapse">
+          <tbody className="divide-y divide-gray-100">{children}</tbody>
+        </table>
       </div>
     ),
     'tr': (children: React.ReactNode) => <tr className="hover:bg-gray-50 transition-colors">{children}</tr>,
@@ -49,7 +50,8 @@ const renderSafe = (content: unknown) => {
   if (typeof content === 'object' && content !== null) {
     const obj = content as { type?: string }
     if (obj.type === 'doc') {
-      return renderRichText(content, richTextOptions)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return renderRichText(content as any, richTextOptions)
     }
   }
   return null
@@ -67,23 +69,25 @@ const hasData = (content: unknown): boolean => {
 
 const hasTableData = (table: TableData | undefined): boolean => {
   if (!table?.tbody || !Array.isArray(table.tbody) || table.tbody.length === 0) return false
-  
-  const hasRealData = table.tbody.some((row: TableRow) => 
-    row.body.some((cell) => cell.value && cell.value.trim() !== "")
-  )
-  return hasRealData
+  return table.tbody.some((row: TableRow) => row.body.some((cell) => cell.value && cell.value.trim() !== ""))
 }
 
 // --- ANA BİLEŞEN ---
-
 export function KisiselBakimContent({ products }: { products: StoryblokStory<Product>[] }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [activeImage, setActiveImage] = useState<string>("")
+  // ✅ DÜZELTME: activeImage yerine manualActiveImage kullanıyoruz
+  const [manualActiveImage, setManualActiveImage] = useState<string | null>(null)
+
+  // ✅ DÜZELTME: activeImage artık useMemo ile hesaplanıyor
+  const activeImage = useMemo(() => {
+    if (!selectedProduct) return ""
+    if (manualActiveImage !== null) return manualActiveImage
+    return selectedProduct.image?.filename || "/images/hero.png"
+  }, [selectedProduct, manualActiveImage])
 
   // Galeri listesini useMemo ile hesapla
   const galleryList = useMemo(() => {
     if (!selectedProduct) return []
-
     const imagesList: string[] = []
     const mainImg = selectedProduct.image?.filename || "/images/hero.png"
     
@@ -100,31 +104,25 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
         }
       })
     }
-
     return Array.from(new Set(imagesList))
   }, [selectedProduct])
 
-  // Scroll Kilitleme ve Resim Ayarlama
+  // ✅ DÜZELTME: useEffect sadece scroll kontrolü yapıyor - HİÇBİR setState YOK
   useEffect(() => {
     if (selectedProduct) {
       document.body.style.overflow = 'hidden'
-      const mainImg = selectedProduct.image?.filename || "/images/hero.png"
-      
-      // Sadece resim farklıysa güncelle (sonsuz döngü önlemi)
-      setActiveImage((prev) => (prev !== mainImg ? mainImg : prev))
+    } else {
+      document.body.style.overflow = 'unset'
     }
-    
-    // Cleanup: Bileşen unmount olduğunda scroll'u aç
     return () => {
       document.body.style.overflow = 'unset'
     }
   }, [selectedProduct])
 
-  // Modalı Kapatma Fonksiyonu
-  const closeModal = () => {
-    document.body.style.overflow = 'unset'
+  // ✅ DÜZELTME: Modal kapatma fonksiyonu - setState burada yapılıyor
+  const handleCloseModal = () => {
+    setManualActiveImage(null)
     setSelectedProduct(null)
-    setActiveImage("") // Resmi sıfırla
   }
 
   if (!products || products.length === 0) {
@@ -159,14 +157,12 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
           {products.map((item) => {
             const product = item.content
             const imageUrl = product.image?.filename || "/images/hero.png"
-
             return (
               <div 
                 key={item.uuid} 
                 onClick={() => setSelectedProduct(product)} 
                 className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col cursor-pointer h-full"
               >
-                {/* Kart Resmi */}
                 <div className="relative h-80 bg-gray-100 overflow-hidden">
                   <span className="absolute top-4 left-4 bg-white/90 text-[#00b074] text-[10px] font-bold px-2 py-1 rounded border border-green-100 uppercase tracking-wide z-10">
                     {product.category || "Kişisel Bakım"}
@@ -202,7 +198,6 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
 
         {/* ALT BİLGİ */}
         <div className="bg-white rounded-[2rem] p-10 md:p-16 shadow-lg border border-gray-100">
-          {/* ... Alt bilgi içeriği (değişmedi) ... */}
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-1">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Dermo Kozmetik Bakım Neden Önemlidir?</h2>
@@ -239,8 +234,8 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative animate-in zoom-in-95 duration-200">
             
-            {/* KAPATMA BUTONU GÜNCELLENDİ: closeModal kullanıyor */}
-            <button onClick={closeModal} className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-red-100 hover:text-red-600 transition z-10">
+            {/* ✅ DÜZELTME: handleCloseModal kullanılıyor */}
+            <button onClick={handleCloseModal} className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-red-100 hover:text-red-600 transition z-10">
               <X className="w-6 h-6" />
             </button>
 
@@ -250,7 +245,6 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
               </h2>
               
               <div className="grid lg:grid-cols-12 gap-10">
-                {/* ... Modal İçeriği (Aynı Kalıyor) ... */}
                 <div className="lg:col-span-5 flex flex-col gap-4">
                   <div className="bg-gray-100 rounded-2xl h-[400px] border border-gray-200 overflow-hidden relative shadow-inner flex items-center justify-center">
                     {activeImage && (
@@ -262,17 +256,16 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
                       />
                     )}
                   </div>
-
                   {galleryList.length > 1 && (
                     <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                       {galleryList.map((imgUrl, i) => (
                         <button 
                           key={i}
-                          onClick={() => setActiveImage(imgUrl)}
+                          onClick={() => setManualActiveImage(imgUrl)}
                           className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 bg-white transition-all ${
                             activeImage === imgUrl 
-                            ? "border-[#00b074] ring-2 ring-[#00b074]/20" 
-                            : "border-gray-100 hover:border-gray-300"
+                              ? "border-[#00b074] ring-2 ring-[#00b074]/20" 
+                              : "border-gray-100 hover:border-gray-300"
                           }`}
                         >
                           <Image 
@@ -294,7 +287,6 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
                       {renderSafe(selectedProduct.description)}
                     </div>
                   </div>
-
                   {hasData(selectedProduct.features) && (
                     <div>
                       <h3 className="font-bold text-gray-900 mb-3">Özellikler:</h3>
@@ -303,7 +295,6 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
                       </div>
                     </div>
                   )}
-
                   {hasData(selectedProduct.net_quantity) && (
                     <div className="inline-flex items-center gap-2 bg-green-50 text-[#00b074] px-5 py-2.5 rounded-lg font-bold border border-green-100 shadow-sm">
                       <Tag className="w-5 h-5" /> 
@@ -316,68 +307,81 @@ export function KisiselBakimContent({ products }: { products: StoryblokStory<Pro
               {/* ALT KUTULAR */}
               <div className="mt-12 space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
-                   {hasData(selectedProduct.ingredients) && (
-                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                        <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><Info className="w-6 h-6 text-[#00b074]" /> İçerik</div>
-                        <div className="text-gray-700 leading-relaxed text-sm">{renderSafe(selectedProduct.ingredients)}</div>
-                     </div>
-                   )}
-                   {hasData(selectedProduct.usage) && (
-                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                        <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><AlertCircle className="w-6 h-6 text-[#00b074]" /> Kullanım Şekli</div>
-                        <div className="text-gray-700 leading-relaxed text-sm">{renderSafe(selectedProduct.usage)}</div>
-                     </div>
-                   )}
+                  {hasData(selectedProduct.ingredients) && (
+                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
+                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg">
+                        <Info className="w-6 h-6 text-[#00b074]" /> İçerik
+                      </div>
+                      <div className="text-gray-700 leading-relaxed text-sm">{renderSafe(selectedProduct.ingredients)}</div>
+                    </div>
+                  )}
+                  {hasData(selectedProduct.usage) && (
+                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
+                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg">
+                        <AlertCircle className="w-6 h-6 text-[#00b074]" /> Kullanım Şekli
+                      </div>
+                      <div className="text-gray-700 leading-relaxed text-sm">{renderSafe(selectedProduct.usage)}</div>
+                    </div>
+                  )}
                 </div>
 
                 {hasTableData(selectedProduct.active_ingredients as TableData) && selectedProduct.active_ingredients && (
-                   <div className="overflow-x-auto my-4 border border-gray-200 rounded-lg shadow-sm">
-                      <table className="w-full text-sm text-left">
-                        <thead className="bg-gray-50 border-b border-gray-200">
-                          <tr>
-                            {(selectedProduct.active_ingredients as TableData).thead?.map((h, k) => 
-                              <th key={k} className="px-6 py-3 font-bold text-gray-800">{h.value}</th>
-                            )}
+                  <div className="overflow-x-auto my-4 border border-gray-200 rounded-lg shadow-sm">
+                    <table className="w-full text-sm text-left">
+                      <thead className="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                          {(selectedProduct.active_ingredients as TableData).thead?.map((h, k) => 
+                            <th key={k} className="px-6 py-3 font-bold text-gray-800">{h.value}</th>
+                          )}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {(selectedProduct.active_ingredients as TableData).tbody?.map((row, i) => (
+                          <tr key={i} className="hover:bg-gray-50">
+                            {row.body.map((cell, j) => (
+                              <td key={j} className={`px-6 py-4 ${j === 1 ? 'font-bold text-right' : ''}`}>{cell.value}</td>
+                            ))}
                           </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-100">
-                          {(selectedProduct.active_ingredients as TableData).tbody?.map((row, i) => (
-                            <tr key={i} className="hover:bg-gray-50">
-                              {row.body.map((cell, j) => (
-                                <td key={j} className={`px-6 py-4 ${j === 1 ? 'font-bold text-right' : ''}`}>{cell.value}</td>
-                              ))}
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                   </div>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
 
                 {hasData(selectedProduct.warnings) && (
                   <div className="bg-[#fffbeb] border border-[#fcd34d] p-6 rounded-xl text-[#92400e] flex gap-4 shadow-sm">
-                     <AlertCircle className="w-6 h-6 shrink-0 mt-0.5" />
-                     <div><span className="font-bold block mb-1 text-lg">Uyarılar:</span><div className="leading-relaxed opacity-90">{renderSafe(selectedProduct.warnings)}</div></div>
+                    <AlertCircle className="w-6 h-6 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-bold block mb-1 text-lg">Uyarılar:</span>
+                      <div className="leading-relaxed opacity-90">{renderSafe(selectedProduct.warnings)}</div>
+                    </div>
                   </div>
                 )}
 
                 {hasData(selectedProduct.storage) && (
                   <div className="bg-[#eff6ff] border border-[#bfdbfe] p-6 rounded-xl flex items-center gap-5 shadow-sm">
-                    <div className="bg-white p-3 rounded-full shadow-md text-blue-600"><Thermometer className="w-6 h-6" /></div>
-                    <div><div className="font-bold text-blue-900 text-lg mb-1">Saklama Koşulları:</div><div className="text-blue-800 leading-relaxed">{renderSafe(selectedProduct.storage)}</div></div>
+                    <div className="bg-white p-3 rounded-full shadow-md text-blue-600">
+                      <Thermometer className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-blue-900 text-lg mb-1">Saklama Koşulları:</div>
+                      <div className="text-blue-800 leading-relaxed">{renderSafe(selectedProduct.storage)}</div>
+                    </div>
                   </div>
                 )}
 
                 {hasData(selectedProduct.price) && (
                   <div className="bg-[#f0fdf4] border border-[#86efac] p-6 rounded-xl flex items-center justify-between shadow-sm">
-                     <div className="flex items-center gap-4">
-                        <div className="bg-white p-3 rounded-full shadow-md text-[#00b074]"><Tag className="w-6 h-6" /></div>
-                        <div className="font-bold text-green-900 text-lg">Satış Fiyatı:</div>
-                     </div>
-                     <div className="text-2xl font-extrabold text-[#00b074]">{selectedProduct.price}</div>
+                    <div className="flex items-center gap-4">
+                      <div className="bg-white p-3 rounded-full shadow-md text-[#00b074]">
+                        <Tag className="w-6 h-6" />
+                      </div>
+                      <div className="font-bold text-green-900 text-lg">Satış Fiyatı:</div>
+                    </div>
+                    <div className="text-2xl font-extrabold text-[#00b074]">{selectedProduct.price}</div>
                   </div>
                 )}
               </div>
-
             </div>
           </div>
         </div>

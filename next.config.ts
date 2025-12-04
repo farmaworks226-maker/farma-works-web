@@ -1,23 +1,23 @@
 import type { NextConfig } from "next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
-// BURASI DEĞİŞTİ: enabled: true yaptık.
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === true, 
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
 });
 
 const nextConfig: NextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: "https",
+        hostname: "a.storyblok.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**.storyblok.com",
       },
     ],
-    unoptimized: false,
   },
 };
 
-export default withBundleAnalyzer(nextConfig);
+export default bundleAnalyzer(nextConfig);
