@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useMemo, useCallback } from "react"
 import Image from "next/image"
 import { ArrowRight, X, Check, AlertCircle, Info, Thermometer, Tag, Target, Sparkles, Leaf, Shield, Zap, Heart } from "lucide-react"
 import { render as renderRichText } from "storyblok-rich-text-react-renderer"
@@ -19,7 +19,7 @@ interface TableData {
   thead?: Array<{ value: string }>
 }
 
-// --- YARDIMCI FONKSİYONLAR ---
+// --- YARDIMCI FONKSİYONLAR (Component dışında) ---
 const richTextOptions = {
   nodeResolvers: {
     'table': (children: React.ReactNode) => (
@@ -69,7 +69,6 @@ const hasData = (content: unknown): boolean => {
 
 const hasTableData = (table: TableData | undefined): boolean => {
   if (!table?.tbody || !Array.isArray(table.tbody) || table.tbody.length === 0) return false
-  
   const hasRealData = table.tbody.some((row: TableRow) => 
     row.body.some((cell) => cell.value && cell.value.trim() !== "")
   )
@@ -81,14 +80,14 @@ export function OzelTakviyeContent({ products }: { products: StoryblokStory<Prod
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [manualActiveImage, setManualActiveImage] = useState<string | null>(null)
 
-  // ✅ DÜZELTME: activeImage artık useMemo ile hesaplanıyor
+  // ✅ activeImage useMemo ile hesaplanıyor - useEffect YOK
   const activeImage = useMemo(() => {
     if (!selectedProduct) return ""
     if (manualActiveImage !== null) return manualActiveImage
     return selectedProduct.image?.filename || "/images/hero.png"
   }, [selectedProduct, manualActiveImage])
 
-  // Galeri listesini useMemo ile hesapla
+  // ✅ Galeri listesi useMemo ile hesaplanıyor
   const galleryList = useMemo(() => {
     if (!selectedProduct) return []
 
@@ -112,19 +111,25 @@ export function OzelTakviyeContent({ products }: { products: StoryblokStory<Prod
     return Array.from(new Set(imagesList))
   }, [selectedProduct])
 
-  // ✅ DÜZELTME: useEffect artık sadece scroll kontrolü yapıyor
-  useEffect(() => {
-    if (selectedProduct) {
+  // ✅ Ürün seçme fonksiyonu - useEffect yerine event handler
+  const handleSelectProduct = useCallback((product: Product) => {
+    setManualActiveImage(null) // Önce manuel seçimi sıfırla
+    setSelectedProduct(product) // Sonra ürünü seç
+  }, [])
+
+  // ✅ Modal kapatma fonksiyonu
+  const handleCloseModal = useCallback(() => {
+    setSelectedProduct(null)
+    setManualActiveImage(null)
+    document.body.style.overflow = 'unset'
+  }, [])
+
+  // ✅ Modal açıldığında scroll'u kilitle (sadece DOM manipülasyonu, setState yok)
+  const modalRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) {
       document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-      setManualActiveImage(null)
     }
-    
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [selectedProduct])
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -158,7 +163,7 @@ export function OzelTakviyeContent({ products }: { products: StoryblokStory<Prod
               return (
                 <div 
                   key={item.uuid} 
-                  onClick={() => setSelectedProduct(product)} 
+                  onClick={() => handleSelectProduct(product)} 
                   className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col cursor-pointer h-full"
                 >
                   <div className="relative h-80 bg-gray-100 overflow-hidden">
@@ -177,7 +182,6 @@ export function OzelTakviyeContent({ products }: { products: StoryblokStory<Prod
                     <h3 className="text-gray-900 font-bold text-lg mb-4 leading-snug">
                       {product.name}
                     </h3>
-
                     <div className="mt-auto pt-4 border-t border-gray-50">
                       <span className="text-purple-600 text-sm font-bold flex items-center group-hover:translate-x-1 transition-transform">
                         İncele <ArrowRight className="w-4 h-4 ml-1" />
@@ -267,10 +271,16 @@ export function OzelTakviyeContent({ products }: { products: StoryblokStory<Prod
 
       {/* POP-UP MODAL */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div 
+          ref={modalRef}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+        >
           <div className="bg-white w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative animate-in zoom-in-95 duration-200">
             
-            <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-red-100 hover:text-red-600 transition z-10">
+            <button 
+              onClick={handleCloseModal} 
+              className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-red-100 hover:text-red-600 transition z-10"
+            >
               <X className="w-6 h-6" />
             </button>
 
@@ -302,8 +312,8 @@ export function OzelTakviyeContent({ products }: { products: StoryblokStory<Prod
                           onClick={() => setManualActiveImage(imgUrl)}
                           className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 bg-white transition-all ${
                             activeImage === imgUrl 
-                              ? "border-purple-500 ring-2 ring-purple-500/20" 
-                              : "border-gray-100 hover:border-gray-300"
+                            ? "border-purple-500 ring-2 ring-purple-500/20" 
+                            : "border-gray-100 hover:border-gray-300"
                           }`}
                         >
                           <Image 
@@ -359,7 +369,6 @@ export function OzelTakviyeContent({ products }: { products: StoryblokStory<Prod
                       </div>
                     </div>
                   )}
-
                   {hasData(selectedProduct.usage) && (
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
                       <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg">
@@ -437,6 +446,7 @@ export function OzelTakviyeContent({ products }: { products: StoryblokStory<Prod
                   </div>
                 )}
               </div>
+
             </div>
           </div>
         </div>

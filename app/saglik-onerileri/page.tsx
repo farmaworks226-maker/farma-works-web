@@ -1,6 +1,5 @@
 import { SaglikOnerileriContent } from "@/components/saglik-onerileri-content";
 import { getStoryblokApi } from "@/lib/storyblok";
-import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

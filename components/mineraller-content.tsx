@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useMemo, useCallback } from "react"
 import Image from "next/image"
 import { ArrowRight, X, Check, AlertCircle, Info, Thermometer, Tag, Bone, Droplet, Heart, Zap, Shield, Brain } from "lucide-react"
 import { render as renderRichText } from "storyblok-rich-text-react-renderer"
@@ -19,7 +19,7 @@ interface TableData {
   thead?: Array<{ value: string }>
 }
 
-// --- YARDIMCI FONKSİYONLAR ---
+// --- YARDIMCI FONKSİYONLAR (Component dışında) ---
 const richTextOptions = {
   nodeResolvers: {
     'table': (children: React.ReactNode) => (
@@ -48,7 +48,6 @@ const renderSafe = (content: unknown) => {
   if (!content) return null
   if (typeof content === 'string') return content
   if (typeof content === 'object' && content !== null) {
-     
     const obj = content as { type?: string }
     if (obj.type === 'doc') {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,7 +61,6 @@ const hasData = (content: unknown): boolean => {
   if (!content) return false
   if (typeof content === 'string') return content.trim().length > 0
   if (typeof content === 'object' && content !== null) {
-     
     const obj = content as { content?: unknown[] }
     if (obj.content && Array.isArray(obj.content) && obj.content.length > 0) return true
   }
@@ -71,7 +69,6 @@ const hasData = (content: unknown): boolean => {
 
 const hasTableData = (table: TableData | undefined): boolean => {
   if (!table?.tbody || !Array.isArray(table.tbody) || table.tbody.length === 0) return false
-  
   const hasRealData = table.tbody.some((row: TableRow) => 
     row.body.some((cell) => cell.value && cell.value.trim() !== "")
   )
@@ -81,9 +78,15 @@ const hasTableData = (table: TableData | undefined): boolean => {
 // --- ANA BİLEŞEN ---
 export function MinerallerContent({ products }: { products: StoryblokStory<Product>[] }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [activeImage, setActiveImage] = useState<string>("")
+  const [manualActiveImage, setManualActiveImage] = useState<string | null>(null)
 
-  // Galeri listesini useMemo ile hesapla
+  // ✅ activeImage useMemo ile hesaplanıyor - useEffect YOK
+  const activeImage = useMemo(() => {
+    if (manualActiveImage) return manualActiveImage
+    return selectedProduct?.image?.filename || "/images/hero.png"
+  }, [manualActiveImage, selectedProduct])
+
+  // ✅ Galeri listesi useMemo ile hesaplanıyor
   const galleryList = useMemo(() => {
     if (!selectedProduct) return []
 
@@ -107,24 +110,25 @@ export function MinerallerContent({ products }: { products: StoryblokStory<Produ
     return Array.from(new Set(imagesList))
   }, [selectedProduct])
 
-  // Modal açıldığında scroll'u kilitle ve ilk resmi ayarla
-  useEffect(() => {
-    if (selectedProduct) {
+  // ✅ Ürün seçme fonksiyonu - useEffect yerine event handler
+  const handleSelectProduct = useCallback((product: Product) => {
+    setManualActiveImage(null) // Önce manuel seçimi sıfırla
+    setSelectedProduct(product) // Sonra ürünü seç
+  }, [])
+
+  // ✅ Modal kapatma fonksiyonu
+  const handleCloseModal = useCallback(() => {
+    setSelectedProduct(null)
+    setManualActiveImage(null)
+    document.body.style.overflow = 'unset'
+  }, [])
+
+  // ✅ Modal açıldığında scroll'u kilitle (sadece DOM manipülasyonu, setState yok)
+  const modalRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) {
       document.body.style.overflow = 'hidden'
-      const mainImg = selectedProduct.image?.filename || "/images/hero.png"
-      
-       
-      setActiveImage(mainImg)
-    } else {
-      document.body.style.overflow = 'unset'
-      setActiveImage("")
     }
-    
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-     
-  }, [selectedProduct])
+  }, [])
 
   if (!products || products.length === 0) {
     return (
@@ -162,7 +166,7 @@ export function MinerallerContent({ products }: { products: StoryblokStory<Produ
             return (
               <div 
                 key={item.uuid} 
-                onClick={() => setSelectedProduct(product)} 
+                onClick={() => handleSelectProduct(product)} 
                 className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col cursor-pointer h-full"
               >
                 {/* Kart Resmi */}
@@ -194,8 +198,8 @@ export function MinerallerContent({ products }: { products: StoryblokStory<Produ
         </div>
 
         {/* --- MİNERALLERİN FAYDALARI BÖLÜMÜ --- */}
-        <div className="bg-cyan-50 py-24">
-          <div className="container mx-auto px-4 max-w-6xl">
+        <div className="bg-cyan-50 py-24 -mx-4 px-4">
+          <div className="container mx-auto max-w-6xl">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-cyan-900 mb-4">Mineraller Neden Önemlidir?</h2>
               <p className="text-lg text-cyan-800/70 max-w-2xl mx-auto">
@@ -269,11 +273,14 @@ export function MinerallerContent({ products }: { products: StoryblokStory<Produ
 
         {/* POP-UP MODAL */}
         {selectedProduct && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div 
+            ref={modalRef}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          >
             <div className="bg-white w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative animate-in zoom-in-95 duration-200">
               
               <button 
-                onClick={() => setSelectedProduct(null)} 
+                onClick={handleCloseModal} 
                 className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-red-100 hover:text-red-600 transition z-10"
               >
                 <X className="w-6 h-6" />
@@ -304,11 +311,11 @@ export function MinerallerContent({ products }: { products: StoryblokStory<Produ
                         {galleryList.map((imgUrl, i) => (
                           <button 
                             key={i}
-                            onClick={() => setActiveImage(imgUrl)}
+                            onClick={() => setManualActiveImage(imgUrl)}
                             className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 bg-white transition-all ${
                               activeImage === imgUrl 
-                                ? "border-cyan-500 ring-2 ring-cyan-500/20" 
-                                : "border-gray-100 hover:border-gray-300"
+                              ? "border-cyan-500 ring-2 ring-cyan-500/20" 
+                              : "border-gray-100 hover:border-gray-300"
                             }`}
                           >
                             <Image 
@@ -364,7 +371,6 @@ export function MinerallerContent({ products }: { products: StoryblokStory<Produ
                         </div>
                       </div>
                     )}
-
                     {hasData(selectedProduct.usage) && (
                       <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
                         <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg">
@@ -442,6 +448,7 @@ export function MinerallerContent({ products }: { products: StoryblokStory<Produ
                     </div>
                   )}
                 </div>
+
               </div>
             </div>
           </div>
