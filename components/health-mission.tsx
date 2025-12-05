@@ -3,11 +3,9 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ShieldCheck, Leaf, FlaskConical, Microscope } from "lucide-react"
-import { storyblokEditable } from "@storyblok/react/rsc"
+import { storyblokEditable, SbBlokData } from "@storyblok/react/rsc"
 
-interface HealthMissionBlok {
-  _uid: string
-  component: string
+interface HealthMissionBlok extends SbBlokData {
   small_title?: string
   title?: string
   description?: string
@@ -19,7 +17,6 @@ interface HealthMissionBlok {
   image?: {
     filename?: string
   }
-  [key: string]: unknown
 }
 
 export function HealthMission({ blok }: { blok: HealthMissionBlok }) {

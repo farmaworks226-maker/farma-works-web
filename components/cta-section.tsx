@@ -1,12 +1,10 @@
 "use client"
-import Link from "next/link"
-import { storyblokEditable } from "@storyblok/react/rsc"
 
-interface CtaSectionBlok {
-  _uid: string
-  component: string
+import Link from "next/link"
+import { storyblokEditable, SbBlokData } from "@storyblok/react/rsc"
+
+interface CtaSectionBlok extends SbBlokData {
   title?: string
-  [key: string]: unknown
 }
 
 export function CtaSection({ blok }: { blok: CtaSectionBlok }) {

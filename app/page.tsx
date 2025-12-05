@@ -8,6 +8,7 @@ import { ProductCategories } from "@/components/product-categories"
 import { FeaturesGrid } from "@/components/features-grid"
 import { HealthTips } from "@/components/health-tips"
 import { HealthTipsSlider } from "@/components/health-tips-slider"
+import { SbBlokData } from "@storyblok/react"
 
 export const metadata = {
   title: "Farma Works - Doğal Takviye Edici Gıdalar",
@@ -16,10 +17,7 @@ export const metadata = {
 
 export const revalidate = 0
 
-interface Blok {
-  component: string
-  [key: string]: unknown
-}
+type Blok = SbBlokData
 
 async function fetchHomePage() {
   const storyblokApi = getStoryblokApi()
@@ -69,6 +67,7 @@ export default async function Home() {
   return (
     <StoryblokProvider>
       <main className="min-h-screen bg-white">
+
         {/* 1. HERO ALANI */}
         {heroSliderBlok ? (
           <HeroSlider blok={heroSliderBlok} />
@@ -93,6 +92,7 @@ export default async function Home() {
 
         {/* 7. SAĞLIKLI YAŞAM GALERİSİ */}
         <HealthTipsSlider />
+
       </main>
     </StoryblokProvider>
   )

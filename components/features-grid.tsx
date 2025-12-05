@@ -1,12 +1,10 @@
 "use client"
-import { ShieldCheck, Leaf, Beaker, CheckCircle } from "lucide-react"
-import { storyblokEditable } from "@storyblok/react/rsc"
 
-interface FeaturesGridBlok {
-  _uid: string
-  component: string
+import { ShieldCheck, Leaf, Beaker, CheckCircle } from "lucide-react"
+import { storyblokEditable, SbBlokData } from "@storyblok/react/rsc"
+
+interface FeaturesGridBlok extends SbBlokData {
   title?: string
-  [key: string]: unknown
 }
 
 interface FeatureItemProps {

@@ -1,20 +1,14 @@
 "use client"
+
 import { useState, useEffect } from "react"
-import { storyblokEditable, StoryblokComponent } from "@storyblok/react"
+import { storyblokEditable, StoryblokComponent, SbBlokData } from "@storyblok/react"
 
-interface Slide {
-  _uid: string
-  component: string
-  [key: string]: unknown
-}
+type Slide = SbBlokData
 
-interface HeroSliderBlok {
-  _uid: string
-  component: string
+interface HeroSliderBlok extends SbBlokData {
   slides?: Slide[]
   body?: Slide[]
   slaytlar?: Slide[]
-  [key: string]: unknown
 }
 
 export function HeroSlider({ blok }: { blok: HeroSliderBlok }) {

@@ -1,17 +1,11 @@
 "use client"
-import { StoryblokComponent, storyblokEditable } from "@storyblok/react"
 
-interface NestedBlok {
-  _uid: string
-  component: string
-  [key: string]: unknown
-}
+import { StoryblokComponent, storyblokEditable, SbBlokData } from "@storyblok/react"
 
-interface PageBlok {
-  _uid: string
-  component: string
+type NestedBlok = SbBlokData
+
+interface PageBlok extends SbBlokData {
   body?: NestedBlok[]
-  [key: string]: unknown
 }
 
 const Page = ({ blok }: { blok: PageBlok }) => (
