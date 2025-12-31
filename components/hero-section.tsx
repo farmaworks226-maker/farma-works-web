@@ -1,5 +1,4 @@
 "use client"
-
 import Link from "next/link"
 import Image from "next/image"
 import { storyblokEditable } from "@storyblok/react/rsc"
@@ -60,7 +59,7 @@ export function HeroSection({ blok }: { blok: any }) {
           <div>
             <Link
               href={btnLink}
-              className="inline-block rounded-full bg-blue-600 px-8 py-3 text-lg font-semibold text-white transition-transform hover:scale-105 hover:bg-blue-700 shadow-lg"
+              className="inline-block rounded-full bg-[#ED6E2D] px-8 py-3 text-lg font-semibold text-white transition-transform hover:scale-105 hover:bg-[#d55f24] shadow-lg"
             >
               {blok.button_text}
             </Link>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image" // ✅ Next.js Image bileşeni eklendi
+import Image from "next/image"
 import { Calendar, ArrowRight } from "lucide-react"
 import { storyblokEditable } from "@storyblok/react"
 
@@ -16,13 +16,11 @@ export function HealthTips({ blok }: { blok: any }) {
   useEffect(() => {
     async function fetchArticles() {
       try {
-        // Aynı token'ı kullan: NEXT_PUBLIC_STORYBLOK_TOKEN
         const token = process.env.NEXT_PUBLIC_STORYBLOK_TOKEN
         if (!token) {
           throw new Error("NEXT_PUBLIC_STORYBLOK_TOKEN tanımlı değil!")
         }
 
-        // Public token için "published" kullan
         const url = `https://api.storyblok.com/v2/cdn/stories?version=published&content_type=article&per_page=3&sort_by=first_published_at:desc&token=${token}`
         
         const response = await fetch(url)
@@ -34,8 +32,7 @@ export function HealthTips({ blok }: { blok: any }) {
 
         const data = await response.json()
         setArticles(data.stories || [])
-      } catch (err: unknown) { // 'any' yerine 'unknown' kullanıldı
-         
+      } catch (err: unknown) {
         console.error("Fetch hatası:", err)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setError((err as any).message || "Makaleler yüklenemedi")
@@ -47,10 +44,10 @@ export function HealthTips({ blok }: { blok: any }) {
   }, [])
 
   return (
-    <section {...storyblokEditable(blok)} className="min-h-screen bg-gray-50 py-20">
+    <section {...storyblokEditable(blok)} className="min-h-screen bg-[#F3EBE2] py-20">
       
       {/* ÜST BAŞLIK */}
-      <div className="bg-[#00b074] py-20 text-center text-white mb-12">
+      <div className="bg-[#1E40D8] py-20 text-center text-white mb-12">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">
             {blok?.title || "Sağlık Önerileri"}
@@ -96,16 +93,16 @@ export function HealthTips({ blok }: { blok: any }) {
               >
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-gray-100">
                   
-                  {/* RESİM ALANI - DÜZELTİLDİ */}
+                  {/* RESİM ALANI */}
                   <div className="relative h-56 overflow-hidden">
-                    <span className="absolute top-4 left-4 z-10 bg-[#00b074] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                    <span className="absolute top-4 left-4 z-10 bg-[#ED6E2D] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
                       {article?.category || "Genel"}
                     </span>
                     
                     <Image
                       src={article?.image?.filename || "https://via.placeholder.com/800x600?text=Gorsel+Yok"}
                       alt={article?.title || "Makale"}
-                      fill // Kapsayıcıyı doldurur (responsive)
+                      fill
                       className="object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
@@ -116,7 +113,7 @@ export function HealthTips({ blok }: { blok: any }) {
                       <span>{date}</span>
                     </div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-[#00b074] transition-colors flex-grow">
+                    <h3 className="text-xl font-bold text-[#1E40D8] mb-3 leading-tight group-hover:text-[#ED6E2D] transition-colors flex-grow">
                       {article?.title}
                     </h3>
                     
@@ -125,7 +122,7 @@ export function HealthTips({ blok }: { blok: any }) {
                     </p>
                     
                     <div className="mt-auto pt-4 border-t border-gray-100">
-                      <span className="inline-flex items-center text-[#00b074] font-bold text-sm hover:text-[#00965e] transition-colors">
+                      <span className="inline-flex items-center text-[#ED6E2D] font-bold text-sm hover:text-[#d55f24] transition-colors">
                         Devamını Oku
                         <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                       </span>
@@ -138,14 +135,14 @@ export function HealthTips({ blok }: { blok: any }) {
         </div>
       </div>
 
-      <div className="bg-[#00965e] py-16 mt-20">
+      <div className="bg-[#1E40D8] py-16 mt-20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Daha Fazla Sağlık Önerisi İçin
           </h2>
           <Link
             href="/iletisim"
-            className="inline-block bg-white text-[#00965e] font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition shadow-lg"
+            className="inline-block bg-[#ED6E2D] text-white font-bold py-4 px-10 rounded-full hover:bg-[#d55f24] transition shadow-lg"
           >
             Uzmanımıza Danışın
           </Link>

@@ -45,8 +45,8 @@ export function ProductShowcase({ products, blok }: ProductShowcaseProps) {
   return (
     <section {...storyblokEditable(blok)} id="urun-vitrini" className="bg-white pb-20">
       
-      {/* 1. BÖLÜM: YEŞİL GRADIENT BANNER */}
-      <div className="bg-gradient-to-r from-[#008c73] to-[#00b09b] py-20 text-center text-white relative overflow-hidden">
+      {/* 1. BÖLÜM: MAVİ GRADIENT BANNER */}
+      <div className="bg-gradient-to-r from-[#1E40D8] to-[#2952e8] py-20 text-center text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
         
         <div className="container mx-auto px-4 relative z-10">
@@ -69,10 +69,10 @@ export function ProductShowcase({ products, blok }: ProductShowcaseProps) {
       {/* 2. BÖLÜM: EN POPÜLER ÜRÜNLER */}
       <div className="container mx-auto px-4 py-20">
         <div className="text-center mb-12">
-          <span className="text-[#00b074] bg-green-50 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
+          <span className="text-[#ED6E2D] bg-[#F3EBE2] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
             {blok?.label || "Öne Çıkan Ürünler"}
           </span>
-          <h2 className="text-3xl font-bold text-gray-900 mt-3">
+          <h2 className="text-3xl font-bold text-[#1E40D8] mt-3">
             En Popüler Ürünlerimiz
           </h2>
           {blok?.sub_description && (
@@ -94,7 +94,7 @@ export function ProductShowcase({ products, blok }: ProductShowcaseProps) {
             if (product.category === "Özel Takviyeler") linkUrl = "/urunler/ozel-takviyeler";
             if (product.category === "Kişisel Bakım") linkUrl = "/urunler/kisisel-bakim";
 
-            const badgeColors = ["bg-green-500", "bg-blue-500", "bg-orange-500", "bg-purple-500"];
+            const badgeColors = ["bg-[#ED6E2D]", "bg-[#1E40D8]", "bg-orange-500", "bg-purple-500"];
             const badgeColor = badgeColors[index % badgeColors.length];
 
             return (
@@ -144,10 +144,10 @@ function ProductCard({ badge, badgeColor, category, title, image, link }: Produc
           />
         </div>
         
-        <div className="text-[#00b074] text-xs font-bold uppercase mb-1">{category}</div>
-        <h3 className="font-bold text-gray-900 text-lg mb-4 flex-grow">{title}</h3>
+        <div className="text-[#ED6E2D] text-xs font-bold uppercase mb-1">{category}</div>
+        <h3 className="font-bold text-[#1E40D8] text-lg mb-4 flex-grow">{title}</h3>
         
-        <div className="flex items-center text-sm text-gray-500 group-hover:text-[#00b074] transition mt-auto">
+        <div className="flex items-center text-sm text-gray-500 group-hover:text-[#ED6E2D] transition mt-auto">
           İncele <ArrowRight className="w-4 h-4 ml-1" />
         </div>
       </div>

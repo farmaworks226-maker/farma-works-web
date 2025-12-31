@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { ChevronDown, Menu, X } from "lucide-react"
-
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 export function SiteHeader() {
@@ -33,14 +33,17 @@ export function SiteHeader() {
     }
   }, [])
 
-  // --- HEADER AYARLARI ---
-  const headerClass = "sticky top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm h-24 flex items-center"
-  const textColorClass = "text-[#065f46]"
-  const logoColorClass = "text-[#065f46]"
+  // --- RENK PALETİ ---
+  // Turuncu: #ED6E2D (Pumpkin Orange)
+  // Mavi: #1E40D8 (Ultramarine Blue)
+  // Bej: #F3EBE2 (Summer Sand)
 
-  const menuLinkStyle = `group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold transition-colors hover:bg-green-50 focus:bg-green-50 focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${textColorClass}`
+  const headerClass = "sticky top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm h-24 flex items-center"
+  const textColorClass = "text-[#1E40D8]"
+
+  const menuLinkStyle = `group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold transition-colors hover:bg-[#F3EBE2] focus:bg-[#F3EBE2] focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${textColorClass}`
   
-  const triggerStyle = `group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold transition-colors hover:bg-green-50 focus:bg-green-50 focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${textColorClass}`
+  const triggerStyle = `group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold transition-colors hover:bg-[#F3EBE2] focus:bg-[#F3EBE2] focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${textColorClass}`
 
   return (
     <header className={headerClass}>
@@ -48,7 +51,18 @@ export function SiteHeader() {
         
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3 min-w-fit group">
-          <span className={`text-2xl font-bold tracking-tight ${logoColorClass}`}>
+          <Image 
+            src="/images/logo.png" 
+            alt="Farma Works Logo" 
+            width={220} 
+            height={88}
+            className="h-[85px] w-auto"
+            priority
+          />
+          <span 
+            className="text-xl font-bold tracking-wide text-[#ED6E2D] mt-2"
+            style={{ fontFamily: 'var(--font-comfortaa)', fontWeight: 900 }}
+          >
             Farma Works
           </span>
         </Link>
@@ -92,7 +106,7 @@ export function SiteHeader() {
                     </div>
                     {/* SAĞ SÜTUN: KVKK */}
                     <div className="border-l border-gray-200 pl-6" style={{ minWidth: '220px' }}>
-                      <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-2">KVKK</p>
+                      <p className="text-xs font-bold text-[#ED6E2D] uppercase tracking-wider mb-3 px-2">KVKK</p>
                       <ul className="space-y-1">
                         <ListItem href="/kurumsal/kvkk/aydinlatma-metni" title="Aydınlatma Metni">Bilgilendirme.</ListItem>
                         <ListItem href="/kurumsal/kvkk/imha-ve-saklama-politikasi" title="İmha Politikası">Veri saklama.</ListItem>
@@ -118,25 +132,34 @@ export function SiteHeader() {
               {openDropdown === 'urunler' && (
                 <div 
                   className="absolute left-0 top-full mt-2 bg-white border border-gray-100 shadow-xl rounded-md z-50" 
-                  style={{ minWidth: '700px', width: 'max-content' }}
+                  style={{ minWidth: '500px', width: 'max-content' }}
                   onMouseEnter={() => handleMouseEnter('urunler')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="p-6">
-                    <ul className="grid grid-cols-2 gap-x-8 gap-y-2">
-                      <ListItem href="/urunler/mineraller" title="Mineraller">Magnezyum, Çinko.</ListItem>
-                      <ListItem href="/urunler/vitaminler" title="Vitaminler">C, D, B12.</ListItem>
-                      <ListItem href="/urunler/multivitaminler" title="Multivitaminler">Kompleks destek.</ListItem>
-                      <ListItem href="/urunler/probiyotikler" title="Probiyotikler">Sindirim sağlığı.</ListItem>
-                      <ListItem href="/urunler/ozel-takviyeler" title="Özel Takviyeler">Kolajen, Q10.</ListItem>
-                      <ListItem href="/urunler/kisisel-bakim" title="Kişisel Bakım">Dermo kozmetik.</ListItem>
-                      
-                      <li className="col-span-2 border-t border-gray-200 pt-4 mt-3">
-                        <Link href="/urunler" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-green-50 focus:bg-green-50 text-center font-bold text-[#166534]">
-                          Tüm Ürünleri İncele →
-                        </Link>
-                      </li>
-                    </ul>
+                  <div className="p-6 grid grid-cols-2 gap-8">
+                    {/* SOL SÜTUN: Gıda Takviyesi */}
+                    <div>
+                      <p className="text-sm font-bold text-[#1E40D8] mb-4">Gıda Takviyesi</p>
+                      <ul className="space-y-1">
+                        <ListItemSimple href="/urunler/vitaminler">Vitaminler</ListItemSimple>
+                        <ListItemSimple href="/urunler/mineraller">Mineraller</ListItemSimple>
+                        <ListItemSimple href="/urunler/multivitaminler">Multivitaminler</ListItemSimple>
+                        <ListItemSimple href="/urunler/probiyotikler">Probiyotikler</ListItemSimple>
+                        <ListItemSimple href="/urunler/balik-yaglari">Balık Yağları</ListItemSimple>
+                        <ListItemSimple href="/urunler/bitkisel-ekstreler">Bitkisel Ekstreler</ListItemSimple>
+                        <ListItemSimple href="/urunler/ozel-takviyeler">Özel Takviyeler</ListItemSimple>
+                        <ListItemSimple href="/urunler/diger">Diğer</ListItemSimple>
+                      </ul>
+                    </div>
+                    {/* SAĞ SÜTUN: Markalar */}
+                    <div className="border-l border-gray-200 pl-8">
+                      <p className="text-sm font-bold text-[#1E40D8] mb-4">Markalar</p>
+                      <ul className="space-y-1">
+                        <ListItemSimple href="/markalar/more-than">More Than</ListItemSimple>
+                        <ListItemSimple href="/markalar/smart-caps">Smart Caps</ListItemSimple>
+                        <ListItemSimple href="/markalar/raw-material">Raw Material</ListItemSimple>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               )}
@@ -162,7 +185,7 @@ export function SiteHeader() {
             </li>
             
             <li>
-              <Link href="/iletisim" className={`${menuLinkStyle} border border-gray-200 hover:bg-green-50 hover:text-[#166534]`}>
+              <Link href="/iletisim" className={`${menuLinkStyle} border border-[#1E40D8] hover:bg-[#1E40D8] hover:text-white`}>
                 İletişim
               </Link>
             </li>
@@ -174,7 +197,7 @@ export function SiteHeader() {
         <div className="lg:hidden">
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`p-2 ${logoColorClass}`}
+            className="p-2 text-[#1E40D8]"
             aria-label="Menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -189,56 +212,63 @@ export function SiteHeader() {
           <nav className="container mx-auto px-4 py-4">
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="block py-2 px-4 text-[#065f46] font-bold hover:bg-green-50 rounded-md">
+                <Link href="/" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                   Anasayfa
                 </Link>
               </li>
               <li>
                 <details className="group">
-                  <summary className="block py-2 px-4 text-[#065f46] font-bold hover:bg-green-50 rounded-md cursor-pointer list-none">
+                  <summary className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md cursor-pointer list-none">
                     Kurumsal
                   </summary>
                   <ul className="ml-4 mt-2 space-y-2">
-                    <li><Link href="/kurumsal/hakkimizda" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Hakkımızda</Link></li>
-                    <li><Link href="/kurumsal/insan-kaynaklari" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">İnsan Kaynakları</Link></li>
-                    <li><Link href="/kurumsal/kvkk/aydinlatma-metni" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Aydınlatma Metni</Link></li>
-                    <li><Link href="/kurumsal/kvkk/imha-ve-saklama-politikasi" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">İmha Politikası</Link></li>
-                    <li><Link href="/kurumsal/kvkk/basvuru-formu" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Başvuru Formu</Link></li>
+                    <li><Link href="/kurumsal/hakkimizda" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Hakkımızda</Link></li>
+                    <li><Link href="/kurumsal/insan-kaynaklari" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İnsan Kaynakları</Link></li>
+                    <li><Link href="/kurumsal/kvkk/aydinlatma-metni" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Aydınlatma Metni</Link></li>
+                    <li><Link href="/kurumsal/kvkk/imha-ve-saklama-politikasi" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İmha Politikası</Link></li>
+                    <li><Link href="/kurumsal/kvkk/basvuru-formu" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Başvuru Formu</Link></li>
                   </ul>
                 </details>
               </li>
               <li>
                 <details className="group">
-                  <summary className="block py-2 px-4 text-[#065f46] font-bold hover:bg-green-50 rounded-md cursor-pointer list-none">
+                  <summary className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md cursor-pointer list-none">
                     Ürünlerimiz
                   </summary>
                   <ul className="ml-4 mt-2 space-y-2">
-                    <li><Link href="/urunler/mineraller" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Mineraller</Link></li>
-                    <li><Link href="/urunler/vitaminler" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Vitaminler</Link></li>
-                    <li><Link href="/urunler/multivitaminler" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Multivitaminler</Link></li>
-                    <li><Link href="/urunler/probiyotikler" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Probiyotikler</Link></li>
-                    <li><Link href="/urunler/ozel-takviyeler" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Özel Takviyeler</Link></li>
-                    <li><Link href="/urunler/kisisel-bakim" className="block py-2 px-4 text-sm hover:bg-green-50 rounded-md">Kişisel Bakım</Link></li>
+                    <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-2">Gıda Takviyesi</li>
+                    <li><Link href="/urunler/vitaminler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Vitaminler</Link></li>
+                    <li><Link href="/urunler/mineraller" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Mineraller</Link></li>
+                    <li><Link href="/urunler/multivitaminler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Multivitaminler</Link></li>
+                    <li><Link href="/urunler/probiyotikler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Probiyotikler</Link></li>
+                    <li><Link href="/urunler/balik-yaglari" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Balık Yağları</Link></li>
+                    <li><Link href="/urunler/bitkisel-ekstreler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Bitkisel Ekstreler</Link></li>
+                    <li><Link href="/urunler/ozel-takviyeler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Özel Takviyeler</Link></li>
+                    <li><Link href="/urunler/diger" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Diğer</Link></li>
+                    <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-4">Markalar</li>
+                    <li><Link href="/markalar/more-than" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">More Than</Link></li>
+                    <li><Link href="/markalar/smart-caps" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Smart Caps</Link></li>
+                    <li><Link href="/markalar/raw-material" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Raw Material</Link></li>
                   </ul>
                 </details>
               </li>
               <li>
-                <Link href="/eczaneler" className="block py-2 px-4 text-[#065f46] font-bold hover:bg-green-50 rounded-md">
+                <Link href="/eczaneler" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                   Eczaneler
                 </Link>
               </li>
               <li>
-                <Link href="/saglik-onerileri" className="block py-2 px-4 text-[#065f46] font-bold hover:bg-green-50 rounded-md">
+                <Link href="/saglik-onerileri" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                   Sağlık Önerileri
                 </Link>
               </li>
               <li>
-                <Link href="/bayimiz-ol" className="block py-2 px-4 text-[#065f46] font-bold hover:bg-green-50 rounded-md">
+                <Link href="/bayimiz-ol" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                   Bayimiz Ol
                 </Link>
               </li>
               <li>
-                <Link href="/iletisim" className="block py-2 px-4 text-[#065f46] font-bold hover:bg-green-50 rounded-md border border-gray-200">
+                <Link href="/iletisim" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md border border-[#1E40D8]">
                   İletişim
                 </Link>
               </li>
@@ -261,12 +291,12 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
         <Link
           ref={ref}
           className={cn(
-            "block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-100 focus:bg-slate-100 hover:text-[#166534]",
+            "block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-[#F3EBE2] focus:bg-[#F3EBE2] hover:text-[#1E40D8]",
             className
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none text-[#065f46] mb-1.5">{title}</div>
+          <div className="text-sm font-medium leading-none text-[#1E40D8] mb-1.5">{title}</div>
           <p className="text-xs leading-snug text-slate-500">
             {children}
           </p>
@@ -275,4 +305,18 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
     )
   }
 )
+
+const ListItemSimple = ({ href, children }: { href: string; children: React.ReactNode }) => {
+  return (
+    <li className="list-none">
+      <Link
+        href={href}
+        className="block py-2 text-sm text-gray-600 hover:text-[#ED6E2D] transition-colors"
+      >
+        {children}
+      </Link>
+    </li>
+  )
+}
+
 ListItem.displayName = "ListItem"

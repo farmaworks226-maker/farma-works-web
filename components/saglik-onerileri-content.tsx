@@ -1,16 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image" // ✅ Next.js Image bileşeni eklendi
+import Image from "next/image"
 import { Calendar, ArrowRight } from "lucide-react"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
   if (!articles || articles.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-10 text-center">
+      <div className="min-h-screen bg-[#F3EBE2] flex items-center justify-center p-10 text-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-400">Henüz makale bulunmuyor.</h2>
+          <h2 className="text-2xl font-bold text-[#1E40D8]">Henüz makale bulunmuyor.</h2>
           <p className="text-gray-500 mt-2">Storyblok panelinden ilk makalenizi ekleyin.</p>
         </div>
       </div>
@@ -18,9 +18,9 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* 1. Üst Yeşil Header */}
-      <div className="bg-[#00b074] py-20 text-center text-white">
+    <div className="min-h-screen bg-[#F3EBE2]">
+      {/* 1. Üst Header */}
+      <div className="bg-[#1E40D8] py-20 text-center text-white">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">Sağlık Önerileri</h1>
           <p className="text-lg opacity-90 max-w-2xl mx-auto">
@@ -46,15 +46,15 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
               >
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-gray-100">
                   
-                  {/* Resim Alanı - DÜZELTİLDİ */}
+                  {/* Resim Alanı */}
                   <div className="relative h-56 overflow-hidden">
-                    <span className="absolute top-4 left-4 z-10 bg-[#00b074] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                    <span className="absolute top-4 left-4 z-10 bg-[#ED6E2D] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
                       {article.category || "Genel"}
                     </span>
                     <Image
                       src={article.image?.filename || 'https://via.placeholder.com/400x300?text=Gorsel+Yok'}
                       alt={article.title}
-                      fill // Kapsayıcıyı doldurur
+                      fill
                       className="object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
@@ -68,7 +68,7 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
                     </div>
 
                     {/* Başlık */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-[#00b074] transition-colors flex-grow">
+                    <h3 className="text-xl font-bold text-[#1E40D8] mb-3 leading-tight group-hover:text-[#ED6E2D] transition-colors flex-grow">
                       {article.title}
                     </h3>
 
@@ -79,7 +79,7 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
 
                     {/* Devamını Oku Linki */}
                     <div className="mt-auto pt-4 border-t border-gray-100">
-                      <span className="inline-flex items-center text-[#00b074] font-bold text-sm hover:text-[#00965e] transition-colors">
+                      <span className="inline-flex items-center text-[#ED6E2D] font-bold text-sm hover:text-[#d55f24] transition-colors">
                         Devamını Oku 
                         <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                       </span>
@@ -92,13 +92,13 @@ export function SaglikOnerileriContent({ articles }: { articles: any[] }) {
         </div>
       </div>
 
-      {/* 3. Alt CTA (Call To Action) - Footer'ın hemen üstü */}
-      <div className="bg-[#00965e] py-16 mt-10">
+      {/* 3. Alt CTA (Call To Action) */}
+      <div className="bg-[#1E40D8] py-16 mt-10">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Daha Fazla Sağlık Önerisi İçin</h2>
           <Link 
             href="/iletisim" 
-            className="inline-block bg-white text-[#00965e] font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition shadow-lg"
+            className="inline-block bg-[#ED6E2D] text-white font-bold py-4 px-10 rounded-full hover:bg-[#d55f24] transition shadow-lg"
           >
             Uzmanımıza Danışın
           </Link>

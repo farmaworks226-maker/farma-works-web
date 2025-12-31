@@ -7,11 +7,11 @@ import { storyblokEditable } from "@storyblok/react/rsc"
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ProductCategories({ blok }: { blok: any }) {
   return (
-    <div {...storyblokEditable(blok)} className="bg-gray-50 py-20">
+    <div {...storyblokEditable(blok)} className="bg-[#F3EBE2] py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           {/* Başlık Storyblok'tan gelir */}
-          <h2 className="text-3xl font-bold text-gray-900">{blok?.title || "Ürün Kategorileri"}</h2>
+          <h2 className="text-3xl font-bold text-[#1E40D8]">{blok?.title || "Ürün Kategorileri"}</h2>
           {/* Açıklama Storyblok'tan gelir */}
           <p className="text-gray-500 mt-2">{blok?.description || "İhtiyacınıza uygun kategoriyi seçin ve size özel ürünleri keşfedin."}</p>
         </div>
@@ -21,7 +21,7 @@ export function ProductCategories({ blok }: { blok: any }) {
           <CategoryCard 
             title="Vitaminler" 
             desc="Günlük vitamin ihtiyaçlarınız için saf formüller" 
-            color="from-orange-400 to-orange-300" 
+            color="from-[#ED6E2D] to-[#f59e0b]" 
             icon={<Zap className="w-6 h-6 text-white" />} 
             tags={["C Vitamini", "B12", "D3"]} 
             link="/urunler/vitaminler" 
@@ -29,7 +29,7 @@ export function ProductCategories({ blok }: { blok: any }) {
           <CategoryCard 
             title="Mineraller" 
             desc="Vücudunuzun ihtiyaç duyduğu temel mineraller" 
-            color="from-emerald-400 to-emerald-300" 
+            color="from-[#1E40D8] to-[#3b82f6]" 
             icon={<Beaker className="w-6 h-6 text-white" />} 
             tags={["Magnezyum", "Çinko", "Demir"]} 
             link="/urunler/mineraller" 
@@ -95,13 +95,13 @@ function CategoryCard({ title, desc, color, icon, tags, link }: CategoryCardProp
         
         <div className="flex flex-wrap gap-2 mb-4">
           {tags.map((tag) => (
-            <span key={tag} className="bg-gray-50 text-gray-600 text-xs px-2 py-1 rounded border border-gray-200">
+            <span key={tag} className="bg-[#F3EBE2] text-gray-600 text-xs px-2 py-1 rounded border border-gray-200">
               {tag}
             </span>
           ))}
         </div>
         
-        <div className="text-[#00b074] text-sm font-bold flex items-center mt-auto">
+        <div className="text-[#ED6E2D] text-sm font-bold flex items-center mt-auto">
           Tüm Ürünleri Gör 
           <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition" />
         </div>

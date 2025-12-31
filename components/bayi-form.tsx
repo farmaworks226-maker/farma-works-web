@@ -36,9 +36,11 @@ export function BayiForm() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-[#1e293b] py-16 text-center text-white">
+    <div className="min-h-screen bg-[#F3EBE2]">
+      {/* Hero Section */}
+      <div className="bg-[#1E40D8] py-16 text-center text-white">
         <h1 className="text-4xl font-bold">Bayimiz Olun</h1>
+        <p className="text-lg opacity-90 mt-2">Farma Works ailesine katılın</p>
       </div>
 
       <div className="container mx-auto px-4 py-16 max-w-5xl">
@@ -82,7 +84,7 @@ export function BayiForm() {
 
           {/* Sağ Taraf: Başlık ve Açıklama */}
           <div className="md:col-span-7">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Eczane Bayi Başvuru Formu</h2>
+            <h2 className="text-2xl font-bold text-[#1E40D8] mb-4">Eczane Bayi Başvuru Formu</h2>
             <p className="text-gray-600 leading-relaxed">
               Avantajlı alım koşulları ve özel fiyatlarla ürünlere kolay erişim sağlamak için formu doldurarak başvurunuzu iletebilirsiniz.
             </p>
@@ -90,15 +92,15 @@ export function BayiForm() {
         </div>
 
         {/* Form Alanı */}
-        <div className="bg-gray-50 p-8 rounded-xl border border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">Başvuru Formu</h2>
+        <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
+          <h2 className="text-xl font-bold text-[#1E40D8] mb-6">Başvuru Formu</h2>
 
           {status === "success" ? (
             <div className="text-center py-10">
-              <div className="text-green-500 text-5xl mb-4">✓</div>
-              <h3 className="text-2xl font-bold text-green-900">Başvurunuz Alındı!</h3>
+              <div className="text-[#ED6E2D] text-5xl mb-4">✓</div>
+              <h3 className="text-2xl font-bold text-[#1E40D8]">Başvurunuz Alındı!</h3>
               <p className="text-gray-600 mt-2">En kısa sürede sizinle iletişime geçeceğiz.</p>
-              <button onClick={() => setStatus("idle")} className="mt-6 text-green-600 font-bold underline">
+              <button onClick={() => setStatus("idle")} className="mt-6 text-[#ED6E2D] font-bold underline hover:text-[#d55f24]">
                 Yeni Form Gönder
               </button>
             </div>
@@ -108,42 +110,42 @@ export function BayiForm() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700">Adı <span className="text-red-500">*</span></label>
-                  <input required name="Ad" type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"/>
+                  <label className="text-sm font-semibold text-gray-700">Adı <span className="text-[#ED6E2D]">*</span></label>
+                  <input required name="Ad" type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none transition"/>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700">Soyad <span className="text-red-500">*</span></label>
-                  <input required name="Soyad" type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"/>
+                  <label className="text-sm font-semibold text-gray-700">Soyad <span className="text-[#ED6E2D]">*</span></label>
+                  <input required name="Soyad" type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none transition"/>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700">Eczane Adı <span className="text-red-500">*</span></label>
-                <input required name="Eczane_Adi" type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"/>
+                <label className="text-sm font-semibold text-gray-700">Eczane Adı <span className="text-[#ED6E2D]">*</span></label>
+                <input required name="Eczane_Adi" type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none transition"/>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700">E-Posta <span className="text-red-500">*</span></label>
-                <input required name="email" type="email" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"/>
+                <label className="text-sm font-semibold text-gray-700">E-Posta <span className="text-[#ED6E2D]">*</span></label>
+                <input required name="email" type="email" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none transition"/>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700">Telefon <span className="text-red-500">*</span></label>
-                <input required name="Telefon" type="tel" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"/>
+                <label className="text-sm font-semibold text-gray-700">Telefon <span className="text-[#ED6E2D]">*</span></label>
+                <input required name="Telefon" type="tel" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none transition"/>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-gray-700">Mesajınız</label>
-                <textarea name="Mesaj" rows={5} className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none resize-none"></textarea>
+                <textarea name="Mesaj" rows={5} className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none resize-none transition"></textarea>
               </div>
 
               {status === "error" && (
-                <div className="text-red-500 text-sm">
+                <div className="text-[#ED6E2D] text-sm">
                   Bir hata oluştu. Lütfen tekrar deneyin.
                 </div>
               )}
 
-              <button disabled={status === "submitting"} className="w-full bg-[#10b981] hover:bg-[#059669] text-white font-bold py-4 rounded-lg transition duration-300 disabled:opacity-50">
+              <button disabled={status === "submitting"} className="w-full bg-[#ED6E2D] hover:bg-[#d55f24] text-white font-bold py-4 rounded-lg transition duration-300 disabled:opacity-50">
                 {status === "submitting" ? "Gönderiliyor..." : "Gönder"}
               </button>
             </form>

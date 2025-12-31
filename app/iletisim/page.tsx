@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { MapPin, Phone, Mail } from "lucide-react"
+import { MapPin, Phone, Mail, Clock } from "lucide-react"
 
 const FORM_ID = "mjkzjlwo"
 
@@ -31,8 +31,9 @@ export default function IletisimPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-[#00b074] py-20 text-center text-white">
+    <div className="min-h-screen bg-[#F3EBE2]">
+      {/* Hero Section */}
+      <div className="bg-[#1E40D8] py-20 text-center text-white">
         <h1 className="text-4xl font-bold mb-4">İletişim</h1>
         <p className="text-lg opacity-90 max-w-2xl mx-auto px-4">
           Sorularınız, önerileriniz ve işbirliği fırsatları için bizimle iletişime geçin.
@@ -46,32 +47,42 @@ export default function IletisimPage() {
           <div className="lg:col-span-5 space-y-10">
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#e0f7ef] rounded-lg flex items-center justify-center shrink-0 text-[#00b074]">
-                  <MapPin className="w-5 h-5" />
+                <div className="w-12 h-12 bg-[#1E40D8]/10 rounded-lg flex items-center justify-center shrink-0 text-[#1E40D8]">
+                  <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900">ADRES</h4>
-                  <p className="text-gray-600 text-sm">Maslak Mah. Büyükdere Cad. No:123 Sarıyer/İstanbul</p>
+                  <h4 className="font-bold text-[#1E40D8]">ADRES</h4>
+                  <p className="text-gray-600 text-sm">Nisbetiye Mahallesi, Nisbetiye Caddesi No:22 Özden İş Merkezi Kat: 3, 34520 Beşiktaş/İstanbul</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#e0f7ef] rounded-lg flex items-center justify-center shrink-0 text-[#00b074]">
-                  <Phone className="w-5 h-5" />
+                <div className="w-12 h-12 bg-[#1E40D8]/10 rounded-lg flex items-center justify-center shrink-0 text-[#1E40D8]">
+                  <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900">TELEFON</h4>
-                  <p className="text-gray-600 text-sm">+90 212 345 67 89</p>
+                  <h4 className="font-bold text-[#1E40D8]">TELEFON NUMARASI</h4>
+                  <p className="text-gray-600 text-sm">+90 212 706 71 76</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#e0f7ef] rounded-lg flex items-center justify-center shrink-0 text-[#00b074]">
-                  <Mail className="w-5 h-5" />
+                <div className="w-12 h-12 bg-[#1E40D8]/10 rounded-lg flex items-center justify-center shrink-0 text-[#1E40D8]">
+                  <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900">E-MAİL</h4>
-                  <p className="text-gray-600 text-sm">info@farmaworks.com</p>
+                  <h4 className="font-bold text-[#1E40D8]">EMAIL</h4>
+                  <p className="text-gray-600 text-sm">info@fw.com.tr</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-[#1E40D8]/10 rounded-lg flex items-center justify-center shrink-0 text-[#1E40D8]">
+                  <Clock className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#1E40D8]">ÇALIŞMA SAATLERİ</h4>
+                  <p className="text-gray-600 text-sm">Pazartesi – Cuma: 09:00 - 18:00</p>
                 </div>
               </div>
             </div>
@@ -90,17 +101,17 @@ export default function IletisimPage() {
           {/* SAĞ: FORM */}
           <div className="lg:col-span-7">
             <div className="bg-white p-8 md:p-10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Bize Ulaşın</h2>
+              <h2 className="text-2xl font-bold text-[#1E40D8] mb-2">Bize Ulaşın</h2>
               <p className="text-gray-500 mb-8 text-sm">Mesajlarınızı en kısa sürede yanıtlıyoruz.</p>
 
               {status === "success" ? (
-                <div className="bg-green-50 border border-green-200 p-6 rounded-xl text-center">
-                  <div className="text-green-600 text-4xl mb-2">✓</div>
-                  <h3 className="font-bold text-green-900">Mesajınız Gönderildi!</h3>
-                  <p className="text-green-700 text-sm">En kısa sürede dönüş yapacağız.</p>
+                <div className="bg-[#1E40D8]/5 border border-[#1E40D8]/20 p-6 rounded-xl text-center">
+                  <div className="text-[#ED6E2D] text-4xl mb-2">✓</div>
+                  <h3 className="font-bold text-[#1E40D8]">Mesajınız Gönderildi!</h3>
+                  <p className="text-[#1E40D8]/70 text-sm">En kısa sürede dönüş yapacağız.</p>
                   <button 
                     onClick={() => setStatus("idle")} 
-                    className="mt-4 text-green-600 text-sm underline"
+                    className="mt-4 text-[#ED6E2D] text-sm underline hover:text-[#d55f24]"
                   >
                     Yeni Mesaj Gönder
                   </button>
@@ -112,13 +123,13 @@ export default function IletisimPage() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-semibold text-gray-700">
-                        Adı <span className="text-red-500">*</span>
+                        Adı <span className="text-[#ED6E2D]">*</span>
                       </label>
                       <input 
                         required 
                         name="Ad" 
                         type="text" 
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00b074] outline-none"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none transition"
                       />
                     </div>
                     
@@ -127,20 +138,20 @@ export default function IletisimPage() {
                       <input 
                         name="Soyad" 
                         type="text" 
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00b074] outline-none"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none transition"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-gray-700">
-                      E-posta <span className="text-red-500">*</span>
+                      E-posta <span className="text-[#ED6E2D]">*</span>
                     </label>
                     <input 
                       required 
                       name="email" 
                       type="email" 
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00b074] outline-none"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none transition"
                     />
                   </div>
 
@@ -150,13 +161,13 @@ export default function IletisimPage() {
                       required 
                       name="Mesaj" 
                       rows={5} 
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00b074] outline-none resize-none"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ED6E2D] focus:border-[#ED6E2D] outline-none resize-none transition"
                     ></textarea>
                   </div>
 
                   <button 
                     disabled={status === "submitting"} 
-                    className="w-full bg-gray-800 hover:bg-[#00b074] text-white font-bold py-4 rounded-lg transition duration-300 disabled:opacity-50"
+                    className="w-full bg-[#ED6E2D] hover:bg-[#d55f24] text-white font-bold py-4 rounded-lg transition duration-300 disabled:opacity-50"
                   >
                     {status === "submitting" ? "Gönderiliyor..." : "Gönder"}
                   </button>

@@ -3,6 +3,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* MARKA RENKLERİ */
+:root {
+  /* Ana Renkler */
+  --color-orange: #ED6E2D;      /* Pumpkin Orange */
+  --color-blue: #1E40D8;        /* Ultramarine Blue */
+  --color-beige: #F3EBE2;       /* Summer Sand */
+  
+  /* Hover/Active Tonları */
+  --color-orange-dark: #d55f24;
+  --color-blue-dark: #1a38c0;
+  --color-beige-dark: #e8ddd3;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -41,6 +54,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Marka Renkleri Tailwind'e */
+  --color-fw-orange: var(--color-orange);
+  --color-fw-blue: var(--color-blue);
+  --color-fw-beige: var(--color-beige);
 }
 
 :root {
@@ -51,31 +69,31 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: #1E40D8;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: #F3EBE2;
+  --secondary-foreground: #1E40D8;
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent: #ED6E2D;
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
+  --ring: #1E40D8;
+  --chart-1: #ED6E2D;
+  --chart-2: #1E40D8;
+  --chart-3: #F3EBE2;
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: #1E40D8;
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-accent: #F3EBE2;
+  --sidebar-accent-foreground: #1E40D8;
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-ring: #1E40D8;
 }
 
 .dark {
@@ -85,31 +103,31 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: #ED6E2D;
+  --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --accent: #1E40D8;
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
+  --ring: #ED6E2D;
+  --chart-1: #ED6E2D;
+  --chart-2: #1E40D8;
+  --chart-3: #F3EBE2;
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: #ED6E2D;
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: #ED6E2D;
 }
 
 @layer base {
@@ -120,3 +138,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Utility Classes for Brand Colors */
+.bg-fw-orange { background-color: #ED6E2D; }
+.bg-fw-blue { background-color: #1E40D8; }
+.bg-fw-beige { background-color: #F3EBE2; }
+
+.text-fw-orange { color: #ED6E2D; }
+.text-fw-blue { color: #1E40D8; }
+.text-fw-beige { color: #F3EBE2; }
+
+.border-fw-orange { border-color: #ED6E2D; }
+.border-fw-blue { border-color: #1E40D8; }
+.border-fw-beige { border-color: #F3EBE2; }
+
+.hover\:bg-fw-orange:hover { background-color: #ED6E2D; }
+.hover\:bg-fw-blue:hover { background-color: #1E40D8; }
+.hover\:bg-fw-beige:hover { background-color: #F3EBE2; }
+
+.hover\:text-fw-orange:hover { color: #ED6E2D; }
+.hover\:text-fw-blue:hover { color: #1E40D8; }

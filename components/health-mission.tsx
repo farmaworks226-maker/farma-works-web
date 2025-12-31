@@ -36,11 +36,11 @@ export function HealthMission({ blok }: { blok: HealthMissionBlok }) {
           
           {/* SOL TARAF */}
           <div>
-            <h4 className="text-[#00b074] font-bold uppercase tracking-wider mb-2 text-sm">
+            <h4 className="text-[#ED6E2D] font-bold uppercase tracking-wider mb-2 text-sm">
               {blok.small_title || "Sağlıklı Yaşamın Öncüsü"}
             </h4>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#1E40D8] mb-6 leading-tight">
               {blok.title || "Sağlığınız İçin Her Şey"}
             </h2>
             
@@ -51,26 +51,26 @@ export function HealthMission({ blok }: { blok: HealthMissionBlok }) {
             {/* ÖZELLİKLER */}
             <div className="grid sm:grid-cols-2 gap-6 mb-10">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center text-[#00b074] shrink-0"><ShieldCheck className="w-6 h-6" /></div>
-                <div><h5 className="font-bold text-gray-900">GMP Sertifikalı</h5><p className="text-sm text-gray-500">Uluslararası kalite standartları</p></div>
+                <div className="w-12 h-12 bg-[#F3EBE2] rounded-lg flex items-center justify-center text-[#ED6E2D] shrink-0"><ShieldCheck className="w-6 h-6" /></div>
+                <div><h5 className="font-bold text-[#1E40D8]">GMP Sertifikalı</h5><p className="text-sm text-gray-500">Uluslararası kalite standartları</p></div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center text-[#00b074] shrink-0"><Leaf className="w-6 h-6" /></div>
-                <div><h5 className="font-bold text-gray-900">Doğal İçerik</h5><p className="text-sm text-gray-500">%100 doğal ham maddeler</p></div>
+                <div className="w-12 h-12 bg-[#F3EBE2] rounded-lg flex items-center justify-center text-[#ED6E2D] shrink-0"><Leaf className="w-6 h-6" /></div>
+                <div><h5 className="font-bold text-[#1E40D8]">Doğal İçerik</h5><p className="text-sm text-gray-500">%100 doğal ham maddeler</p></div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center text-[#00b074] shrink-0"><FlaskConical className="w-6 h-6" /></div>
-                <div><h5 className="font-bold text-gray-900">Laboratuvar Testli</h5><p className="text-sm text-gray-500">Her ürün test edilir</p></div>
+                <div className="w-12 h-12 bg-[#F3EBE2] rounded-lg flex items-center justify-center text-[#ED6E2D] shrink-0"><FlaskConical className="w-6 h-6" /></div>
+                <div><h5 className="font-bold text-[#1E40D8]">Laboratuvar Testli</h5><p className="text-sm text-gray-500">Her ürün test edilir</p></div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center text-[#00b074] shrink-0"><Microscope className="w-6 h-6" /></div>
-                <div><h5 className="font-bold text-gray-900">Bilimsel Formül</h5><p className="text-sm text-gray-500">Araştırma destekli</p></div>
+                <div className="w-12 h-12 bg-[#F3EBE2] rounded-lg flex items-center justify-center text-[#ED6E2D] shrink-0"><Microscope className="w-6 h-6" /></div>
+                <div><h5 className="font-bold text-[#1E40D8]">Bilimsel Formül</h5><p className="text-sm text-gray-500">Araştırma destekli</p></div>
               </div>
             </div>
 
             <Link 
               href={btnLink} 
-              className="inline-block bg-[#00b074] hover:bg-[#00965e] text-white font-bold py-4 px-8 rounded-full transition-all shadow-lg hover:shadow-green-200"
+              className="inline-block bg-[#ED6E2D] hover:bg-[#d55f24] text-white font-bold py-4 px-8 rounded-full transition-all shadow-lg hover:shadow-orange-200"
             >
               {blok.button_text || "Daha Fazla Bilgi"}
             </Link>
@@ -78,7 +78,7 @@ export function HealthMission({ blok }: { blok: HealthMissionBlok }) {
 
           {/* SAĞ TARAF: Görsel */}
           <div className="relative">
-            <div className="absolute -inset-4 bg-green-100 rounded-[2.5rem] transform rotate-3 -z-10"></div>
+            <div className="absolute -inset-4 bg-[#F3EBE2] rounded-[2.5rem] transform rotate-3 -z-10"></div>
             
             <div className="relative h-[500px] rounded-[2rem] overflow-hidden shadow-2xl">
               <Image 

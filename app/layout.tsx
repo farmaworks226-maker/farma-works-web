@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Comfortaa } from "next/font/google";
 import "./globals.css";
-
 import { SiteFooter } from "@/components/site-footer";
-import { SiteHeaderLoader } from "@/components/site-header-loader"; // Yeni oluşturduğumuz bileşeni import ediyoruz
+import { SiteHeaderLoader } from "@/components/site-header-loader";
+
+const comfortaa = Comfortaa({ 
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-comfortaa'
+})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,16 +31,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
+    <html lang="tr" className={comfortaa.variable}>
       <body
         suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Artık SiteHeaderLoader'ı kullanıyoruz */}
         <SiteHeaderLoader />
-        
         {children}
-
         <SiteFooter />
       </body>
     </html>

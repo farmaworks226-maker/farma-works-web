@@ -7,56 +7,56 @@ import { ChevronLeft, ChevronRight, Droplets, Sun, Fish, Moon, Activity, Brain, 
 const TIPS = [
   {
     id: 1,
-    icon: <Droplets className="w-12 h-12 text-blue-500" />,
+    icon: <Droplets className="w-12 h-12 text-[#1E40D8]" />,
     title: "Bol Su Tüketin",
     category: "Hidrasyon",
     description: "Vücut fonksiyonlarının düzenli çalışması için günde en az 2-3 litre su için."
   },
   {
     id: 2,
-    icon: <Sun className="w-12 h-12 text-orange-500" />,
+    icon: <Sun className="w-12 h-12 text-[#ED6E2D]" />,
     title: "D Vitamini Alımı",
     category: "Vitaminler",
     description: "Kemik sağlığı ve bağışıklık için güneş ışığından faydalanın veya takviye alın."
   },
   {
     id: 3,
-    icon: <Fish className="w-12 h-12 text-blue-600" />,
+    icon: <Fish className="w-12 h-12 text-[#1E40D8]" />,
     title: "Omega-3 Desteği",
     category: "Kalp Sağlığı",
     description: "Beyin fonksiyonları ve kalp sağlığı için balık yağı veya Omega-3 kaynaklarını tüketin."
   },
   {
     id: 4,
-    icon: <CheckCircle className="w-12 h-12 text-green-600" />,
+    icon: <CheckCircle className="w-12 h-12 text-[#ED6E2D]" />,
     title: "Probiyotik Tüketimi",
     category: "Sindirim",
     description: "Sindirim sistemini düzenlemek ve bağışıklığı güçlendirmek için probiyotiklere yer verin."
   },
   {
     id: 5,
-    icon: <Moon className="w-12 h-12 text-indigo-500" />,
+    icon: <Moon className="w-12 h-12 text-[#1E40D8]" />,
     title: "Kaliteli Uyku",
     category: "Dinlenme",
     description: "Vücudun yenilenmesi için her gece 7-8 saat kesintisiz uyumaya özen gösterin."
   },
   {
     id: 6,
-    icon: <Activity className="w-12 h-12 text-red-500" />,
+    icon: <Activity className="w-12 h-12 text-[#ED6E2D]" />,
     title: "Düzenli Egzersiz",
     category: "Hareket",
     description: "Haftada en az 150 dakika orta tempolu egzersiz yaparak formunuzu koruyun."
   },
   {
     id: 7,
-    icon: <Brain className="w-12 h-12 text-purple-500" />,
+    icon: <Brain className="w-12 h-12 text-[#1E40D8]" />,
     title: "Stres Yönetimi",
     category: "Zihin Sağlığı",
     description: "Meditasyon, yoga veya nefes egzersizleri ile günlük stresi azaltın."
   },
   {
     id: 8,
-    icon: <Coffee className="w-12 h-12 text-green-700" />,
+    icon: <Coffee className="w-12 h-12 text-[#ED6E2D]" />,
     title: "Yeşil Çay Tüketimi",
     category: "Antioksidan",
     description: "Metabolizmayı hızlandırmak ve toksin atmak için günde 1-2 fincan yeşil çay için."
@@ -105,11 +105,11 @@ export function HealthTipsSlider() {
   }, [itemsPerPage])
 
   return (
-    <section className="py-20 bg-gray-50 border-t border-gray-100">
+    <section className="py-20 bg-[#F3EBE2] border-t border-gray-200">
       <div className="container mx-auto px-4 max-w-6xl">
         
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900">Sağlıklı Yaşam İpuçları</h2>
+          <h2 className="text-3xl font-bold text-[#1E40D8]">Sağlıklı Yaşam İpuçları</h2>
           <p className="text-gray-500 mt-2">Daha iyi bir yaşam için günlük alışkanlıklar.</p>
         </div>
 
@@ -128,13 +128,13 @@ export function HealthTipsSlider() {
                   style={{ width: `${100 / itemsPerPage}%` }}
                 >
                   <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                    <div className="mb-4 p-4 bg-gray-50 rounded-full">
+                    <div className="mb-4 p-4 bg-[#F3EBE2] rounded-full">
                       {tip.icon}
                     </div>
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">
+                    <span className="text-xs font-bold text-[#ED6E2D] uppercase tracking-wider mb-2 block">
                       {tip.category}
                     </span>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{tip.title}</h3>
+                    <h3 className="text-xl font-bold text-[#1E40D8] mb-3">{tip.title}</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
                       {tip.description}
                     </p>
@@ -147,27 +147,27 @@ export function HealthTipsSlider() {
           {/* Oklar */}
           <button 
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white text-gray-600 hover:text-[#00b074] p-3 rounded-full shadow-md border border-gray-100 transition-all z-10 opacity-0 group-hover:opacity-100"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white text-gray-600 hover:text-[#ED6E2D] p-3 rounded-full shadow-md border border-gray-100 transition-all z-10 opacity-0 group-hover:opacity-100"
             aria-label="Önceki İpucu"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button 
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white text-gray-600 hover:text-[#00b074] p-3 rounded-full shadow-md border border-gray-100 transition-all z-10 opacity-0 group-hover:opacity-100"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white text-gray-600 hover:text-[#ED6E2D] p-3 rounded-full shadow-md border border-gray-100 transition-all z-10 opacity-0 group-hover:opacity-100"
             aria-label="Sonraki İpucu"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
 
-          {/* Noktalar (Opsiyonel, çok fazla madde olduğu için kalabalık olabilir ama eklenebilir) */}
+          {/* Noktalar */}
           <div className="flex justify-center gap-2 mt-8">
             {Array.from({ length: TIPS.length - itemsPerPage + 1 }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrent(index)}
                 className={`h-2 w-2 rounded-full transition-all ${
-                  index === current ? "bg-[#00b074] w-6" : "bg-gray-300 hover:bg-gray-400"
+                  index === current ? "bg-[#ED6E2D] w-6" : "bg-gray-300 hover:bg-gray-400"
                 }`}
                 aria-label={`Slayt ${index + 1}`}
               />
