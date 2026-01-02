@@ -62,13 +62,32 @@ export function PopularProducts({ blok }: PopularProductsProps) {
   // --- KATEGORİ RENK SEÇİCİ
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case "Mineraller": return "bg-blue-100 text-blue-700 border-blue-200"; // Mavi
-      case "Vitaminler": return "bg-orange-100 text-orange-700 border-orange-200"; // Turuncu
-      case "Multivitaminler": return "bg-lime-100 text-lime-700 border-lime-200"; // Açık Yeşil
-      case "Probiyotikler": return "bg-emerald-100 text-emerald-700 border-emerald-200"; // Koyu Yeşil
-      case "Özel Takviyeler": return "bg-purple-100 text-purple-700 border-purple-200"; // Mor
-      case "Kişisel Bakım": return "bg-indigo-100 text-indigo-700 border-indigo-200"; // Lacivert
-      default: return "bg-green-100 text-green-700 border-green-200"; // Varsayılan
+      case "Mineraller": return "bg-blue-100 text-blue-700 border-blue-200";
+      case "Vitaminler": return "bg-orange-100 text-orange-700 border-orange-200";
+      case "Multivitaminler": return "bg-lime-100 text-lime-700 border-lime-200";
+      case "Probiyotikler": return "bg-emerald-100 text-emerald-700 border-emerald-200";
+      case "Özel Takviyeler": return "bg-purple-100 text-purple-700 border-purple-200";
+      case "Kişisel Bakım": return "bg-indigo-100 text-indigo-700 border-indigo-200";
+      case "Balık Yağları": return "bg-cyan-100 text-cyan-700 border-cyan-200";
+      case "Bitkisel Ekstreler": return "bg-green-100 text-green-700 border-green-200";
+      case "Diğer": return "bg-violet-100 text-violet-700 border-violet-200";
+      default: return "bg-green-100 text-green-700 border-green-200";
+    }
+  }
+
+  // --- KATEGORİ LİNK SEÇİCİ
+  const getCategoryLink = (category: string) => {
+    switch (category) {
+      case "Mineraller": return "/urunler/mineraller";
+      case "Vitaminler": return "/urunler/vitaminler";
+      case "Multivitaminler": return "/urunler/multivitaminler";
+      case "Probiyotikler": return "/urunler/probiyotikler";
+      case "Özel Takviyeler": return "/urunler/ozel-takviyeler";
+      case "Kişisel Bakım": return "/urunler/kisisel-bakim";
+      case "Balık Yağları": return "/urunler/balik-yaglari";
+      case "Bitkisel Ekstreler": return "/urunler/bitkisel-ekstreler";
+      case "Diğer": return "/urunler/diger";
+      default: return "/urunler";
     }
   }
 
@@ -89,23 +108,10 @@ export function PopularProducts({ blok }: PopularProductsProps) {
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {displayProducts.map((item, index) => {
           const product = item.content;
-          // Resim yoksa placeholder kullan
           const imgUrl = product.image?.filename || "/images/hero.png";
-          
-          // Link oluşturma
-          let linkUrl = "/urunler";
-          if (product.category === "Mineraller") linkUrl = "/urunler/mineraller";
-          if (product.category === "Vitaminler") linkUrl = "/urunler/vitaminler";
-          if (product.category === "Multivitaminler") linkUrl = "/urunler/multivitaminler";
-          if (product.category === "Probiyotikler") linkUrl = "/urunler/probiyotikler";
-          if (product.category === "Özel Takviyeler") linkUrl = "/urunler/ozel-takviyeler";
-          if (product.category === "Kişisel Bakım") linkUrl = "/urunler/kisisel-bakim";
-
-          // Badge (Etiket) Rengi
+          const linkUrl = getCategoryLink(product.category || "");
           const badgeColors = ["bg-green-500", "bg-blue-500", "bg-orange-500", "bg-purple-500"];
           const badgeColor = badgeColors[index % badgeColors.length];
-          
-          // Kategori Etiketi Rengi
           const categoryClass = getCategoryColor(product.category || "Genel");
 
           return (
@@ -147,6 +153,16 @@ export function PopularProducts({ blok }: PopularProductsProps) {
             </Link>
           )
         })}
+      </div>
+
+      {/* Tüm Ürünleri Gör Butonu */}
+      <div className="text-center mt-12">
+        <Link 
+          href="/urunler" 
+          className="inline-flex items-center gap-2 bg-[#1E40D8] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#1a38c0] transition-colors"
+        >
+          Tüm Ürünleri Gör <ArrowRight className="w-5 h-5" />
+        </Link>
       </div>
     </div>
   )

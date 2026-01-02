@@ -5,8 +5,19 @@ import Image from "next/image"
 import { ArrowRight, X, Check, AlertCircle, Info, Thermometer, Tag } from "lucide-react"
 import { render as renderRichText } from "storyblok-rich-text-react-renderer"
 
-// KATEGORİ LİSTESİ (Filtreleme için)
-const CATEGORIES = ["Tümü", "Mineraller", "Vitaminler", "Multivitaminler", "Probiyotikler", "Özel Takviyeler", "Kişisel Bakım"]
+// KATEGORİ LİSTESİ (Filtreleme için) - YENİ KATEGORİLER EKLENDİ
+const CATEGORIES = [
+  "Tümü", 
+  "Vitaminler", 
+  "Mineraller", 
+  "Multivitaminler", 
+  "Probiyotikler", 
+  "Balık Yağları", 
+  "Bitkisel Ekstreler", 
+  "Özel Takviyeler", 
+  "Kişisel Bakım",
+  "Diğer"
+]
 
 // --- TİP TANIMLAMALARI ---
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -95,6 +106,9 @@ const getCategoryColor = (category: string) => {
     case "Probiyotikler": return "bg-emerald-100 text-emerald-700 border-emerald-200";
     case "Özel Takviyeler": return "bg-purple-100 text-purple-700 border-purple-200";
     case "Kişisel Bakım": return "bg-indigo-100 text-indigo-700 border-indigo-200";
+    case "Balık Yağları": return "bg-cyan-100 text-cyan-700 border-cyan-200";
+    case "Bitkisel Ekstreler": return "bg-green-100 text-green-700 border-green-200";
+    case "Diğer": return "bg-violet-100 text-violet-700 border-violet-200";
     default: return "bg-green-100 text-green-700 border-green-200";
   }
 }

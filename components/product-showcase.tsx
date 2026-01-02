@@ -60,7 +60,7 @@ export function ProductShowcase({ products, blok }: ProductShowcaseProps) {
           {/* İstatistik Rozetleri */}
           <div className="flex justify-center gap-4 text-sm font-medium">
             <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">100+ Ürün</span>
-            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">6 Kategori</span>
+            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">9 Kategori</span>
             <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">Premium Kalite</span>
           </div>
         </div>
@@ -85,14 +85,19 @@ export function ProductShowcase({ products, blok }: ProductShowcaseProps) {
             const product = item.content;
             const imgUrl = product.image?.filename || "/images/hero.png";
             
-            // Link oluşturma
+            // Link oluşturma (esnek eşleştirme)
+            const cat = (product.category || "").toLowerCase().trim();
             let linkUrl = "/urunler";
-            if (product.category === "Mineraller") linkUrl = "/urunler/mineraller";
-            if (product.category === "Vitaminler") linkUrl = "/urunler/vitaminler";
-            if (product.category === "Multivitaminler") linkUrl = "/urunler/multivitaminler";
-            if (product.category === "Probiyotikler") linkUrl = "/urunler/probiyotikler";
-            if (product.category === "Özel Takviyeler") linkUrl = "/urunler/ozel-takviyeler";
-            if (product.category === "Kişisel Bakım") linkUrl = "/urunler/kisisel-bakim";
+            
+            if (cat.includes("mineral")) linkUrl = "/urunler/mineraller";
+            else if (cat.includes("multivitamin")) linkUrl = "/urunler/multivitaminler";
+            else if (cat.includes("vitamin")) linkUrl = "/urunler/vitaminler";
+            else if (cat.includes("probiyotik")) linkUrl = "/urunler/probiyotikler";
+            else if (cat.includes("balık") || cat.includes("balik") || cat.includes("omega")) linkUrl = "/urunler/balik-yaglari";
+            else if (cat.includes("bitkisel") || cat.includes("ekstre")) linkUrl = "/urunler/bitkisel-ekstreler";
+            else if (cat.includes("özel") || cat.includes("takviye")) linkUrl = "/urunler/ozel-takviyeler";
+            else if (cat.includes("kişisel") || cat.includes("bakım") || cat.includes("bakim")) linkUrl = "/urunler/kisisel-bakim";
+            else if (cat.includes("diğer") || cat.includes("diger")) linkUrl = "/urunler/diger";
 
             const badgeColors = ["bg-[#ED6E2D]", "bg-[#1E40D8]", "bg-orange-500", "bg-purple-500"];
             const badgeColor = badgeColors[index % badgeColors.length];

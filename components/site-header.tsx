@@ -132,11 +132,11 @@ export function SiteHeader() {
               {openDropdown === 'urunler' && (
                 <div 
                   className="absolute left-0 top-full mt-2 bg-white border border-gray-100 shadow-xl rounded-md z-50" 
-                  style={{ minWidth: '500px', width: 'max-content' }}
+                  style={{ minWidth: '550px', width: 'max-content' }}
                   onMouseEnter={() => handleMouseEnter('urunler')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="p-6 grid grid-cols-2 gap-8">
+                  <div className="p-6 grid grid-cols-3 gap-8">
                     {/* SOL SÜTUN: Gıda Takviyesi */}
                     <div>
                       <p className="text-sm font-bold text-[#1E40D8] mb-4">Gıda Takviyesi</p>
@@ -151,13 +151,27 @@ export function SiteHeader() {
                         <ListItemSimple href="/urunler/diger">Diğer</ListItemSimple>
                       </ul>
                     </div>
-                    {/* SAĞ SÜTUN: Markalar */}
+                    {/* ORTA SÜTUN: Markalar */}
                     <div className="border-l border-gray-200 pl-8">
                       <p className="text-sm font-bold text-[#1E40D8] mb-4">Markalar</p>
                       <ul className="space-y-1">
                         <ListItemSimple href="/markalar/more-than">More Than</ListItemSimple>
                         <ListItemSimple href="/markalar/smart-caps">Smart Caps</ListItemSimple>
                         <ListItemSimple href="/markalar/raw-material">Raw Material</ListItemSimple>
+                      </ul>
+                    </div>
+                    {/* SAĞ SÜTUN: Hızlı Erişim */}
+                    <div className="border-l border-gray-200 pl-8">
+                      <p className="text-sm font-bold text-[#1E40D8] mb-4">Hızlı Erişim</p>
+                      <ul className="space-y-1">
+                        <li className="list-none">
+                          <Link
+                            href="/urunler"
+                            className="block py-2 px-3 text-sm font-semibold text-white bg-[#ED6E2D] hover:bg-[#d4612a] rounded-md transition-colors"
+                          >
+                            Tüm Ürünleri Gör
+                          </Link>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -236,6 +250,12 @@ export function SiteHeader() {
                     Ürünlerimiz
                   </summary>
                   <ul className="ml-4 mt-2 space-y-2">
+                    {/* Tüm Ürünler - Öne Çıkan */}
+                    <li>
+                      <Link href="/urunler" className="block py-2 px-4 text-sm font-semibold text-white bg-[#ED6E2D] hover:bg-[#d4612a] rounded-md">
+                        Tüm Ürünleri Gör
+                      </Link>
+                    </li>
                     <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-2">Gıda Takviyesi</li>
                     <li><Link href="/urunler/vitaminler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Vitaminler</Link></li>
                     <li><Link href="/urunler/mineraller" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Mineraller</Link></li>
