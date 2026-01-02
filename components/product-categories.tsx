@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, ShieldCheck, Zap, Heart, Activity, Beaker, Star } from "lucide-react"
+import { ArrowRight, ShieldCheck, Zap, Heart, Activity, Beaker, Star, Fish, Leaf, Package } from "lucide-react"
 import { storyblokEditable } from "@storyblok/react/rsc"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,6 +51,22 @@ export function ProductCategories({ blok }: { blok: any }) {
             link="/urunler/probiyotikler" 
           />
           <CategoryCard 
+            title="Balık Yağları" 
+            desc="Kalp, beyin ve eklem sağlığı için Omega-3" 
+            color="from-cyan-500 to-blue-400" 
+            icon={<Fish className="w-6 h-6 text-white" />} 
+            tags={["Omega-3", "EPA", "DHA"]} 
+            link="/urunler/balik-yaglari" 
+          />
+          <CategoryCard 
+            title="Bitkisel Ekstreler" 
+            desc="Doğanın gücünden faydalanan formüller" 
+            color="from-emerald-500 to-green-400" 
+            icon={<Leaf className="w-6 h-6 text-white" />} 
+            tags={["Ekinezya", "Zerdeçal", "Ginseng"]} 
+            link="/urunler/bitkisel-ekstreler" 
+          />
+          <CategoryCard 
             title="Özel Takviyeler" 
             desc="Hedef odaklı özel formülasyonlar" 
             color="from-pink-400 to-pink-300" 
@@ -65,6 +81,14 @@ export function ProductCategories({ blok }: { blok: any }) {
             icon={<Heart className="w-6 h-6 text-white" />} 
             tags={["Serum", "Krem", "Tonik"]} 
             link="/urunler/kisisel-bakim" 
+          />
+          <CategoryCard 
+            title="Diğer" 
+            desc="Farklı ihtiyaçlara yönelik özel ürünler" 
+            color="from-violet-500 to-purple-400" 
+            icon={<Package className="w-6 h-6 text-white" />} 
+            tags={["Amino Asit", "Enzim", "Özel"]} 
+            link="/urunler/diger" 
           />
         </div>
       </div>
