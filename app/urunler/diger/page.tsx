@@ -15,7 +15,7 @@ async function fetchData() {
       version: "draft",
       content_type: "product",
       filter_query: {
-        category: {
+        Category: {
           in: "Diğer"
         }
       }

@@ -26,7 +26,14 @@ export function SiteFooter() {
               sağlıklı yaşam yolculuğunuzda güvenilir desteğiniz.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#ED6E2D] text-white transition"><Instagram className="w-4 h-4" /></Link>
+              <Link 
+                href="https://www.instagram.com/p/DP39D4cAhZ5/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#ED6E2D] text-white transition"
+              >
+                <Instagram className="w-4 h-4" />
+              </Link>
               <Link href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#ED6E2D] text-white transition"><Linkedin className="w-4 h-4" /></Link>
               <Link href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#ED6E2D] text-white transition"><Twitter className="w-4 h-4" /></Link>
               <Link href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#ED6E2D] text-white transition"><Facebook className="w-4 h-4" /></Link>
