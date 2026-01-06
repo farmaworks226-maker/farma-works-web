@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { Microscope, Award, Users, Heart, FlaskConical, Hexagon, Store, Factory } from "lucide-react"
+import { Microscope, Award, Leaf, Lightbulb, Heart, FlaskConical, Hexagon, Store, Factory, Recycle, Scale, MessageCircle } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
@@ -38,7 +38,7 @@ export default function HakkimizdaPage() {
             <div>
               <h2 className="text-2xl font-bold text-[#1E40D8] mb-4">Misyonumuz</h2>
               <p className="text-gray-600 leading-relaxed text-sm text-justify">
-                Farma Works İlaç olarak, sağlıklı yaşamı desteklemek ve bireylerin yaşam kalitesini iyileştirmek amacıyla, doğa ve bilimden ilham alarak yüksek kaliteli gıda takviyeleri sunuyoruz. Amacımız, sağlıklı yaş almanın her aşamasında bilimsel verilerle desteklenmiş ürünler sunarak, bireylerin hem hastalık dönemlerinde hem de sağlıklı yaşam süreçlerinde yanlarında olmak ve her yaşa uygun sağlık çözümleri sunmaktır.
+                FW İlaç olarak; ortomoleküler bilim yaklaşımıyla, doğa ve bilimi bir araya getiren, yüksek biyoyararlanıma sahip gıda takviyeleri geliştiriyoruz. Yaşamın her evresinde sağlığı destekleyen, bilimsel verilerle temellendirilmiş ve kalite standartlarıyla güven veren çözümler sunarak bireylerin yaşam kalitesini sürdürülebilir biçimde artırmayı amaçlıyoruz.
               </p>
             </div>
 
@@ -46,7 +46,7 @@ export default function HakkimizdaPage() {
             <div>
               <h2 className="text-2xl font-bold text-[#1E40D8] mb-4">Vizyonumuz</h2>
               <p className="text-gray-600 leading-relaxed text-sm text-justify">
-                Farma Works İlaç, sağlıklı yaşam ve gıda takviyesi alanında global bir referans marka olmayı hedeflemektedir. Yenilikçi çözümlerimiz, kaliteli hammadde ve üretim koşullarımız ile sektördeki liderliğimizi pekiştirirken, sürdürülebilir sağlık anlayışını her bireye ulaştırmak için çalışmalarımızı hızla genişletiyoruz. Dünya çapında tercih edilen bir gıda takviyesi markası olmayı ve global pazarda sağlıklı yaşamın öncüsü olarak bilinirliği artırmayı hedefliyoruz.
+                Ortomoleküler sağlık anlayışını merkeze alan ürün ekosistemimizle; yenilikçi formülasyonları, akıllı kapsül teknolojileri ve sürdürülebilir üretim yaklaşımıyla, &quot;sağlıklı yaş alma&quot; kavramını geleceğin standardı haline getiren öncü bir sağlık markası olmak.
               </p>
             </div>
 
@@ -54,49 +54,97 @@ export default function HakkimizdaPage() {
         </div>
       </div>
 
-      {/* 4. BÖLÜM: Değerlerimiz (İkonlu) */}
+      {/* 4. BÖLÜM: Temel Değerlerimiz (İkonlu - 8 Değer) */}
       <div className="container mx-auto px-4 py-20">
-        <h2 className="text-3xl font-bold text-center text-[#1E40D8] mb-16">Değerlerimiz</h2>
+        <h2 className="text-3xl font-bold text-center text-[#1E40D8] mb-16">Temel Değerlerimiz</h2>
         
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 bg-[#F3EBE2] rounded-full flex items-center justify-center text-[#ED6E2D] mb-4">
-              <Microscope className="w-8 h-8" />
+          {/* Bilimsel Temellilik */}
+          <div className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center text-[#ED6E2D] mb-4">
+              <Microscope className="w-7 h-7" />
             </div>
-            <h3 className="font-bold text-[#1E40D8] mb-2">Bilimsel Doğruluk ve İnovasyon</h3>
+            <h3 className="font-bold text-[#1E40D8] mb-3 text-sm">Bilimsel Temellilik</h3>
             <p className="text-xs text-gray-500 leading-relaxed">
-              Ürünlerimizi ve hizmetlerimizi sürekli olarak bilimsel araştırmalar ve yenilikçi yaklaşımlar doğrultusunda geliştiririz.
+              Tüm ürün ve süreçlerimizi, güncel bilimsel veriler, klinik kanıtlar ve ortomoleküler tıp prensipleri doğrultusunda geliştiririz. Bilimi, karar alma süreçlerimizin merkezine koyarız.
             </p>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 bg-[#1E40D8]/10 rounded-full flex items-center justify-center text-[#1E40D8] mb-4">
-              <Award className="w-8 h-8" />
+          {/* Doğa ile Uyum */}
+          <div className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center text-[#1E40D8] mb-4">
+              <Leaf className="w-7 h-7" />
             </div>
-            <h3 className="font-bold text-[#1E40D8] mb-2">Kalite ve Güvenilirlik</h3>
+            <h3 className="font-bold text-[#1E40D8] mb-3 text-sm">Doğa ile Uyum</h3>
             <p className="text-xs text-gray-500 leading-relaxed">
-              Ürünlerimizin güvenli ve etkili olmasına büyük önem gösteririz. Katkı maddesi içermeyen, en yüksek kalitede doğal bileşenleri kullanırız.
+              Doğadan ilham alan ham maddeleri, bilimsel yaklaşımla birleştirerek; insan biyolojisine uyumlu, dengeli ve rasyonel çözümler üretiriz.
             </p>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 bg-[#F3EBE2] rounded-full flex items-center justify-center text-[#ED6E2D] mb-4">
-              <Users className="w-8 h-8" />
+          {/* Yüksek Kalite ve Güven */}
+          <div className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center text-[#ED6E2D] mb-4">
+              <Award className="w-7 h-7" />
             </div>
-            <h3 className="font-bold text-[#1E40D8] mb-2">İnsan Odaklılık</h3>
+            <h3 className="font-bold text-[#1E40D8] mb-3 text-sm">Yüksek Kalite ve Güven</h3>
             <p className="text-xs text-gray-500 leading-relaxed">
-              Her bireyin sağlıklı ve dengeli bir yaşam sürmeye hakkı olduğuna inanırız. İnsan sağlığına ve yaşam kalitesine olan bağlılığımız en büyük değerimizdir.
+              Hammadde seçiminden nihai ürüne kadar tüm aşamalarda en yüksek kalite standartlarını uygular; güvenilirlikten ve şeffaflıktan ödün vermeyiz.
             </p>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 bg-[#1E40D8]/10 rounded-full flex items-center justify-center text-[#1E40D8] mb-4">
-              <Heart className="w-8 h-8" />
+          {/* Yenilikçilik */}
+          <div className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center text-[#1E40D8] mb-4">
+              <Lightbulb className="w-7 h-7" />
             </div>
-            <h3 className="font-bold text-[#1E40D8] mb-2">Eğitim ve Sağlık Bilinci</h3>
+            <h3 className="font-bold text-[#1E40D8] mb-3 text-sm">Yenilikçilik</h3>
             <p className="text-xs text-gray-500 leading-relaxed">
-              Sağlıklı yaşam ve sağlık bilinci konularında toplumu bilinçlendirmeyi önceliklerimiz arasında görürüz. Doğru bilgiye ulaşması için rehberlik sağlarız.
+              Akıllı kapsül teknolojileri, ileri formülasyonlar ve sürekli gelişen üretim teknikleriyle, sağlık çözümlerinde fark yaratan yenilikler geliştiririz.
+            </p>
+          </div>
+
+          {/* Yaşam Boyu Sağlık Yaklaşımı */}
+          <div className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center text-[#ED6E2D] mb-4">
+              <Heart className="w-7 h-7" />
+            </div>
+            <h3 className="font-bold text-[#1E40D8] mb-3 text-sm">Yaşam Boyu Sağlık Yaklaşımı</h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Sağlığı yalnızca hastalık odaklı değil, koruyucu ve destekleyici bir bütün olarak ele alır; her yaş dönemine uygun çözümler sunarız.
+            </p>
+          </div>
+
+          {/* Sürdürülebilirlik */}
+          <div className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center text-[#1E40D8] mb-4">
+              <Recycle className="w-7 h-7" />
+            </div>
+            <h3 className="font-bold text-[#1E40D8] mb-3 text-sm">Sürdürülebilirlik</h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Üretimden tedarik zincirine kadar tüm süreçlerde çevresel, sosyal ve ekonomik sürdürülebilirliği gözetir; gelecek nesiller için sorumluluk alırız.
+            </p>
+          </div>
+
+          {/* Etik ve Sorumluluk */}
+          <div className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center text-[#ED6E2D] mb-4">
+              <Scale className="w-7 h-7" />
+            </div>
+            <h3 className="font-bold text-[#1E40D8] mb-3 text-sm">Etik ve Sorumluluk</h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Sağlık alanında faaliyet göstermenin bilinciyle; etik ilkelere, mevzuata ve toplumsal sorumluluklara tam uyum içinde hareket ederiz.
+            </p>
+          </div>
+
+          {/* Değer Odaklı İletişim */}
+          <div className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+            <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center text-[#1E40D8] mb-4">
+              <MessageCircle className="w-7 h-7" />
+            </div>
+            <h3 className="font-bold text-[#1E40D8] mb-3 text-sm">Değer Odaklı İletişim</h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Sağlık profesyonelleri, paydaşlarımız ve toplumla; doğru, açık ve bilimsel iletişim kurar, güvene dayalı ilişkiler inşa ederiz.
             </p>
           </div>
 

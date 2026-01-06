@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-
+import { usePathname } from "next/navigation";
 
 const SiteHeader = dynamic(
   () => import("@/components/site-header").then((mod) => mod.SiteHeader),
@@ -9,5 +9,10 @@ const SiteHeader = dynamic(
 );
 
 export function SiteHeaderLoader() {
-  return <SiteHeader />;
+  const pathname = usePathname();
+  
+  // Sadece ana sayfada şeffaf/beyaz menü
+  const variant = pathname === "/" ? "transparent" : "solid";
+  
+  return <SiteHeader variant={variant} />;
 }
