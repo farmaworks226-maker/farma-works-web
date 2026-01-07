@@ -6,7 +6,6 @@ import { ArrowRight, X, Check, AlertCircle, Info, Thermometer, Tag, Droplets, He
 import { render as renderRichText } from "storyblok-rich-text-react-renderer"
 import { Product, StoryblokStory } from "@/types/storyblok"
 
-// --- TİP TANIMLAMALARI ---
 interface GalleryImage {
   filename?: string
 }
@@ -20,7 +19,6 @@ interface TableData {
   thead?: Array<{ value: string }>
 }
 
-// --- YARDIMCI FONKSİYONLAR ---
 const richTextOptions = {
   nodeResolvers: {
     'table': (children: React.ReactNode) => (
@@ -36,8 +34,8 @@ const richTextOptions = {
     'bullet_list': (children: React.ReactNode) => <div className="space-y-3 my-4">{children}</div>,
     'list_item': (children: React.ReactNode) => (
       <div className="flex items-start gap-3">
-        <div className="mt-1 bg-blue-100 p-0.5 rounded-full shrink-0">
-          <Check className="w-3.5 h-3.5 text-blue-600" />
+        <div className="mt-1 bg-[#F3EBE2] p-0.5 rounded-full shrink-0">
+          <Check className="w-3.5 h-3.5 text-[#ED6E2D]" />
         </div>
         <span className="leading-relaxed text-gray-700">{children}</span>
       </div>
@@ -73,7 +71,6 @@ const hasTableData = (table: TableData | undefined): boolean => {
   return table.tbody.some((row: TableRow) => row.body.some((cell) => cell.value && cell.value.trim() !== ""))
 }
 
-// --- ANA BİLEŞEN ---
 export function BalikYaglariContent({ products }: { products: StoryblokStory<Product>[] }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [manualActiveImage, setManualActiveImage] = useState<string | null>(null)
@@ -94,7 +91,6 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
     const imagesList: string[] = []
     const mainImg = selectedProduct.image?.filename || "/images/hero.png"
     if (mainImg) imagesList.push(mainImg)
-
     const multiImages = selectedProduct.gallery || selectedProduct.images || []
     if (Array.isArray(multiImages)) {
       multiImages.forEach((img: string | GalleryImage) => {
@@ -116,15 +112,15 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* HERO SECTION - Mavi Tema */}
-      <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-20 text-center border-b border-blue-100">
+      {/* HERO - BEJ TEMA */}
+      <div className="bg-[#F3EBE2] py-20 text-center border-b border-[#e5d9ca]">
         <div className="container mx-auto px-4">
-          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-white text-[#1E40D8] px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Droplets className="w-4 h-4" />
             Omega-3 Zengin
           </div>
-          <h1 className="text-4xl font-bold text-blue-900 mb-4">Balık Yağları</h1>
-          <p className="text-lg text-blue-800/80 max-w-3xl mx-auto">Kalp, beyin ve eklem sağlığınız için yüksek saflıkta EPA ve DHA içeren premium balık yağı takviyeleri.</p>
+          <h1 className="text-4xl font-bold text-[#1E40D8] mb-4">Balık Yağları</h1>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto">Kalp, beyin ve eklem sağlığınız için yüksek saflıkta EPA ve DHA içeren premium balık yağı takviyeleri.</p>
         </div>
       </div>
 
@@ -142,14 +138,14 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
               const imageUrl = product.image?.filename || "/images/hero.png"
               return (
                 <div key={item.uuid} onClick={() => setSelectedProduct(product)} className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col cursor-pointer h-full">
-                  <div className="relative h-80 bg-gradient-to-br from-blue-50 to-cyan-50 overflow-hidden">
-                    <span className="absolute top-4 left-4 bg-white/90 text-blue-600 text-[10px] font-bold px-2 py-1 rounded border border-blue-100 uppercase tracking-wide z-10">{product.category || "Balık Yağları"}</span>
+                  <div className="relative h-80 bg-gray-100 overflow-hidden">
+                    <span className="absolute top-4 left-4 bg-white/90 text-[#1E40D8] text-[10px] font-bold px-2 py-1 rounded border border-blue-100 uppercase tracking-wide z-10">{product.category || "Balık Yağları"}</span>
                     <Image src={imageUrl} alt={product.name} fill className="object-cover transform group-hover:scale-110 transition-transform duration-500" />
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-gray-900 font-bold text-lg mb-4 leading-snug">{product.name}</h3>
                     <div className="mt-auto pt-4 border-t border-gray-50">
-                      <span className="text-blue-600 text-sm font-bold flex items-center group-hover:translate-x-1 transition-transform">İncele <ArrowRight className="w-4 h-4 ml-1" /></span>
+                      <span className="text-[#ED6E2D] text-sm font-bold flex items-center group-hover:translate-x-1 transition-transform">İncele <ArrowRight className="w-4 h-4 ml-1" /></span>
                     </div>
                   </div>
                 </div>
@@ -159,41 +155,41 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
         )}
       </div>
 
-      {/* BALIK YAĞI FAYDALARI */}
-      <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-24">
+      {/* FAYDALAR - BEJ TEMA */}
+      <div className="bg-[#F3EBE2] py-24">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-blue-900 mb-4">Omega-3 Balık Yağının Faydaları</h2>
-            <p className="text-lg text-blue-800/70 max-w-2xl mx-auto">EPA ve DHA açısından zengin balık yağları, vücudunuzun birçok sistemini destekleyen güçlü besinlerdir.</p>
+            <h2 className="text-3xl font-bold text-[#1E40D8] mb-4">Omega-3 Balık Yağının Faydaları</h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">EPA ve DHA açısından zengin balık yağları, vücudunuzun birçok sistemini destekleyen güçlü besinlerdir.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-6 text-red-500"><Heart className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center mb-6 text-[#ED6E2D]"><Heart className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Kalp Sağlığı</h3>
               <p className="text-gray-600 leading-relaxed">Omega-3 yağ asitleri trigliserit seviyelerini düşürmeye ve kalp damar sağlığını korumaya yardımcı olur.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-6 text-purple-600"><Brain className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center mb-6 text-[#1E40D8]"><Brain className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Beyin Fonksiyonları</h3>
               <p className="text-gray-600 leading-relaxed">DHA, beyin dokusunun temel yapı taşlarından biridir ve bilişsel fonksiyonları destekler.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-cyan-100 rounded-full flex items-center justify-center mb-6 text-cyan-600"><Eye className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center mb-6 text-[#ED6E2D]"><Eye className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Göz Sağlığı</h3>
               <p className="text-gray-600 leading-relaxed">DHA, retina dokusunun önemli bir bileşenidir ve göz sağlığının korunmasına katkı sağlar.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-6 text-orange-500"><Bone className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center mb-6 text-[#1E40D8]"><Bone className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Eklem Sağlığı</h3>
               <p className="text-gray-600 leading-relaxed">Anti-inflamatuar özellikleri sayesinde eklem sertliğini azaltmaya ve hareket kabiliyetini artırmaya yardımcı olur.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600"><Activity className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center mb-6 text-[#ED6E2D]"><Activity className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">İltihap Azaltma</h3>
               <p className="text-gray-600 leading-relaxed">Omega-3&apos;ler vücuttaki kronik iltihabi süreçleri dengelemeye yardımcı olabilir.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-blue-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-teal-100 rounded-full flex items-center justify-center mb-6 text-teal-600"><Droplets className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center mb-6 text-[#1E40D8]"><Droplets className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Cilt Sağlığı</h3>
               <p className="text-gray-600 leading-relaxed">Cildin nemli ve esnek kalmasına yardımcı olarak sağlıklı bir görünüm sağlar.</p>
             </div>
@@ -210,13 +206,13 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
               <h2 className="text-3xl font-bold text-gray-900 mb-8 border-b border-gray-100 pb-4 pr-10">{selectedProduct.name}</h2>
               <div className="grid lg:grid-cols-12 gap-10">
                 <div className="lg:col-span-5 flex flex-col gap-4">
-                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl h-[400px] border border-blue-200 overflow-hidden relative shadow-inner flex items-center justify-center">
+                  <div className="bg-gray-100 rounded-2xl h-[400px] border border-gray-200 overflow-hidden relative shadow-inner flex items-center justify-center">
                     {activeImage && <Image src={activeImage} alt={selectedProduct.name} fill className="object-cover" />}
                   </div>
                   {galleryList.length > 1 && (
                     <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                       {galleryList.map((imgUrl, i) => (
-                        <button key={i} onClick={() => setManualActiveImage(imgUrl)} className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 bg-white transition-all ${activeImage === imgUrl ? "border-blue-600 ring-2 ring-blue-600/20" : "border-gray-100 hover:border-gray-300"}`}>
+                        <button key={i} onClick={() => setManualActiveImage(imgUrl)} className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 bg-white transition-all ${activeImage === imgUrl ? "border-[#1E40D8] ring-2 ring-[#1E40D8]/20" : "border-gray-100 hover:border-gray-300"}`}>
                           <Image src={imgUrl} alt={`Galeri ${i}`} fill className="object-cover" />
                         </button>
                       ))}
@@ -232,7 +228,7 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
                     <div><h3 className="font-bold text-gray-900 mb-3">Özellikler:</h3><div className="text-sm text-gray-600">{renderSafe(selectedProduct.features)}</div></div>
                   )}
                   {hasData(selectedProduct.net_quantity) && (
-                    <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-5 py-2.5 rounded-lg font-bold border border-blue-100 shadow-sm"><Tag className="w-5 h-5" /> Net Miktar: {selectedProduct.net_quantity}</div>
+                    <div className="inline-flex items-center gap-2 bg-[#F3EBE2] text-[#1E40D8] px-5 py-2.5 rounded-lg font-bold border border-[#e5d9ca] shadow-sm"><Tag className="w-5 h-5" /> Net Miktar: {selectedProduct.net_quantity}</div>
                   )}
                 </div>
               </div>
@@ -240,13 +236,13 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
                 <div className="grid md:grid-cols-2 gap-6">
                   {hasData(selectedProduct.ingredients) && (
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><Info className="w-6 h-6 text-blue-600" /> İçerik</div>
+                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><Info className="w-6 h-6 text-[#1E40D8]" /> İçerik</div>
                       <div className="text-gray-700 leading-relaxed text-sm">{renderSafe(selectedProduct.ingredients)}</div>
                     </div>
                   )}
                   {hasData(selectedProduct.usage) && (
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><AlertCircle className="w-6 h-6 text-blue-600" /> Kullanım Şekli</div>
+                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><AlertCircle className="w-6 h-6 text-[#1E40D8]" /> Kullanım Şekli</div>
                       <div className="text-gray-700 leading-relaxed text-sm">{renderSafe(selectedProduct.usage)}</div>
                     </div>
                   )}
@@ -254,8 +250,8 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
                 {hasTableData(selectedProduct.active_ingredients as TableData) && selectedProduct.active_ingredients && (
                   <div className="overflow-x-auto my-4 border border-gray-200 rounded-lg shadow-sm">
                     <table className="w-full text-sm text-left">
-                      <thead className="bg-blue-50 border-b border-blue-200">
-                        <tr>{(selectedProduct.active_ingredients as TableData).thead?.map((h, k) => <th key={k} className="px-6 py-3 font-bold text-blue-900">{h.value}</th>)}</tr>
+                      <thead className="bg-[#F3EBE2] border-b border-[#e5d9ca]">
+                        <tr>{(selectedProduct.active_ingredients as TableData).thead?.map((h, k) => <th key={k} className="px-6 py-3 font-bold text-[#1E40D8]">{h.value}</th>)}</tr>
                       </thead>
                       <tbody className="divide-y divide-gray-100">
                         {(selectedProduct.active_ingredients as TableData).tbody?.map((row, i) => (
@@ -272,15 +268,15 @@ export function BalikYaglariContent({ products }: { products: StoryblokStory<Pro
                   </div>
                 )}
                 {hasData(selectedProduct.storage) && (
-                  <div className="bg-[#eff6ff] border border-[#bfdbfe] p-6 rounded-xl flex items-center gap-5 shadow-sm">
-                    <div className="bg-white p-3 rounded-full shadow-md text-blue-600"><Thermometer className="w-6 h-6" /></div>
-                    <div><div className="font-bold text-blue-900 text-lg mb-1">Saklama Koşulları:</div><div className="text-blue-800 leading-relaxed">{renderSafe(selectedProduct.storage)}</div></div>
+                  <div className="bg-[#F3EBE2] border border-[#e5d9ca] p-6 rounded-xl flex items-center gap-5 shadow-sm">
+                    <div className="bg-white p-3 rounded-full shadow-md text-[#1E40D8]"><Thermometer className="w-6 h-6" /></div>
+                    <div><div className="font-bold text-[#1E40D8] text-lg mb-1">Saklama Koşulları:</div><div className="text-gray-700 leading-relaxed">{renderSafe(selectedProduct.storage)}</div></div>
                   </div>
                 )}
                 {hasData(selectedProduct.price) && (
-                  <div className="bg-blue-50 border border-blue-200 p-6 rounded-xl flex items-center justify-between shadow-sm">
-                    <div className="flex items-center gap-4"><div className="bg-white p-3 rounded-full shadow-md text-blue-600"><Tag className="w-6 h-6" /></div><div className="font-bold text-blue-900 text-lg">Satış Fiyatı:</div></div>
-                    <div className="text-2xl font-extrabold text-blue-600">{selectedProduct.price}</div>
+                  <div className="bg-[#F3EBE2] border border-[#e5d9ca] p-6 rounded-xl flex items-center justify-between shadow-sm">
+                    <div className="flex items-center gap-4"><div className="bg-white p-3 rounded-full shadow-md text-[#ED6E2D]"><Tag className="w-6 h-6" /></div><div className="font-bold text-[#1E40D8] text-lg">Satış Fiyatı:</div></div>
+                    <div className="text-2xl font-extrabold text-[#ED6E2D]">{selectedProduct.price}</div>
                   </div>
                 )}
               </div>

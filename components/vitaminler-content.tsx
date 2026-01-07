@@ -78,20 +78,17 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [manualActiveImage, setManualActiveImage] = useState<string | null>(null)
 
-  // ✅ Modal kapatma fonksiyonu
   const handleCloseModal = () => {
     setManualActiveImage(null)
     setSelectedProduct(null)
   }
 
-  // ✅ useMemo ile activeImage
   const activeImage = useMemo(() => {
     if (!selectedProduct) return ""
     if (manualActiveImage !== null) return manualActiveImage
     return selectedProduct.image?.filename || "/images/hero.png"
   }, [selectedProduct, manualActiveImage])
 
-  // ✅ useMemo ile galleryList
   const galleryList = useMemo(() => {
     if (!selectedProduct) return []
     const imagesList: string[] = []
@@ -108,7 +105,6 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
     return Array.from(new Set(imagesList))
   }, [selectedProduct])
 
-  // ✅ useEffect sadece scroll - HİÇBİR setState YOK
   useEffect(() => {
     if (selectedProduct) {
       document.body.style.overflow = 'hidden'
@@ -120,13 +116,19 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="bg-orange-50 py-20 text-center border-b border-orange-100">
+      {/* HERO - BEJ TEMA */}
+      <div className="bg-[#F3EBE2] py-20 text-center border-b border-[#e5d9ca]">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-orange-900 mb-4">Vitaminler</h1>
-          <p className="text-lg text-orange-800/80 max-w-3xl mx-auto">Bağışıklığınızı ve enerjinizi destekleyen C, D, B12 ve diğer temel vitamin takviyeleri.</p>
+          <div className="inline-flex items-center gap-2 bg-white text-[#ED6E2D] px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Sun className="w-4 h-4" />
+            Enerji & Bağışıklık
+          </div>
+          <h1 className="text-4xl font-bold text-[#1E40D8] mb-4">Vitaminler</h1>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto">Bağışıklığınızı ve enerjinizi destekleyen C, D, B12 ve diğer temel vitamin takviyeleri.</p>
         </div>
       </div>
 
+      {/* ÜRÜN LİSTESİ */}
       <div className="container mx-auto px-4 py-16 max-w-7xl">
         {(!products || products.length === 0) ? (
           <div className="text-center py-20">
@@ -141,13 +143,13 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
               return (
                 <div key={item.uuid} onClick={() => setSelectedProduct(product)} className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col cursor-pointer h-full">
                   <div className="relative h-80 bg-gray-100 overflow-hidden">
-                    <span className="absolute top-4 left-4 bg-white/90 text-[#00b074] text-[10px] font-bold px-2 py-1 rounded border border-green-100 uppercase tracking-wide z-10">{product.category || "Vitaminler"}</span>
+                    <span className="absolute top-4 left-4 bg-white/90 text-[#ED6E2D] text-[10px] font-bold px-2 py-1 rounded border border-orange-100 uppercase tracking-wide z-10">{product.category || "Vitaminler"}</span>
                     <Image src={imageUrl} alt={product.name} fill className="object-cover transform group-hover:scale-110 transition-transform duration-500" />
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-gray-900 font-bold text-lg mb-4 leading-snug">{product.name}</h3>
                     <div className="mt-auto pt-4 border-t border-gray-50">
-                      <span className="text-[#00b074] text-sm font-bold flex items-center group-hover:translate-x-1 transition-transform">İncele <ArrowRight className="w-4 h-4 ml-1" /></span>
+                      <span className="text-[#ED6E2D] text-sm font-bold flex items-center group-hover:translate-x-1 transition-transform">İncele <ArrowRight className="w-4 h-4 ml-1" /></span>
                     </div>
                   </div>
                 </div>
@@ -157,41 +159,41 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
         )}
       </div>
 
-      {/* VİTAMİN FAYDALARI */}
-      <div className="bg-orange-50 py-24">
+      {/* VİTAMİN FAYDALARI - BEJ TEMA */}
+      <div className="bg-[#F3EBE2] py-24">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-orange-900 mb-4">Vitaminler Neden Önemlidir?</h2>
-            <p className="text-lg text-orange-800/70 max-w-2xl mx-auto">Vücudumuzun sağlıklı işleyişi için elzem olan vitaminler, bağışıklık sisteminden enerji üretimine kadar birçok fonksiyonda anahtar rol oynar.</p>
+            <h2 className="text-3xl font-bold text-[#1E40D8] mb-4">Vitaminler Neden Önemlidir?</h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">Vücudumuzun sağlıklı işleyişi için elzem olan vitaminler, bağışıklık sisteminden enerji üretimine kadar birçok fonksiyonda anahtar rol oynar.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-orange-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-6 text-orange-600"><ShieldCheck className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center mb-6 text-[#ED6E2D]"><ShieldCheck className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Bağışıklık Sistemi</h3>
               <p className="text-gray-600 leading-relaxed">C vitamini ve D vitamini gibi antioksidanlar, bağışıklık sistemini güçlendirerek hastalıklara karşı koruma sağlar.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-orange-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mb-6 text-yellow-600"><Zap className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center mb-6 text-[#1E40D8]"><Zap className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Enerji Üretimi</h3>
               <p className="text-gray-600 leading-relaxed">B grubu vitaminleri, yediğimiz besinlerin enerjiye dönüşmesinde hayati rol oynar.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-orange-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600"><Activity className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center mb-6 text-[#ED6E2D]"><Activity className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Hücre Yenilenmesi</h3>
               <p className="text-gray-600 leading-relaxed">E vitamini ve A vitamini, hücrelerin yenilenmesine ve cildin sağlıklı kalmasına yardımcı olur.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-orange-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-6 text-red-600"><Heart className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center mb-6 text-[#1E40D8]"><Heart className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Kalp ve Göz Sağlığı</h3>
               <p className="text-gray-600 leading-relaxed">Belli başlı vitaminler kalp damar sağlığını korurken, A vitamini görme yetisinin korunmasına katkıda bulunur.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-orange-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mb-6 text-indigo-600"><Brain className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#F3EBE2] rounded-full flex items-center justify-center mb-6 text-[#ED6E2D]"><Brain className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Beyin Fonksiyonları</h3>
               <p className="text-gray-600 leading-relaxed">B12 vitamini ve folik asit, beyin fonksiyonlarının korunması için kritik öneme sahiptir.</p>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-orange-100 hover:shadow-md transition duration-300">
-              <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-6 text-amber-600"><Sun className="w-8 h-8" /></div>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#e5d9ca] hover:shadow-md transition duration-300">
+              <div className="w-14 h-14 bg-[#1E40D8]/10 rounded-full flex items-center justify-center mb-6 text-[#1E40D8]"><Sun className="w-8 h-8" /></div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Kemik Gelişimi</h3>
               <p className="text-gray-600 leading-relaxed">D vitamini, kalsiyum emilimini artırarak kemiklerin ve dişlerin güçlü kalmasını sağlar.</p>
             </div>
@@ -214,7 +216,7 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
                   {galleryList.length > 1 && (
                     <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                       {galleryList.map((imgUrl, i) => (
-                        <button key={i} onClick={() => setManualActiveImage(imgUrl)} className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 bg-white transition-all ${activeImage === imgUrl ? "border-[#00b074] ring-2 ring-[#00b074]/20" : "border-gray-100 hover:border-gray-300"}`}>
+                        <button key={i} onClick={() => setManualActiveImage(imgUrl)} className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 flex-shrink-0 bg-white transition-all ${activeImage === imgUrl ? "border-[#ED6E2D] ring-2 ring-[#ED6E2D]/20" : "border-gray-100 hover:border-gray-300"}`}>
                           <Image src={imgUrl} alt={`Galeri ${i}`} fill className="object-cover" />
                         </button>
                       ))}
@@ -230,7 +232,7 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
                     <div><h3 className="font-bold text-gray-900 mb-3">Özellikler:</h3><div className="text-sm text-gray-600">{renderSafe(selectedProduct.features)}</div></div>
                   )}
                   {hasData(selectedProduct.net_quantity) && (
-                    <div className="inline-flex items-center gap-2 bg-green-50 text-[#00b074] px-5 py-2.5 rounded-lg font-bold border border-green-100 shadow-sm"><Tag className="w-5 h-5" /> Net Miktar: {selectedProduct.net_quantity}</div>
+                    <div className="inline-flex items-center gap-2 bg-[#F3EBE2] text-[#ED6E2D] px-5 py-2.5 rounded-lg font-bold border border-[#e5d9ca] shadow-sm"><Tag className="w-5 h-5" /> Net Miktar: {selectedProduct.net_quantity}</div>
                   )}
                 </div>
               </div>
@@ -238,13 +240,13 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
                 <div className="grid md:grid-cols-2 gap-6">
                   {hasData(selectedProduct.ingredients) && (
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><Info className="w-6 h-6 text-[#00b074]" /> İçerik</div>
+                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><Info className="w-6 h-6 text-[#1E40D8]" /> İçerik</div>
                       <div className="text-gray-700 leading-relaxed text-sm">{renderSafe(selectedProduct.ingredients)}</div>
                     </div>
                   )}
                   {hasData(selectedProduct.usage) && (
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><AlertCircle className="w-6 h-6 text-[#00b074]" /> Kullanım Şekli</div>
+                      <div className="flex items-center gap-2 font-bold text-gray-900 mb-3 text-lg"><AlertCircle className="w-6 h-6 text-[#1E40D8]" /> Kullanım Şekli</div>
                       <div className="text-gray-700 leading-relaxed text-sm">{renderSafe(selectedProduct.usage)}</div>
                     </div>
                   )}
@@ -252,8 +254,8 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
                 {hasTableData(selectedProduct.active_ingredients as TableData) && selectedProduct.active_ingredients && (
                   <div className="overflow-x-auto my-4 border border-gray-200 rounded-lg shadow-sm">
                     <table className="w-full text-sm text-left">
-                      <thead className="bg-gray-50 border-b border-gray-200">
-                        <tr>{(selectedProduct.active_ingredients as TableData).thead?.map((h, k) => <th key={k} className="px-6 py-3 font-bold text-gray-800">{h.value}</th>)}</tr>
+                      <thead className="bg-[#F3EBE2] border-b border-[#e5d9ca]">
+                        <tr>{(selectedProduct.active_ingredients as TableData).thead?.map((h, k) => <th key={k} className="px-6 py-3 font-bold text-[#1E40D8]">{h.value}</th>)}</tr>
                       </thead>
                       <tbody className="divide-y divide-gray-100">
                         {(selectedProduct.active_ingredients as TableData).tbody?.map((row, i) => (
@@ -270,15 +272,15 @@ export function VitaminlerContent({ products }: { products: StoryblokStory<Produ
                   </div>
                 )}
                 {hasData(selectedProduct.storage) && (
-                  <div className="bg-[#eff6ff] border border-[#bfdbfe] p-6 rounded-xl flex items-center gap-5 shadow-sm">
-                    <div className="bg-white p-3 rounded-full shadow-md text-blue-600"><Thermometer className="w-6 h-6" /></div>
-                    <div><div className="font-bold text-blue-900 text-lg mb-1">Saklama Koşulları:</div><div className="text-blue-800 leading-relaxed">{renderSafe(selectedProduct.storage)}</div></div>
+                  <div className="bg-[#F3EBE2] border border-[#e5d9ca] p-6 rounded-xl flex items-center gap-5 shadow-sm">
+                    <div className="bg-white p-3 rounded-full shadow-md text-[#1E40D8]"><Thermometer className="w-6 h-6" /></div>
+                    <div><div className="font-bold text-[#1E40D8] text-lg mb-1">Saklama Koşulları:</div><div className="text-gray-700 leading-relaxed">{renderSafe(selectedProduct.storage)}</div></div>
                   </div>
                 )}
                 {hasData(selectedProduct.price) && (
-                  <div className="bg-[#f0fdf4] border border-[#86efac] p-6 rounded-xl flex items-center justify-between shadow-sm">
-                    <div className="flex items-center gap-4"><div className="bg-white p-3 rounded-full shadow-md text-[#00b074]"><Tag className="w-6 h-6" /></div><div className="font-bold text-green-900 text-lg">Satış Fiyatı:</div></div>
-                    <div className="text-2xl font-extrabold text-[#00b074]">{selectedProduct.price}</div>
+                  <div className="bg-[#F3EBE2] border border-[#e5d9ca] p-6 rounded-xl flex items-center justify-between shadow-sm">
+                    <div className="flex items-center gap-4"><div className="bg-white p-3 rounded-full shadow-md text-[#ED6E2D]"><Tag className="w-6 h-6" /></div><div className="font-bold text-[#1E40D8] text-lg">Satış Fiyatı:</div></div>
+                    <div className="text-2xl font-extrabold text-[#ED6E2D]">{selectedProduct.price}</div>
                   </div>
                 )}
               </div>
