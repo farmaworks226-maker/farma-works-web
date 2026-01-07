@@ -14,7 +14,7 @@ export default function HakkimizdaPage() {
       {/* 1. BÖLÜM: Hero Banner */}
       <div className="bg-[#1E40D8] py-20 text-center text-white">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">FWİlaç</h1>
+          <h1 className="text-4xl font-bold mb-4">FW İlaç</h1>
           <p className="text-lg opacity-90 max-w-3xl mx-auto">
             Yüksek kalite standartlarına sahip gıda takviyeleriyle &quot;optimum sağlığı&quot; hedefleyen alanında inovatif, lider bir firmadır.
           </p>
@@ -174,7 +174,7 @@ export default function HakkimizdaPage() {
       <div className="container mx-auto px-4 pb-24 max-w-5xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-[#1E40D8] uppercase tracking-wider mb-2">Ürünlerin Oluşma Yolculuğu</h2>
-          <p className="text-gray-500 text-sm">FWİlaç, her bir ürünün oluşum yolculuğunda birincil önceliğini tüketicinin optimum sağlığını sürdürebilme hedefi üzerine verdi.</p>
+          <p className="text-gray-500 text-sm">FW İlaç, her bir ürünün oluşum yolculuğunda birincil önceliğini tüketicinin optimum sağlığını sürdürebilme hedefi üzerine verdi.</p>
         </div>
 
         <div className="relative">
