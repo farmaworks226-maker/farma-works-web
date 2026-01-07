@@ -43,7 +43,7 @@ export function HeroSlider({ blok }: { blok: HeroSliderBlok }) {
   }
 
   return (
-    <section {...storyblokEditable(blok)} className="relative h-[600px] w-full overflow-hidden bg-gray-900">
+    <section {...storyblokEditable(blok)} className="relative w-full aspect-[16/9] max-h-[85vh] overflow-hidden bg-gray-900">
       {/* SLAYTLAR */}
       {slides.map((slideBlok, index) => (
         <div

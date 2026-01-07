@@ -34,7 +34,8 @@ export function HeroSection({ blok }: { blok: any }) {
           src={imgUrl}
           alt={blok.title || "Hero Image"}
           fill
-          className="object-cover"
+          className="object-cover object-center"
+          sizes="100vw"
           priority
         />
       </div>
