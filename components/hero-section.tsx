@@ -37,8 +37,6 @@ export function HeroSection({ blok }: { blok: any }) {
           className="object-cover"
           priority
         />
-        {/* Karartma efekti */}
-        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Yazılar */}
