@@ -13,7 +13,18 @@ interface SiteHeaderProps {
 export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+  const [isScrolled, setIsScrolled] = React.useState(false)
   const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+
+  // Scroll durumunu takip et
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const handleMouseEnter = (menu: string) => {
     if (closeTimeoutRef.current) {
@@ -44,16 +55,28 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
 
   const isTransparent = variant === "transparent"
 
-  // Header stilleri
+  // Header stilleri - scroll durumuna göre değişir
   const headerClass = isTransparent
-    ? "absolute top-0 left-0 right-0 z-50 w-full bg-transparent h-24 flex items-center"
+    ? `fixed top-0 left-0 right-0 z-50 w-full h-24 flex items-center transition-all duration-300 ${
+        isScrolled 
+          ? "bg-white/90 backdrop-blur-md shadow-sm" 
+          : "bg-transparent"
+      }`
     : "sticky top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm h-24 flex items-center"
 
-  // Menü yazı rengi
-  const textColorClass = isTransparent ? "text-white" : "text-[#1E40D8]"
+  // Menü yazı rengi - scroll durumuna göre değişir
+  const textColorClass = isTransparent
+    ? isScrolled 
+      ? "text-[#1E40D8]" 
+      : "text-white"
+    : "text-[#1E40D8]"
 
   // Hover efekti
-  const hoverBgClass = isTransparent ? "hover:bg-white/20 focus:bg-white/20" : "hover:bg-[#F3EBE2] focus:bg-[#F3EBE2]"
+  const hoverBgClass = isTransparent
+    ? isScrolled
+      ? "hover:bg-[#F3EBE2] focus:bg-[#F3EBE2]"
+      : "hover:bg-white/20 focus:bg-white/20"
+    : "hover:bg-[#F3EBE2] focus:bg-[#F3EBE2]"
 
   const menuLinkStyle = `group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold transition-colors ${hoverBgClass} focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${textColorClass}`
   
@@ -61,11 +84,17 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
 
   // İletişim butonu
   const contactButtonClass = isTransparent
-    ? `${menuLinkStyle} border border-white hover:bg-white hover:text-[#1E40D8]`
+    ? isScrolled
+      ? `${menuLinkStyle} border border-[#1E40D8] hover:bg-[#1E40D8] hover:text-white`
+      : `${menuLinkStyle} border border-white hover:bg-white hover:text-[#1E40D8]`
     : `${menuLinkStyle} border border-[#1E40D8] hover:bg-[#1E40D8] hover:text-white`
 
   // Mobil menü ikonu rengi
-  const mobileIconColor = isTransparent ? "text-white" : "text-[#1E40D8]"
+  const mobileIconColor = isTransparent
+    ? isScrolled
+      ? "text-[#1E40D8]"
+      : "text-white"
+    : "text-[#1E40D8]"
 
   return (
     <>
