@@ -4,7 +4,7 @@ import { Microscope, Award, Leaf, Lightbulb, Heart, FlaskConical, Hexagon, Store
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
-  description: "Farma Works'ün kuruluş hikayesi, vizyonu, misyonu ve üretim kalitesi hakkında detaylı bilgi edinin.",
+  description: "FW İlaç'ın kuruluş hikayesi, vizyonu, misyonu ve üretim kalitesi hakkında detaylı bilgi edinin.",
 }
 
 export default function HakkimizdaPage() {
@@ -14,7 +14,7 @@ export default function HakkimizdaPage() {
       {/* 1. BÖLÜM: Hero Banner */}
       <div className="bg-[#1E40D8] py-20 text-center text-white">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">Farma Works İlaç</h1>
+          <h1 className="text-4xl font-bold mb-4">FWİlaç</h1>
           <p className="text-lg opacity-90 max-w-3xl mx-auto">
             Yüksek kalite standartlarına sahip gıda takviyeleriyle &quot;optimum sağlığı&quot; hedefleyen alanında inovatif, lider bir firmadır.
           </p>
@@ -165,7 +165,7 @@ export default function HakkimizdaPage() {
         
         <div className="absolute inset-0 bg-[#1E40D8]/40 flex items-end justify-center pb-8 z-10">
           <h2 className="text-2xl md:text-4xl font-bold text-white italic drop-shadow-lg text-center px-4">
-            Farma Works optimum sağlık için yaşamın her anında!
+            FW İlaç optimum sağlık için yaşamın her anında!
           </h2>
         </div>
       </div>
@@ -174,7 +174,7 @@ export default function HakkimizdaPage() {
       <div className="container mx-auto px-4 pb-24 max-w-5xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-[#1E40D8] uppercase tracking-wider mb-2">Ürünlerin Oluşma Yolculuğu</h2>
-          <p className="text-gray-500 text-sm">Farma Works İlaç, her bir ürünün oluşum yolculuğunda birincil önceliğini tüketicinin optimum sağlığını sürdürebilme hedefi üzerine verdi.</p>
+          <p className="text-gray-500 text-sm">FWİlaç, her bir ürünün oluşum yolculuğunda birincil önceliğini tüketicinin optimum sağlığını sürdürebilme hedefi üzerine verdi.</p>
         </div>
 
         <div className="relative">
