@@ -146,17 +146,17 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                       {/* SOL SÜTUN: Genel */}
                       <div style={{ minWidth: '220px' }}>
                         <ul className="space-y-1">
-                          <ListItem href="/kurumsal/hakkimizda" title="Hakkımızda">Hikayemiz.</ListItem>
-                          <ListItem href="/kurumsal/insan-kaynaklari" title="İnsan Kaynakları">Kariyer.</ListItem>
+                          <ListItem href="/kurumsal/hakkimizda" title="Hakkımızda">Hikayemiz</ListItem>
+                          <ListItem href="/kurumsal/insan-kaynaklari" title="İnsan Kaynakları">Kariyer</ListItem>
                         </ul>
                       </div>
                       {/* SAĞ SÜTUN: KVKK */}
                       <div className="border-l border-gray-200 pl-6" style={{ minWidth: '220px' }}>
                         <p className="text-xs font-bold text-[#ED6E2D] uppercase tracking-wider mb-3 px-2">KVKK</p>
                         <ul className="space-y-1">
-                          <ListItem href="/kurumsal/kvkk/aydinlatma-metni" title="Aydınlatma Metni">Bilgilendirme.</ListItem>
-                          <ListItem href="/kurumsal/kvkk/imha-ve-saklama-politikasi" title="İmha Politikası">Veri saklama.</ListItem>
-                          <ListItem href="/kurumsal/kvkk/basvuru-formu" title="Başvuru Formu">Talep formu.</ListItem>
+                          <ListItem href="/kurumsal/kvkk/aydinlatma-metni" title="Aydınlatma Metni">Bilgilendirme</ListItem>
+                          <ListItem href="/kurumsal/kvkk/imha-ve-saklama-politikasi" title="İmha Politikası">Veri saklama</ListItem>
+                          <ListItem href="/kurumsal/kvkk/basvuru-formu" title="Başvuru Formu">Talep formu</ListItem>
                         </ul>
                       </div>
                     </div>
