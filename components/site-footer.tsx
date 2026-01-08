@@ -80,6 +80,7 @@ export function SiteFooter() {
               <li><Link href="/urunler/balik-yaglari" className="hover:text-[#ED6E2D] transition">Balık Yağları</Link></li>
               <li><Link href="/urunler/bitkisel-ekstreler" className="hover:text-[#ED6E2D] transition">Bitkisel Ekstreler</Link></li>
               <li><Link href="/urunler/ozel-takviyeler" className="hover:text-[#ED6E2D] transition">Özel Takviyeler</Link></li>
+              <li><Link href="/urunler/kisisel-bakim" className="hover:text-[#ED6E2D] transition">Kişisel Bakım</Link></li>
             </ul>
           </div>
 
