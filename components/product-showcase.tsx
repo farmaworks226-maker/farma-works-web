@@ -51,7 +51,7 @@ export function ProductShowcase({ products, blok }: ProductShowcaseProps) {
         
         <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-4xl font-bold mb-4">
-            {blok?.title || "Sağlıklı Yaşam İçin Premium Ürünler"}
+            {blok?.title || "Sağlıklı Yaşam İçin Ortomoleküler Ürünler"}
           </h2>
           <p className="text-white/90 text-lg max-w-2xl mx-auto mb-8">
             {blok?.description || "Bilimsel olarak formüle edilmiş, en yüksek kalite standartlarında üretilen takviye ürünlerimizle sağlığınızı destekleyin."}

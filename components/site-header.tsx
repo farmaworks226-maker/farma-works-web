@@ -194,6 +194,7 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                           <ListItemSimple href="/urunler/balik-yaglari">Balık Yağları</ListItemSimple>
                           <ListItemSimple href="/urunler/bitkisel-ekstreler">Bitkisel Ekstreler</ListItemSimple>
                           <ListItemSimple href="/urunler/ozel-takviyeler">Özel Takviyeler</ListItemSimple>
+                          <ListItemSimple href="/urunler/kisisel-bakim">Kişisel Bakım</ListItemSimple>
                         </ul>
                       </div>
                       {/* ORTA SÜTUN: Markalar */}
@@ -240,6 +241,12 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
               <li>
                 <Link href="/bayimiz-ol" className={menuLinkStyle}>
                   Bayimiz Ol
+                </Link>
+              </li>
+              
+              <li>
+                <Link href="https://bayi.fw.com.tr" target="_blank" rel="noopener noreferrer" className={menuLinkStyle}>
+                  Bayi Girişi
                 </Link>
               </li>
               
@@ -309,6 +316,7 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                       <li><Link href="/urunler/balik-yaglari" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Balık Yağları</Link></li>
                       <li><Link href="/urunler/bitkisel-ekstreler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Bitkisel Ekstreler</Link></li>
                       <li><Link href="/urunler/ozel-takviyeler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Özel Takviyeler</Link></li>
+                      <li><Link href="/urunler/kisisel-bakim" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Kişisel Bakım</Link></li>
                       <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-4">Markalar</li>
                       <li><Link href="/markalar/more-than" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">More Than</Link></li>
                       <li><Link href="/markalar/smart-caps" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Smart Caps</Link></li>
@@ -329,6 +337,11 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                 <li>
                   <Link href="/bayimiz-ol" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                     Bayimiz Ol
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://bayi.fw.com.tr" target="_blank" rel="noopener noreferrer" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
+                    Bayi Girişi
                   </Link>
                 </li>
                 <li>
