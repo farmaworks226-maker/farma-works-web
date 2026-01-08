@@ -28,17 +28,15 @@ export function HeroSection({ blok }: { blok: any }) {
 
   return (
     <div {...storyblokEditable(blok)} className="relative w-full h-full">
-      {/* Arka Plan Resmi */}
-      <div className="absolute inset-0">
-        <Image
-          src={imgUrl}
-          alt={blok.title || "Hero Image"}
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-          priority
-        />
-      </div>
+      {/* Arka Plan Resmi - Tam ekran kaplama */}
+      <Image
+        src={imgUrl}
+        alt={blok.title || "Hero Image"}
+        fill
+        className="object-cover"
+        sizes="100vw"
+        priority
+      />
 
       {/* Yazılar */}
       <div className="relative container mx-auto flex h-full flex-col justify-center px-4 text-center z-20">

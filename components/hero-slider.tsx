@@ -45,13 +45,13 @@ export function HeroSlider({ blok }: { blok: HeroSliderBlok }) {
   return (
     <section 
       {...storyblokEditable(blok)} 
-      className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[85vh] xl:h-[90vh] overflow-hidden bg-gray-900"
+      className="relative w-full h-screen overflow-hidden"
     >
       {/* SLAYTLAR */}
       {slides.map((slideBlok, index) => (
         <div
           key={slideBlok._uid}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
             index === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
           }`}
         >
@@ -61,12 +61,12 @@ export function HeroSlider({ blok }: { blok: HeroSliderBlok }) {
 
       {/* NOKTALAR (Navigasyon) */}
       {slides.length > 1 && (
-        <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 z-30 flex justify-center gap-2 sm:gap-3">
+        <div className="absolute bottom-8 left-0 right-0 z-30 flex justify-center gap-3">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrent(index)}
-              className={`h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full transition-all shadow-sm ${
+              className={`h-3 w-3 rounded-full transition-all shadow-sm ${
                 index === current ? "bg-white scale-125" : "bg-white/50 hover:bg-white/80"
               }`}
               aria-label={`Slayt ${index + 1}`}
