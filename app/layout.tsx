@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Farma Works",
-  description: "Sağlıklı yaşam için güvenilir gıda takviyeleri.",
+  title: "FW İlaç",
+  description: "FW İlaç - Doğal Takviye Edici Gıdalar",
 };
 
 export default function RootLayout({
