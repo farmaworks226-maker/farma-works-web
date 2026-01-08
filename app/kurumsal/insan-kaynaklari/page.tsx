@@ -31,7 +31,7 @@ export default function InsanKaynaklariPage() {
       <div className="container mx-auto px-4 py-16 max-w-4xl text-center">
         <h2 className="text-3xl font-bold text-[#1E40D8] mb-6">İnsan Kaynakları</h2>
         <p className="text-gray-600 text-lg leading-relaxed">
-          Farma Works İlaç olarak, sağlıklı yaşamı destekleme misyonumuz doğrultusunda, her bireyin potansiyelini en üst düzeye çıkarabileceği bir çalışma ortamı sunuyoruz.
+          FW İlaç olarak, sağlıklı yaşamı destekleme misyonumuz doğrultusunda, her bireyin potansiyelini en üst düzeye çıkarabileceği bir çalışma ortamı sunuyoruz.
           Çalışanlarımız, şirketimizin en değerli varlıklarıdır ve onların gelişimi, mutluluğu ve sağlıklı bir yaşam sürmeleri bizim için son derece önemlidir.
         </p>
       </div>
@@ -58,7 +58,7 @@ export default function InsanKaynaklariPage() {
             </div>
             <h3 className="text-2xl font-bold text-[#1E40D8] mb-4">İş Yerinde Değerlerimiz</h3>
             <p className="text-gray-600 leading-relaxed max-w-3xl">
-              Farma Works İlaç, takım çalışması, dürüstlük, saygı ve şeffaflık gibi temel değerlere dayalı bir çalışma kültürüne sahiptir. Her bir çalışanımıza eşit fırsatlar sunuyor ve onların sağlıklı bir iş yaşamı sürdürebilmesi için gereken tüm desteği sağlıyoruz.
+              FW İlaç, takım çalışması, dürüstlük, saygı ve şeffaflık gibi temel değerlere dayalı bir çalışma kültürüne sahiptir. Her bir çalışanımıza eşit fırsatlar sunuyor ve onların sağlıklı bir iş yaşamı sürdürebilmesi için gereken tüm desteği sağlıyoruz.
             </p>
           </div>
 

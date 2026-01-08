@@ -40,7 +40,7 @@ export function BayiForm() {
       {/* Hero Section */}
       <div className="bg-[#1E40D8] py-16 text-center text-white">
         <h1 className="text-4xl font-bold">Bayimiz Olun</h1>
-        <p className="text-lg opacity-90 mt-2">Farma Works ailesine katılın</p>
+        <p className="text-lg opacity-90 mt-2">FW İlaç ailesine katılın</p>
       </div>
 
       <div className="container mx-auto px-4 py-16 max-w-5xl">
