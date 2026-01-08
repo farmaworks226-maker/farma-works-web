@@ -77,6 +77,8 @@ export function SiteFooter() {
               <li><Link href="/urunler/mineraller" className="hover:text-[#ED6E2D] transition">Mineraller</Link></li>
               <li><Link href="/urunler/multivitaminler" className="hover:text-[#ED6E2D] transition">Multivitaminler</Link></li>
               <li><Link href="/urunler/probiyotikler" className="hover:text-[#ED6E2D] transition">Probiyotikler</Link></li>
+              <li><Link href="/urunler/balik-yaglari" className="hover:text-[#ED6E2D] transition">Balık Yağları</Link></li>
+              <li><Link href="/urunler/bitkisel-ekstreler" className="hover:text-[#ED6E2D] transition">Bitkisel Ekstreler</Link></li>
               <li><Link href="/urunler/ozel-takviyeler" className="hover:text-[#ED6E2D] transition">Özel Takviyeler</Link></li>
             </ul>
           </div>
