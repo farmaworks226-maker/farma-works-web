@@ -21,15 +21,15 @@ export default function HakkimizdaPage() {
         </div>
       </div>
 
-      {/* 2. BÖLÜM: Giriş Yazısı */}
-      <div className="container mx-auto px-4 py-20 text-center max-w-4xl">
-        <p className="text-lg text-gray-600 leading-relaxed">
-          Hedefleri doğrultusunda üretim süreçlerini titizlik ve en son teknolojiye bağlı kalarak sürdürmektedir. 
-          Yenilikçi ve geniş ürün yelpazesi ile sağlıklı yaşamın sürdürülebilirliği için çalışmalarına devam etmektedir.
+      {/* 2. BÖLÜM: Biz Kimiz? */}
+      <div className="container mx-auto px-4 py-20 max-w-4xl">
+        <h2 className="text-3xl font-bold text-center text-[#1E40D8] mb-8">Biz Kimiz?</h2>
+        <p className="text-lg text-gray-600 leading-relaxed text-center">
+          FW İlaç, ortomoleküler sağlık anlayışını merkeze alan; doğa ve bilimi bir araya getirerek yüksek biyoyararlanıma sahip gıda takviyeleri geliştiren yenilikçi bir sağlık markasıdır. Ürün ekosistemini bilimsel verilerle temellendirilmiş formülasyonlar, akıllı kapsül teknolojileri ve sürdürülebilir üretim yaklaşımı üzerine kurar. Yüksek kalite standartlarıyla yürütülen üretim süreçleri ve yenilikçi ürün portföyüyle, yaşamın her evresinde sağlığı destekleyen çözümler sunarken &quot;sağlıklı yaş alma&quot; kavramını geleceğin standartları doğrultusunda ele alır.
         </p>
       </div>
 
-      {/* 3. BÖLÜM: Misyon & Vizyon (Bej Alan) */}
+      {/* 4. BÖLÜM: Misyon & Vizyon (Bej Alan) */}
       <div className="bg-[#F3EBE2] py-20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-16">
@@ -54,7 +54,7 @@ export default function HakkimizdaPage() {
         </div>
       </div>
 
-      {/* 4. BÖLÜM: Temel Değerlerimiz (İkonlu - 8 Değer) */}
+      {/* 5. BÖLÜM: Temel Değerlerimiz (İkonlu - 8 Değer) */}
       <div className="container mx-auto px-4 py-20">
         <h2 className="text-3xl font-bold text-center text-[#1E40D8] mb-16">Temel Değerlerimiz</h2>
         
@@ -151,7 +151,7 @@ export default function HakkimizdaPage() {
         </div>
       </div>
 
-      {/* 5. BÖLÜM: Aile Resmi ve Slogan */}
+      {/* 6. BÖLÜM: Aile Resmi ve Slogan */}
       <div className="w-full relative h-[400px] mb-20 bg-gray-200 flex items-center justify-center">
         <div className="relative w-full h-full">
             <Image
@@ -170,7 +170,7 @@ export default function HakkimizdaPage() {
         </div>
       </div>
 
-      {/* 6. BÖLÜM: Ürünlerin Oluşma Yolculuğu */}
+      {/* 7. BÖLÜM: Ürünlerin Oluşma Yolculuğu */}
       <div className="container mx-auto px-4 pb-24 max-w-5xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-[#1E40D8] uppercase tracking-wider mb-2">Ürünlerin Oluşma Yolculuğu</h2>
