@@ -14,7 +14,7 @@ export function SiteFooter() {
             <Link href="/" className="flex items-center gap-3 mb-6">
               <Image 
                 src="/images/logo.png" 
-                alt="Farma Works Logo" 
+                alt="FW İlaç Logo" 
                 width={60} 
                 height={40}
                 className="h-10 w-auto brightness-0 invert"
@@ -45,7 +45,7 @@ export function SiteFooter() {
                 <Youtube className="w-4 h-4" />
               </Link>
               <Link 
-                href="#" 
+                href="https://www.tiktok.com/@fwilac?_t=ZS-92u1f5o2pGv" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#ED6E2D] text-white transition"
