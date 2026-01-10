@@ -11,8 +11,8 @@ import { HealthTipsSlider } from "@/components/health-tips-slider"
 import { SbBlokData } from "@storyblok/react"
 
 export const metadata = {
-  title: "Farma Works - Doğal Takviye Edici Gıdalar",
-  description: "Sağlıklı yaşam için güvenilir gıda takviyeleri.",
+  title: "FW İlaç | Sağlıklı Yaşam İçin Takviyeler",
+  description: "Yüksek kaliteli gıda takviyeleri ile sağlıklı yaşam yolculuğunuzda yanınızdayız.",
 }
 
 export const revalidate = 0
