@@ -146,17 +146,17 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                       {/* SOL SÜTUN: Genel */}
                       <div style={{ minWidth: '220px' }}>
                         <ul className="space-y-1">
-                          <ListItem href="/kurumsal/hakkimizda" title="Hakkımızda">Hikayemiz</ListItem>
-                          <ListItem href="/kurumsal/insan-kaynaklari" title="İnsan Kaynakları">Kariyer</ListItem>
+                          <ListItem href="/kurumsal/hakkimizda" title="Hakkımızda">Hikayemiz.</ListItem>
+                          <ListItem href="/kurumsal/insan-kaynaklari" title="İnsan Kaynakları">Kariyer.</ListItem>
                         </ul>
                       </div>
                       {/* SAĞ SÜTUN: KVKK */}
                       <div className="border-l border-gray-200 pl-6" style={{ minWidth: '220px' }}>
                         <p className="text-xs font-bold text-[#ED6E2D] uppercase tracking-wider mb-3 px-2">KVKK</p>
                         <ul className="space-y-1">
-                          <ListItem href="/kurumsal/kvkk/aydinlatma-metni" title="Aydınlatma Metni">Bilgilendirme</ListItem>
-                          <ListItem href="/kurumsal/kvkk/imha-ve-saklama-politikasi" title="İmha Politikası">Veri saklama</ListItem>
-                          <ListItem href="/kurumsal/kvkk/basvuru-formu" title="Başvuru Formu">Talep formu</ListItem>
+                          <ListItem href="/kurumsal/kvkk/aydinlatma-metni" title="Aydınlatma Metni">Bilgilendirme.</ListItem>
+                          <ListItem href="/kurumsal/kvkk/imha-ve-saklama-politikasi" title="İmha Politikası">Veri saklama.</ListItem>
+                          <ListItem href="/kurumsal/kvkk/basvuru-formu" title="Başvuru Formu">Talep formu.</ListItem>
                         </ul>
                       </div>
                     </div>
@@ -278,7 +278,7 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
             <nav className="container mx-auto px-4 py-4">
               <ul className="space-y-2">
                 <li>
-                  <Link href="/" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
+                  <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                     Anasayfa
                   </Link>
                 </li>
@@ -288,11 +288,11 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                       Kurumsal
                     </summary>
                     <ul className="ml-4 mt-2 space-y-2">
-                      <li><Link href="/kurumsal/hakkimizda" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Hakkımızda</Link></li>
-                      <li><Link href="/kurumsal/insan-kaynaklari" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İnsan Kaynakları</Link></li>
-                      <li><Link href="/kurumsal/kvkk/aydinlatma-metni" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Aydınlatma Metni</Link></li>
-                      <li><Link href="/kurumsal/kvkk/imha-ve-saklama-politikasi" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İmha Politikası</Link></li>
-                      <li><Link href="/kurumsal/kvkk/basvuru-formu" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Başvuru Formu</Link></li>
+                      <li><Link href="/kurumsal/hakkimizda" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Hakkımızda</Link></li>
+                      <li><Link href="/kurumsal/insan-kaynaklari" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İnsan Kaynakları</Link></li>
+                      <li><Link href="/kurumsal/kvkk/aydinlatma-metni" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Aydınlatma Metni</Link></li>
+                      <li><Link href="/kurumsal/kvkk/imha-ve-saklama-politikasi" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İmha Politikası</Link></li>
+                      <li><Link href="/kurumsal/kvkk/basvuru-formu" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Başvuru Formu</Link></li>
                     </ul>
                   </details>
                 </li>
@@ -304,48 +304,48 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                     <ul className="ml-4 mt-2 space-y-2">
                       {/* Tüm Ürünler - Öne Çıkan */}
                       <li>
-                        <Link href="/urunler" className="block py-2 px-4 text-sm font-semibold text-white bg-[#ED6E2D] hover:bg-[#d4612a] rounded-md">
+                        <Link href="/urunler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm font-semibold text-white bg-[#ED6E2D] hover:bg-[#d4612a] rounded-md">
                           Tüm Ürünleri Gör
                         </Link>
                       </li>
                       <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-2">Gıda Takviyesi</li>
-                      <li><Link href="/urunler/vitaminler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Vitaminler</Link></li>
-                      <li><Link href="/urunler/mineraller" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Mineraller</Link></li>
-                      <li><Link href="/urunler/multivitaminler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Multivitaminler</Link></li>
-                      <li><Link href="/urunler/probiyotikler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Probiyotikler</Link></li>
-                      <li><Link href="/urunler/balik-yaglari" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Balık Yağları</Link></li>
-                      <li><Link href="/urunler/bitkisel-ekstreler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Bitkisel Ekstreler</Link></li>
-                      <li><Link href="/urunler/ozel-takviyeler" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Özel Takviyeler</Link></li>
-                      <li><Link href="/urunler/kisisel-bakim" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Kişisel Bakım</Link></li>
+                      <li><Link href="/urunler/vitaminler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Vitaminler</Link></li>
+                      <li><Link href="/urunler/mineraller" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Mineraller</Link></li>
+                      <li><Link href="/urunler/multivitaminler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Multivitaminler</Link></li>
+                      <li><Link href="/urunler/probiyotikler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Probiyotikler</Link></li>
+                      <li><Link href="/urunler/balik-yaglari" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Balık Yağları</Link></li>
+                      <li><Link href="/urunler/bitkisel-ekstreler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Bitkisel Ekstreler</Link></li>
+                      <li><Link href="/urunler/ozel-takviyeler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Özel Takviyeler</Link></li>
+                      <li><Link href="/urunler/kisisel-bakim" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Kişisel Bakım</Link></li>
                       <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-4">Markalar</li>
-                      <li><Link href="/markalar/more-than" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">More Than</Link></li>
-                      <li><Link href="/markalar/smart-caps" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Smart Caps</Link></li>
-                      <li><Link href="/markalar/raw-material" className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Raw Material</Link></li>
+                      <li><Link href="/markalar/more-than" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">More Than</Link></li>
+                      <li><Link href="/markalar/smart-caps" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Smart Caps</Link></li>
+                      <li><Link href="/markalar/raw-material" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Raw Material</Link></li>
                     </ul>
                   </details>
                 </li>
                 <li>
-                  <Link href="/eczaneler" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
+                  <Link href="/eczaneler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                     Eczaneler
                   </Link>
                 </li>
                 <li>
-                  <Link href="/saglik-onerileri" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
+                  <Link href="/saglik-onerileri" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                     Sağlık Önerileri
                   </Link>
                 </li>
                 <li>
-                  <Link href="/bayimiz-ol" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
+                  <Link href="/bayimiz-ol" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                     Bayimiz Ol
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://bayi.fw.com.tr" target="_blank" rel="noopener noreferrer" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
+                  <Link href="https://bayi.fw.com.tr" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
                     Bayi Girişi
                   </Link>
                 </li>
                 <li>
-                  <Link href="/iletisim" className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md border border-[#1E40D8]">
+                  <Link href="/iletisim" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md border border-[#1E40D8]">
                     İletişim
                   </Link>
                 </li>
