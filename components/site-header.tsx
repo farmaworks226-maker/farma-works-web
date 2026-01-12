@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ChevronDown, Menu, X } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { ChevronDown, Menu, X, Search } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
@@ -11,10 +12,14 @@ interface SiteHeaderProps {
 }
 
 export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
+  const router = useRouter()
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
+  const [searchOpen, setSearchOpen] = React.useState(false)
+  const [searchQuery, setSearchQuery] = React.useState("")
   const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+  const searchInputRef = React.useRef<HTMLInputElement>(null)
 
   // Scroll durumunu takip et
   React.useEffect(() => {
@@ -25,6 +30,35 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // Arama açıldığında input'a focus
+  React.useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+  }, [searchOpen])
+
+  // ESC ile arama kapatma
+  React.useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSearchOpen(false)
+        setSearchQuery("")
+      }
+    }
+    window.addEventListener("keydown", handleEsc)
+    return () => window.removeEventListener("keydown", handleEsc)
+  }, [])
+
+  // Arama submit
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/arama?q=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchOpen(false)
+      setSearchQuery("")
+    }
+  }
 
   const handleMouseEnter = (menu: string) => {
     if (closeTimeoutRef.current) {
@@ -256,8 +290,67 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                 </Link>
               </li>
 
+              {/* ARAMA İKONU */}
+              <li>
+                <button
+                  onClick={() => setSearchOpen(!searchOpen)}
+                  className={`${menuLinkStyle} p-2`}
+                  aria-label="Ara"
+                >
+                  <Search className="w-5 h-5" />
+                </button>
+              </li>
             </ul>
           </nav>
+
+          {/* ARAMA DROPDOWN */}
+          {searchOpen && (
+            <div className="hidden lg:block absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-100 z-50">
+              <div className="container mx-auto px-4 py-6">
+                <form onSubmit={handleSearchSubmit} className="flex gap-3 max-w-2xl mx-auto">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Ürün veya sayfa ara..."
+                      className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-full focus:outline-none focus:border-[#1E40D8] focus:ring-2 focus:ring-[#1E40D8]/20 text-gray-700"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="px-6 py-3 bg-[#ED6E2D] hover:bg-[#d55f24] text-white font-semibold rounded-full transition-colors"
+                  >
+                    Ara
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
+                    className="p-3 text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </form>
+                <div className="flex flex-wrap gap-2 mt-4 justify-center">
+                  <span className="text-sm text-gray-500">Popüler:</span>
+                  {["Vitamin D", "Omega 3", "Probiyotik", "Multivitamin"].map((term) => (
+                    <button
+                      key={term}
+                      onClick={() => {
+                        router.push(`/arama?q=${encodeURIComponent(term)}`)
+                        setSearchOpen(false)
+                      }}
+                      className="text-sm text-[#1E40D8] hover:text-[#ED6E2D] transition-colors"
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
           
           {/* MOBİL MENÜ BUTONU */}
           <div className="lg:hidden">
