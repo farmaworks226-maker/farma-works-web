@@ -27,12 +27,12 @@ const richTextOptions = {
     'table': (children: React.ReactNode) => (
       <div className="overflow-x-auto my-6 border border-gray-200 rounded-lg shadow-sm">
         <table className="w-full text-sm text-left border-collapse">
-          {children}
+          <tbody>{children}</tbody>
         </table>
       </div>
     ),
-    'thead': (children: React.ReactNode) => <thead className="bg-[#1E40D8] text-white">{children}</thead>,
-    'tbody': (children: React.ReactNode) => <tbody className="divide-y divide-gray-100">{children}</tbody>,
+    'thead': (children: React.ReactNode) => <tr className="bg-[#1E40D8] text-white">{children}</tr>,
+    'tbody': (children: React.ReactNode) => <>{children}</>,
     'tr': (children: React.ReactNode) => <tr className="hover:bg-gray-50 transition-colors">{children}</tr>,
     'td': (children: React.ReactNode) => <td className="px-6 py-3 border-r border-gray-100 last:border-0 text-gray-600">{children}</td>,
     'th': (children: React.ReactNode) => <th className="px-6 py-3 font-bold border-r border-gray-200 last:border-0 uppercase text-xs tracking-wider">{children}</th>,
@@ -340,4 +340,4 @@ export function UrunDetayContent({ product, productName }: { product: Product; p
       </div>
     </div>
   )
-}
+}   

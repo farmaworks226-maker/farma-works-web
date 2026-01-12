@@ -103,10 +103,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   <h2 className="text-xl font-bold text-[#1E40D8]">Ürünler ({products.length})</h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {products.map((item: { uuid: string; full_slug: string; content: { name: string; image?: { filename: string }; category?: string } }) => (
+                  {products.map((item: { uuid: string; slug: string; content: { name: string; image?: { filename: string }; category?: string } }) => (
                     <Link
                       key={item.uuid}
-                      href={`/${item.full_slug}`}
+                      href={`/urunler/${item.slug}`}
                       className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group"
                     >
                       <div className="relative h-48 bg-gray-100 overflow-hidden">
