@@ -1,19 +1,85 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { Search, X, Phone, Navigation, MapPin, User } from "lucide-react"
-import { ECZANELER, SEHIRLER } from "@/data/eczaneler"
+
+interface Eczane {
+  id: string
+  ad: string
+  eczaci: string
+  adres: string
+  il: string
+  ilce: string
+  telefon: string
+  lat: number | null
+  lng: number | null
+}
+
+const STORYBLOK_TOKEN = process.env.NEXT_PUBLIC_STORYBLOK_TOKEN || "your-preview-token"
 
 export function EczaneBul() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCity, setSelectedCity] = useState("Tümü")
+  const [eczaneler, setEczaneler] = useState<Eczane[]>([])
+  const [sehirler, setSehirler] = useState<string[]>([])
+  const [loading, setLoading] = useState(true)
   
   // Harita merkezi (Varsayılan: Türkiye geneli)
   const [mapCenter, setMapCenter] = useState({ lat: 39.9334, lng: 32.8597 })
 
+  // Storyblok'tan eczaneleri çek
+  useEffect(() => {
+    async function fetchPharmacies() {
+      try {
+        let allPharmacies: Eczane[] = []
+        let page = 1
+        const perPage = 100
+        
+        while (true) {
+          const response = await fetch(
+            `https://api.storyblok.com/v2/cdn/stories?starts_with=eczaneler/&per_page=${perPage}&page=${page}&version=published&token=${STORYBLOK_TOKEN}`
+          )
+          const data = await response.json()
+          
+          if (!data.stories || data.stories.length === 0) break
+          
+          const pharmacies = data.stories.map((story: any) => ({
+            id: story.uuid,
+            ad: story.content.name || "",
+            eczaci: story.content.pharmacist || "",
+            adres: story.content.address || "",
+            il: story.content.city || "",
+            ilce: story.content.district || "",
+            telefon: story.content.phone || "",
+            lat: story.content.latitude ? parseFloat(story.content.latitude) : null,
+            lng: story.content.longitude ? parseFloat(story.content.longitude) : null
+          }))
+          
+          allPharmacies = [...allPharmacies, ...pharmacies]
+          
+          if (data.stories.length < perPage) break
+          page++
+        }
+        
+        setEczaneler(allPharmacies)
+        
+        // Şehirleri çıkar
+        const cities = [...new Set(allPharmacies.map(e => e.il).filter(Boolean))].sort() as string[]
+        setSehirler(cities)
+        
+      } catch (error) {
+        console.error("Eczaneler yüklenirken hata:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchPharmacies()
+  }, [])
+
   // Arama Filtresi
   const filteredPharmacies = useMemo(() => {
-    return ECZANELER.filter((eczane) => {
+    return eczaneler.filter((eczane) => {
       const searchLower = searchTerm.toLowerCase()
       const matchesSearch = 
         eczane.ad.toLowerCase().includes(searchLower) ||
@@ -26,7 +92,7 @@ export function EczaneBul() {
 
       return matchesSearch && matchesCity
     })
-  }, [searchTerm, selectedCity])
+  }, [searchTerm, selectedCity, eczaneler])
 
   const handleShowOnMap = (lat: number | null, lng: number | null) => {
     if (lat && lng) {
@@ -40,6 +106,17 @@ export function EczaneBul() {
       return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
     }
     return "#"
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#F3EBE2] py-10 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E40D8] mx-auto mb-4"></div>
+          <p className="text-gray-600">Eczaneler yükleniyor...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -93,7 +170,7 @@ export function EczaneBul() {
                   className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md text-gray-700 bg-white focus:outline-none focus:border-[#ED6E2D] appearance-none cursor-pointer"
                 >
                   <option value="Tümü">Tüm Şehirler</option>
-                  {SEHIRLER.map((sehir) => (
+                  {sehirler.map((sehir) => (
                     <option key={sehir} value={sehir}>{sehir}</option>
                   ))}
                 </select>
