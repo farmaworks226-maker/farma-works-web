@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { Search, X, Phone, Navigation, MapPin } from "lucide-react"
+import { Search, X, Phone, Navigation, MapPin, User } from "lucide-react"
 import { ECZANELER, SEHIRLER } from "@/data/eczaneler"
 
 export function EczaneBul() {
@@ -149,16 +149,27 @@ export function EczaneBul() {
                         </button>
                       )}
                     </div>
+                    
+                    {/* Eczacı İsmi */}
+                    {eczane.eczaci && (
+                      <div className="flex items-center gap-2 text-gray-600 text-sm mb-3">
+                        <User className="w-4 h-4 text-[#1E40D8]" />
+                        <span className="font-medium">{eczane.eczaci}</span>
+                      </div>
+                    )}
+                    
                     <p className="text-gray-500 text-sm mb-2 leading-relaxed">
                       {eczane.adres}
                     </p>
                     <p className="text-gray-400 text-xs mb-4">
                       {eczane.ilce}/{eczane.il}
                     </p>
-                    <div className="flex items-center gap-2 text-gray-600 text-sm font-medium">
-                      <Phone className="w-4 h-4 text-[#ED6E2D]" />
-                      {eczane.telefon}
-                    </div>
+                    {eczane.telefon && (
+                      <div className="flex items-center gap-2 text-gray-600 text-sm font-medium">
+                        <Phone className="w-4 h-4 text-[#ED6E2D]" />
+                        {eczane.telefon}
+                      </div>
+                    )}
                   </div>
 
                   {eczane.lat && eczane.lng && (
