@@ -369,6 +369,28 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
         {mobileMenuOpen && (
           <div className="lg:hidden absolute top-24 left-0 right-0 bg-white border-b border-gray-100 shadow-lg z-40">
             <nav className="container mx-auto px-4 py-4">
+              {/* MOBİL ARAMA */}
+              <form onSubmit={(e) => { handleSearchSubmit(e); setMobileMenuOpen(false); }} className="mb-4">
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Ürün veya sayfa ara..."
+                      className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full focus:outline-none focus:border-[#1E40D8] text-sm"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="px-4 py-2.5 bg-[#ED6E2D] hover:bg-[#d55f24] text-white font-semibold rounded-full transition-colors text-sm"
+                  >
+                    Ara
+                  </button>
+                </div>
+              </form>
+
               <ul className="space-y-2">
                 <li>
                   <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
