@@ -4,8 +4,8 @@ import { useState, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Check, AlertCircle, Info, Thermometer, Tag } from "lucide-react"
-import { render as renderRichText } from "storyblok-rich-text-react-renderer"
 import { Product } from "@/types/storyblok"
+import React from "react"
 
 // --- TİP TANIMLAMALARI ---
 interface GalleryImage {
@@ -21,44 +21,86 @@ interface TableData {
   thead?: Array<{ value: string }>
 }
 
-// --- YARDIMCI FONKSİYONLAR ---
-const richTextOptions = {
-  nodeResolvers: {
-    'table': (children: React.ReactNode) => (
-      <div className="overflow-x-auto my-6 border border-gray-200 rounded-lg shadow-sm">
-        <table className="w-full text-sm text-left border-collapse">
-          <tbody>{children}</tbody>
-        </table>
-      </div>
-    ),
-    'thead': (children: React.ReactNode) => <tr className="bg-[#1E40D8] text-white">{children}</tr>,
-    'tbody': (children: React.ReactNode) => <>{children}</>,
-    'tr': (children: React.ReactNode) => <tr className="hover:bg-gray-50 transition-colors">{children}</tr>,
-    'td': (children: React.ReactNode) => <td className="px-6 py-3 border-r border-gray-100 last:border-0 text-gray-600">{children}</td>,
-    'th': (children: React.ReactNode) => <th className="px-6 py-3 font-bold border-r border-gray-200 last:border-0 uppercase text-xs tracking-wider">{children}</th>,
-    'bullet_list': (children: React.ReactNode) => <div className="space-y-3 my-4">{children}</div>,
-    'list_item': (children: React.ReactNode) => (
-      <div className="flex items-start gap-3">
-        <div className="mt-1 bg-[#F3EBE2] p-0.5 rounded-full shrink-0">
-          <Check className="w-3.5 h-3.5 text-[#ED6E2D]" />
+interface RichTextNode {
+  type: string
+  content?: RichTextNode[]
+  text?: string
+  marks?: { type: string }[]
+  attrs?: Record<string, unknown>
+}
+
+// --- CUSTOM RICH TEXT RENDERER ---
+const renderRichTextContent = (node: RichTextNode, key?: number): React.ReactNode => {
+  if (!node) return null
+
+  // Text node
+  if (node.type === 'text') {
+    let content: React.ReactNode = node.text || ''
+    if (node.marks) {
+      node.marks.forEach((mark, i) => {
+        if (mark.type === 'bold') {
+          content = <strong key={`bold-${key}-${i}`}>{content}</strong>
+        } else if (mark.type === 'italic') {
+          content = <em key={`italic-${key}-${i}`}>{content}</em>
+        }
+      })
+    }
+    return content
+  }
+
+  // Get children - NO span wrapper for table elements
+  const children = node.content?.map((child, i) => renderRichTextContent(child, i))
+
+  switch (node.type) {
+    case 'doc':
+      return <React.Fragment key={key}>{children}</React.Fragment>
+    case 'paragraph':
+      return <p key={key} className="mb-4">{children}</p>
+    case 'heading':
+      const level = (node.attrs?.level as number) || 2
+      if (level === 1) return <h1 key={key} className="font-bold mb-2 text-2xl">{children}</h1>
+      if (level === 2) return <h2 key={key} className="font-bold mb-2 text-xl">{children}</h2>
+      if (level === 3) return <h3 key={key} className="font-bold mb-2 text-lg">{children}</h3>
+      return <h4 key={key} className="font-bold mb-2">{children}</h4>
+    case 'bullet_list':
+      return <div key={key} className="space-y-3 my-4">{children}</div>
+    case 'ordered_list':
+      return <ol key={key} className="list-decimal list-inside space-y-2 my-4">{children}</ol>
+    case 'list_item':
+      return (
+        <div key={key} className="flex items-start gap-3">
+          <div className="mt-1 bg-[#F3EBE2] p-0.5 rounded-full shrink-0">
+            <Check className="w-3.5 h-3.5 text-[#ED6E2D]" />
+          </div>
+          <span className="leading-relaxed text-gray-700">{children}</span>
         </div>
-        <span className="leading-relaxed text-gray-700">{children}</span>
-      </div>
-    )
-  },
-  defaultBlokResolver: (name: string, props: Record<string, unknown>) => {
-    // rowspan -> rowSpan dönüşümü
-    const fixedProps: Record<string, unknown> = {}
-    Object.keys(props).forEach(key => {
-      if (key === 'rowspan') {
-        fixedProps['rowSpan'] = props[key]
-      } else if (key === 'colspan') {
-        fixedProps['colSpan'] = props[key]
-      } else {
-        fixedProps[key] = props[key]
-      }
-    })
-    return <div {...fixedProps}>{name}</div>
+      )
+    case 'table':
+      return (
+        <div key={key} className="overflow-x-auto my-6 border border-gray-200 rounded-lg shadow-sm">
+          <table className="w-full text-sm text-left border-collapse">
+            <tbody className="divide-y divide-gray-100">{children}</tbody>
+          </table>
+        </div>
+      )
+    case 'tableRow':
+      return <tr key={key} className="hover:bg-gray-50 transition-colors">{children}</tr>
+    case 'tableCell': {
+      const cellProps: React.TdHTMLAttributes<HTMLTableCellElement> = {}
+      if (node.attrs?.rowspan) cellProps.rowSpan = node.attrs.rowspan as number
+      if (node.attrs?.colspan) cellProps.colSpan = node.attrs.colspan as number
+      return <td key={key} className="px-6 py-3 border-r border-gray-100 last:border-0 text-gray-600" {...cellProps}>{children}</td>
+    }
+    case 'tableHeader': {
+      const headerProps: React.ThHTMLAttributes<HTMLTableCellElement> = {}
+      if (node.attrs?.rowspan) headerProps.rowSpan = node.attrs.rowspan as number
+      if (node.attrs?.colspan) headerProps.colSpan = node.attrs.colspan as number
+      return <th key={key} className="px-6 py-3 font-bold border-r border-gray-200 last:border-0 uppercase text-xs tracking-wider bg-gray-50" {...headerProps}>{children}</th>
+    }
+    case 'hard_break':
+      return <br key={key} />
+    default:
+      return <React.Fragment key={key}>{children}</React.Fragment>
   }
 }
 
@@ -68,8 +110,11 @@ const renderSafe = (content: unknown) => {
   if (typeof content === 'object' && content !== null) {
     const obj = content as { type?: string }
     if (obj.type === 'doc') {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return renderRichText(content as any, richTextOptions)
+      try {
+        return renderRichTextContent(obj as RichTextNode)
+      } catch {
+        return null
+      }
     }
   }
   return null
@@ -177,12 +222,12 @@ export function UrunDetayContent({ product, productName }: { product: Product; p
             <div className="grid lg:grid-cols-12 gap-10">
               {/* Sol: Görseller */}
               <div className="lg:col-span-5 flex flex-col gap-4">
-                <div className="bg-[#F3EBE2] rounded-2xl h-[400px] border border-gray-200 overflow-hidden relative shadow-inner flex items-center justify-center">
+                <div className="bg-[#F3EBE2] rounded-2xl h-[400px] border border-gray-200 overflow-hidden relative shadow-inner">
                   <Image 
                     src={currentImage} 
                     alt={product.name} 
                     fill 
-                    className="object-contain p-4" 
+                    className="object-cover" 
                   />
                 </div>
                 
@@ -340,4 +385,4 @@ export function UrunDetayContent({ product, productName }: { product: Product; p
       </div>
     </div>
   )
-}   
+}

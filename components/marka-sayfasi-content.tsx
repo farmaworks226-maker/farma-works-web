@@ -123,7 +123,7 @@ export function MarkaSayfasiContent({ marka, aciklama, products }: MarkaSayfasiC
                       >
                         <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                           {/* Ürün Görseli */}
-                          <div className="relative aspect-square bg-[#F3EBE2] overflow-hidden">
+                          <div className="relative h-80 bg-gray-100 overflow-hidden">
                             <Image 
                               src={imageUrl} 
                               alt={product.name} 

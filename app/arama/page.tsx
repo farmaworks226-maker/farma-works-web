@@ -109,7 +109,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       href={`/urunler/${item.slug}`}
                       className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group"
                     >
-                      <div className="relative h-48 bg-gray-100 overflow-hidden">
+                      <div className="relative h-80 bg-gray-100 overflow-hidden">
                         {item.content.image?.filename ? (
                           <Image
                             src={item.content.image.filename}
