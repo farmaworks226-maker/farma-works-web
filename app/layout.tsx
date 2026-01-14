@@ -21,8 +21,52 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FW İlaç",
-  description: "FW İlaç - Doğal Takviye Edici Gıdalar",
+  metadataBase: new URL('https://fw.com.tr'),
+  title: {
+    default: 'FW İlaç | Sağlıklı Yaşam İçin Takviyeler',
+    template: '%s | FW İlaç',
+  },
+  description: 'Yüksek kaliteli gıda takviyeleri ile sağlıklı yaşam yolculuğunuzda yanınızdayız. Vitaminler, mineraller, probiyotikler ve daha fazlası.',
+  keywords: ['gıda takviyesi', 'vitamin', 'mineral', 'probiyotik', 'omega 3', 'sağlık', 'takviye', 'FW İlaç', 'Farma Works'],
+  authors: [{ name: 'FW İlaç' }],
+  creator: 'FW İlaç',
+  publisher: 'FW İlaç',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'tr_TR',
+    url: 'https://fw.com.tr',
+    siteName: 'FW İlaç',
+    title: 'FW İlaç | Sağlıklı Yaşam İçin Takviyeler',
+    description: 'Yüksek kaliteli gıda takviyeleri ile sağlıklı yaşam yolculuğunuzda yanınızdayız.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'FW İlaç - Gıda Takviyeleri',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FW İlaç | Sağlıklı Yaşam İçin Takviyeler',
+    description: 'Yüksek kaliteli gıda takviyeleri ile sağlıklı yaşam yolculuğunuzda yanınızdayız.',
+    images: ['/og-image.jpg'],
+  },
+  alternates: {
+    canonical: 'https://fw.com.tr',
+  },
 };
 
 export default function RootLayout({

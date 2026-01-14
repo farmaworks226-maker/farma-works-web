@@ -1,9 +1,8 @@
 import { MetadataRoute } from 'next'
- 
-export default function sitemap(): MetadataRoute.Sitemap {
-  // Burayı gerçek site adresinizle değiştireceksiniz (örn: https://farmaworks.com.tr)
-  const baseUrl = 'https://www.farmaworks.com.tr'
 
+const baseUrl = 'https://fw.com.tr'
+
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     // 1. Ana Sayfa
     {
@@ -39,6 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/urunler/vitaminler`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/urunler/mineraller`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
@@ -57,6 +62,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/urunler/balik-yaglari`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/urunler/bitkisel-ekstreler`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/urunler/ozel-takviyeler`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
@@ -68,7 +85,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
-    // 4. Diğer Sayfalar
+    // 4. Marka Sayfaları
+    {
+      url: `${baseUrl}/markalar/more-than`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/markalar/smart-caps`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/markalar/raw-material`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    // 5. Diğer Sayfalar
     {
       url: `${baseUrl}/eczaneler`,
       lastModified: new Date(),
