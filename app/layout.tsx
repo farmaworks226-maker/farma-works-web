@@ -67,6 +67,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://fw.com.tr',
   },
+  verification: {
+    google: 'vwXksXl8cwbSsBdSgeQd-EL4ZKG5tqKfD1XbBJF2fT4',
+  },
 };
 
 export default function RootLayout({
