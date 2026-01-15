@@ -15,6 +15,7 @@ interface ProductContent {
 
 interface ProductItem {
   uuid: string;
+  slug: string;
   content: ProductContent;
 }
 
@@ -29,6 +30,7 @@ interface ProductShowcaseProps {
 const STATIC_PRODUCTS: ProductItem[] = [
   {
     uuid: "1",
+    slug: "pure-c-vitamini",
     content: {
       name: "Pure C Vitamini",
       category: "Vitaminler",
@@ -85,19 +87,8 @@ export function ProductShowcase({ products, blok }: ProductShowcaseProps) {
             const product = item.content;
             const imgUrl = product.image?.filename || "/images/hero.png";
             
-            // Link oluşturma (esnek eşleştirme)
-            const cat = (product.category || "").toLowerCase().trim();
-            let linkUrl = "/urunler";
-            
-            if (cat.includes("mineral")) linkUrl = "/urunler/mineraller";
-            else if (cat.includes("multivitamin")) linkUrl = "/urunler/multivitaminler";
-            else if (cat.includes("vitamin")) linkUrl = "/urunler/vitaminler";
-            else if (cat.includes("probiyotik")) linkUrl = "/urunler/probiyotikler";
-            else if (cat.includes("balık") || cat.includes("balik") || cat.includes("omega")) linkUrl = "/urunler/balik-yaglari";
-            else if (cat.includes("bitkisel") || cat.includes("ekstre")) linkUrl = "/urunler/bitkisel-ekstreler";
-            else if (cat.includes("özel") || cat.includes("takviye")) linkUrl = "/urunler/ozel-takviyeler";
-            else if (cat.includes("kişisel") || cat.includes("bakım") || cat.includes("bakim")) linkUrl = "/urunler/kisisel-bakim";
-            else if (cat.includes("diğer") || cat.includes("diger")) linkUrl = "/urunler/diger";
+            // Ürün detay sayfasına link oluştur
+            const linkUrl = `/urunler/${item.slug}`;
 
             const badgeColors = ["bg-[#ED6E2D]", "bg-[#1E40D8]", "bg-orange-500", "bg-purple-500"];
             const badgeColor = badgeColors[index % badgeColors.length];
