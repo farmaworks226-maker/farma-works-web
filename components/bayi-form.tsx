@@ -2,18 +2,23 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 
 // KENDİ FORMSPREE KODUNUZU BURAYA YAZIN
 const FORM_ID = "mjkzjlwo";
 
 export function BayiForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [aydinlatmaOnay, setAydinlatmaOnay] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!aydinlatmaOnay) return;
+    
     setStatus("submitting");
 
     const formData = new FormData(e.currentTarget);
+    formData.append("Aydınlatma Metni Onayı", "Evet");
 
     try {
       const response = await fetch(`https://formspree.io/f/${FORM_ID}`, {
@@ -27,6 +32,7 @@ export function BayiForm() {
       if (response.ok) {
         setStatus("success");
         (e.target as HTMLFormElement).reset();
+        setAydinlatmaOnay(false);
       } else {
         setStatus("error");
       }
@@ -145,9 +151,43 @@ export function BayiForm() {
                 </div>
               )}
 
-              <button disabled={status === "submitting"} className="w-full bg-[#ED6E2D] hover:bg-[#d55f24] text-white font-bold py-4 rounded-lg transition duration-300 disabled:opacity-50">
+              {/* Aydınlatma Metni Onay Checkbox */}
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input 
+                  type="checkbox"
+                  checked={aydinlatmaOnay}
+                  onChange={(e) => setAydinlatmaOnay(e.target.checked)}
+                  className="w-5 h-5 mt-0.5 rounded border-gray-300 text-[#ED6E2D] focus:ring-[#ED6E2D] cursor-pointer"
+                />
+                <span className="text-sm text-gray-700">
+                  <Link 
+                    href="/kurumsal/kvkk/basvuru-formu" 
+                    target="_blank"
+                    className="text-[#1E40D8] hover:text-[#ED6E2D] underline"
+                  >
+                    Aydınlatma metnini
+                  </Link>
+                  {" "}okudum, anladım. <span className="text-[#ED6E2D]">*</span>
+                </span>
+              </label>
+
+              <button 
+                type="submit"
+                disabled={status === "submitting" || !aydinlatmaOnay} 
+                className={`w-full font-bold py-4 rounded-lg transition duration-300 ${
+                  aydinlatmaOnay 
+                    ? "bg-[#ED6E2D] hover:bg-[#d55f24] text-white cursor-pointer" 
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                } disabled:opacity-50`}
+              >
                 {status === "submitting" ? "Gönderiliyor..." : "Gönder"}
               </button>
+              
+              {!aydinlatmaOnay && (
+                <p className="text-xs text-gray-500 text-center">
+                  Formu göndermek için aydınlatma metnini onaylamanız gerekmektedir.
+                </p>
+              )}
             </form>
           )}
         </div>

@@ -29,8 +29,8 @@ const richTextOptions = {
       </div>
     ),
     'tr': (children: React.ReactNode) => <tr className="hover:bg-gray-50 transition-colors">{children}</tr>,
-    'td': (children: React.ReactNode) => <td className="px-6 py-3 border-r border-gray-100 last:border-0 text-gray-600">{children}</td>,
-    'th': (children: React.ReactNode) => <th className="px-6 py-3 font-bold bg-gray-50 border-r border-gray-200 last:border-0 text-gray-800 uppercase text-xs tracking-wider">{children}</th>,
+    'td': (children: React.ReactNode, node: { attrs?: { colspan?: number; rowspan?: number } }) => { const props: React.TdHTMLAttributes<HTMLTableCellElement> = { className: "px-6 py-3 border-r border-gray-100 last:border-0 text-gray-600" }; if (node?.attrs?.colspan) props.colSpan = node.attrs.colspan; if (node?.attrs?.rowspan) props.rowSpan = node.attrs.rowspan; return <td {...props}>{children}</td> },
+    'th': (children: React.ReactNode, node: { attrs?: { colspan?: number; rowspan?: number } }) => { const props: React.ThHTMLAttributes<HTMLTableCellElement> = { className: "px-6 py-3 font-bold bg-gray-50 border-r border-gray-200 last:border-0 text-gray-800 uppercase text-xs tracking-wider" }; if (node?.attrs?.colspan) props.colSpan = node.attrs.colspan; if (node?.attrs?.rowspan) props.rowSpan = node.attrs.rowspan; return <th {...props}>{children}</th> },
     'bullet_list': (children: React.ReactNode) => <div className="space-y-3 my-4">{children}</div>,
     'list_item': (children: React.ReactNode) => (
       <div className="flex items-start gap-3">
