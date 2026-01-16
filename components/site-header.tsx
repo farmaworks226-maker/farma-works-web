@@ -186,7 +186,7 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                       </div>
                       {/* SAĞ SÜTUN: KVKK */}
                       <div className="border-l border-gray-200 pl-6" style={{ minWidth: '220px' }}>
-                        <p className="text-xs font-bold text-[#ED6E2D] uppercase tracking-wider mb-3 px-2">KVKK</p>
+                        <p className="text-xs font-bold text-[#ED6E2D] uppercase tracking-wider mb-3 px-2">Kişisel Verileriniz Hakkında</p>
                         <ul className="space-y-1">
                           <ListItem href="/kurumsal/kvkk/aydinlatma-metni" title="Aydınlatma Metni">Bilgilendirme.</ListItem>
                           <ListItem href="/kurumsal/kvkk/imha-ve-saklama-politikasi" title="İmha Politikası">Veri saklama.</ListItem>
@@ -405,6 +405,7 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                     <ul className="ml-4 mt-2 space-y-2">
                       <li><Link href="/kurumsal/hakkimizda" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Hakkımızda</Link></li>
                       <li><Link href="/kurumsal/insan-kaynaklari" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İnsan Kaynakları</Link></li>
+                      <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-2">Kişisel Verileriniz Hakkında</li>
                       <li><Link href="/kurumsal/kvkk/aydinlatma-metni" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Aydınlatma Metni</Link></li>
                       <li><Link href="/kurumsal/kvkk/imha-ve-saklama-politikasi" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İmha Politikası</Link></li>
                       <li><Link href="/kurumsal/kvkk/basvuru-formu" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Başvuru Formu</Link></li>

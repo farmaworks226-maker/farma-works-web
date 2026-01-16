@@ -64,7 +64,6 @@ export function SiteFooter() {
             <ul className="space-y-3 text-sm">
               <li><Link href="/kurumsal/hakkimizda" className="hover:text-[#ED6E2D] transition flex items-center gap-2">› Hakkımızda</Link></li>
               <li><Link href="/kurumsal/insan-kaynaklari" className="hover:text-[#ED6E2D] transition flex items-center gap-2">› İnsan Kaynakları</Link></li>
-              <li><Link href="/kurumsal/kvkk" className="hover:text-[#ED6E2D] transition flex items-center gap-2">› KVKK Aydınlatma</Link></li>
               <li className="pt-4"><Link href="/bayimiz-ol" className="text-[#ED6E2D] font-medium hover:text-white transition flex items-center gap-2">› Bayimiz Olun</Link></li>
             </ul>
           </div>
