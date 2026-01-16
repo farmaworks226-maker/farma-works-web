@@ -8,7 +8,6 @@ const FORM_ID = "mjkzjlwo"
 export default function IletisimPage() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [aydinlatmaOnay, setAydinlatmaOnay] = useState(false)
-  const [aydinlatmaGonder, setAydinlatmaGonder] = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -17,11 +16,8 @@ export default function IletisimPage() {
     setStatus("submitting")
     const formData = new FormData(e.currentTarget)
     
-    // Checkbox değerlerini ekle
+    // Checkbox değerini ekle
     formData.append("Aydınlatma Metni Onayı", "Evet")
-    if (aydinlatmaGonder) {
-      formData.append("Aydınlatma Metni Gönderilsin", "Evet")
-    }
     
     try {
       const response = await fetch(`https://formspree.io/f/${FORM_ID}`, {
@@ -34,7 +30,6 @@ export default function IletisimPage() {
         setStatus("success");
         (e.target as HTMLFormElement).reset()
         setAydinlatmaOnay(false)
-        setAydinlatmaGonder(false)
       } else {
         setStatus("error")
       }
@@ -200,18 +195,17 @@ export default function IletisimPage() {
                       </span>
                     </label>
 
-                    {/* Aydınlatma Metni Gönder - Opsiyonel */}
-                    <label className="flex items-start gap-3 cursor-pointer group">
-                      <input 
-                        type="checkbox"
-                        checked={aydinlatmaGonder}
-                        onChange={(e) => setAydinlatmaGonder(e.target.checked)}
-                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-[#ED6E2D] focus:ring-[#ED6E2D] cursor-pointer"
-                      />
-                      <span className="text-sm text-gray-700">
-                        Aydınlatma Metnini e-posta adresime gönder.
-                      </span>
-                    </label>
+                    {/* Aydınlatma Metni İndir */}
+                    <a 
+                      href="/documents/aydinlatma-metni.pdf" 
+                      download="FW-Ilac-Aydinlatma-Metni.pdf"
+                      className="inline-flex items-center gap-2 text-sm text-[#1E40D8] hover:text-[#ED6E2D] transition"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      Aydınlatma Metnini İndir (PDF)
+                    </a>
                   </div>
 
                   <button 
