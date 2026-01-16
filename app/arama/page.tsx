@@ -85,7 +85,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           <div className="text-center py-20">
             <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h2 className="text-xl font-bold text-gray-400 mb-2">Sonuç bulunamadı</h2>
-            <p className="text-gray-500">"{query}" için herhangi bir sonuç bulunamadı.</p>
+            <p className="text-gray-500">&quot;{query}&quot; için herhangi bir sonuç bulunamadı.</p>
             <Link 
               href="/urunler" 
               className="inline-flex items-center gap-2 mt-6 text-[#ED6E2D] font-semibold hover:underline"

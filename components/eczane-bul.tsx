@@ -43,7 +43,7 @@ export function EczaneBul() {
           
           if (!data.stories || data.stories.length === 0) break
           
-          const pharmacies = data.stories.map((story: any) => ({
+          const pharmacies = data.stories.map((story: { uuid: string; content: { name?: string; pharmacist?: string; address?: string; city?: string; district?: string; phone?: string; location?: { lat?: number; lng?: number } } }) => ({
             id: story.uuid,
             ad: story.content.name || "",
             eczaci: story.content.pharmacist || "",
