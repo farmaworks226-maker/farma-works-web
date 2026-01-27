@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Kişisel Verilerle İlgili Aydınlatma Metni - FW İlaç",
+  title: "Kişisel Verilerle İlgili Aydınlatma Metni",
 }
 
 async function fetchContent() {

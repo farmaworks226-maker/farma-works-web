@@ -3,7 +3,7 @@ import { render as renderRichText } from "storyblok-rich-text-react-renderer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Kişisel Verileri İmha ve Saklama Politikası - Farma Works",
+  title: "Kişisel Verileri İmha ve Saklama Politikası",
   description: "Kişisel verilerin saklanması ve imhası ile ilgili politikalarımız.",
 }
 
