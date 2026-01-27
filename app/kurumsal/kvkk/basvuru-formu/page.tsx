@@ -3,7 +3,7 @@ import { render as renderRichText } from "storyblok-rich-text-react-renderer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Veri Sahibi Başvuru Formu - Farma Works",
+  title: "Veri Sahibi Başvuru Formu - FW İlaç",
   description: "KVKK kapsamında veri sahibi başvuru formu ve bilgilendirme.",
 }
 

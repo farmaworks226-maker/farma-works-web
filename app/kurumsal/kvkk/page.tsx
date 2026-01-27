@@ -21,14 +21,14 @@ export default function KVKKPage() {
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12">
             <div className="space-y-8 text-gray-600 leading-relaxed">
               <p>
-                <strong className="text-[#1E40D8]">Farma Works İlaç A.Ş.</strong> olarak kişisel verilerinizin güvenliği hususuna azami hassasiyet göstermekteyiz. 
+                <strong className="text-[#1E40D8]">FW İlaç A.Ş.</strong> olarak kişisel verilerinizin güvenliği hususuna azami hassasiyet göstermekteyiz. 
                 Kişisel verileriniz 6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;) kapsamında aşağıda açıklanan kapsamda işlenmektedir.
               </p>
               
               <div>
                 <h3 className="text-xl font-bold text-[#1E40D8] mb-3">1. Veri Sorumlusu</h3>
                 <p>
-                  KVKK uyarınca, kişisel verileriniz; veri sorumlusu olarak Farma Works tarafından aşağıda açıklanan kapsamda toplanacak ve işlenebilecektir.
+                  KVKK uyarınca, kişisel verileriniz; veri sorumlusu olarak FW İlaç tarafından aşağıda açıklanan kapsamda toplanacak ve işlenebilecektir.
                 </p>
               </div>
               

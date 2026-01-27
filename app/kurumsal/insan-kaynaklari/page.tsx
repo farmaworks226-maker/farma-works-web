@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Users, Building2, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "İnsan Kaynakları - Farma Works",
-  description: "Farma Works İlaç olarak çalışanlarımıza değer veriyor, gelişimlerini destekliyoruz.",
+  title: "İnsan Kaynakları ",
+  description: "FW İlaç olarak çalışanlarımıza değer veriyor, gelişimlerini destekliyoruz.",
 };
 
 export default function InsanKaynaklariPage() {
@@ -74,14 +74,14 @@ export default function InsanKaynaklariPage() {
             <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl group">
                <Image 
                  src="/images/foto.jpg" 
-                 alt="Farma Works Ekibi"
+                 alt="FW İlaç Ekibi"
                  fill
                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                />
                <div className="absolute inset-0 bg-gradient-to-t from-[#1E40D8]/60 to-transparent"></div>
                <div className="absolute bottom-6 left-6 text-white">
                  <p className="font-bold text-lg">Birlikte Başaralım</p>
-                 <p className="text-sm opacity-90">Farma Works Ailesi</p>
+                 <p className="text-sm opacity-90">FW İlaç Ailesi</p>
                </div>
             </div>
 
