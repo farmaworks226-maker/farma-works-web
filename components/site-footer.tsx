@@ -115,7 +115,7 @@ export function SiteFooter() {
 
         {/* Alt Çizgi ve Telif Hakkı */}
         <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-300">
-          <p>&copy; {new Date().getFullYear()} FW İlaç ve Gıda San. A.Ş. Tüm hakları saklıdır.</p>
+          <p>&copy; {new Date().getFullYear()} FW İlaç A.Ş. Tüm hakları saklıdır.</p>
           <div className="flex gap-6">
             <Link href="/kurumsal/kvkk" className="hover:text-white transition">Gizlilik Politikası</Link>
             <Link href="/kurumsal/kvkk" className="hover:text-white transition">Kullanım Koşulları</Link>
