@@ -144,7 +144,7 @@ export default async function ArticleDetailPage({ params }: Props) {
           <div className="flex items-center gap-6 text-sm text-gray-500 mb-8 border-b border-gray-100 pb-6">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4 text-[#00b074]" />
-              <span className="font-medium text-gray-900">{post.author || "Farma Works Editörü"}</span>
+              <span className="font-medium text-gray-900">{post.author || "FW Editörü"}</span>
             </div>
             {date && (
                 <div className="flex items-center gap-2">
