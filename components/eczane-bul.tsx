@@ -51,8 +51,8 @@ export function EczaneBul() {
             il: story.content.city || "",
             ilce: story.content.district || "",
             telefon: story.content.phone || "",
-            lat: story.content.latitude ? parseFloat(story.content.latitude) : null,
-            lng: story.content.longitude ? parseFloat(story.content.longitude) : null
+            lat: story.content.location?.lat ?? null,
+            lng: story.content.location?.lng ?? null
           }))
           
           allPharmacies = [...allPharmacies, ...pharmacies]

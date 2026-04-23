@@ -1,0 +1,87 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"  // sqlite yerine
+  url      = env("DATABASE_URL")
+}
+
+model BayiBasvuru {
+  id                String   @id @default(cuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Form Bilgileri
+  firmaAdi          String
+  yetkiliAdiSoyadi  String
+  telefon           String
+  email             String
+  adres             String
+  vergiDairesi      String
+  vergiNo           String
+  mesaj             String?
+
+  // Durum
+  status            String   @default("pending") // pending, approved, rejected
+  
+  // İlişkiler
+  onaylar           OnayKayit[]
+
+  @@index([email])
+  @@index([createdAt])
+}
+
+model IletisimFormu {
+  id                String   @id @default(cuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Form Bilgileri
+  adSoyad           String
+  telefon           String
+  email             String
+  konu              String
+  mesaj             String
+
+  // Durum
+  status            String   @default("pending") // pending, replied, closed
+  
+  // İlişkiler
+  onaylar           OnayKayit[]
+
+  @@index([email])
+  @@index([createdAt])
+}
+
+model OnayKayit {
+  id                String   @id @default(cuid())
+  createdAt         DateTime @default(now())
+
+  // Onay Detayları
+  onayTipi          String   // bayi_aydinlatma, ticari_sms, sosyal_medya, email, telefon
+  onayDurumu        Boolean  // true: onayladı, false: iptal etti
+  
+  // Teknik Bilgiler (KVKK Uyumluluk)
+  tarihSaat         DateTime @default(now())
+  ipAdresi          String?
+  userAgent         String?  // Tarayıcı ve işletim sistemi bilgisi
+  cihazTipu         String?  // mobile, desktop, tablet
+  
+  // Form İlişkileri (Opsiyonel - birinden biri olacak)
+  bayiBasvuruId     String?
+  bayiBasvuru       BayiBasvuru? @relation(fields: [bayiBasvuruId], references: [id], onDelete: Cascade)
+  
+  iletisimFormuId   String?
+  iletisimFormu     IletisimFormu? @relation(fields: [iletisimFormuId], references: [id], onDelete: Cascade)
+
+  // Ek Bilgiler
+  ekBilgi           String?    // SQLite için Json yerine String kullanıyoruz
+
+  @@index([onayTipi])
+  @@index([tarihSaat])
+  @@index([bayiBasvuruId])
+  @@index([iletisimFormuId])
+}

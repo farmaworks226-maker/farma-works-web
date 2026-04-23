@@ -98,51 +98,35 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
       }`
     : "sticky top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm h-24 flex items-center"
 
-  // Menü yazı rengi - scroll durumuna göre değişir
-  const textColorClass = isTransparent
-    ? isScrolled 
-      ? "text-[#1E40D8]" 
-      : "text-white"
-    : "text-[#1E40D8]"
+  // Text renkleri (scroll + şeffaflık durumuna göre)
+  const textColor = isTransparent && !isScrolled ? "text-white" : "text-gray-800"
+  const hoverColor = isTransparent && !isScrolled ? "hover:text-gray-200" : "hover:text-[#1E40D8]"
 
-  // Hover efekti
-  const hoverBgClass = isTransparent
-    ? isScrolled
-      ? "hover:bg-[#F3EBE2] focus:bg-[#F3EBE2]"
-      : "hover:bg-white/20 focus:bg-white/20"
-    : "hover:bg-[#F3EBE2] focus:bg-[#F3EBE2]"
-
-  const menuLinkStyle = `group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold transition-colors ${hoverBgClass} focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${textColorClass}`
+  // Menü link stili
+  const menuLinkStyle = `px-4 py-2 text-sm font-medium ${textColor} ${hoverColor} transition-colors rounded-md`
   
-  const triggerStyle = `group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold transition-colors ${hoverBgClass} focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${textColorClass}`
-
-  // İletişim butonu
-  const contactButtonClass = isTransparent
-    ? isScrolled
-      ? `${menuLinkStyle} border border-[#1E40D8] hover:bg-[#1E40D8] hover:text-white`
-      : `${menuLinkStyle} border border-white hover:bg-white hover:text-[#1E40D8]`
-    : `${menuLinkStyle} border border-[#1E40D8] hover:bg-[#1E40D8] hover:text-white`
-
-  // Mobil menü ikonu rengi
-  const mobileIconColor = isTransparent
-    ? isScrolled
-      ? "text-[#1E40D8]"
-      : "text-white"
-    : "text-[#1E40D8]"
+  // Dropdown trigger butonu stili
+  const triggerStyle = `flex items-center gap-1 px-4 py-2 text-sm font-medium ${textColor} ${hoverColor} transition-colors rounded-md`
+  
+  // İletişim butonu özel stili
+  const contactButtonClass = `ml-2 px-5 py-2.5 text-sm font-semibold bg-[#ED6E2D] text-white hover:bg-[#d55f24] rounded-full transition-all shadow-sm hover:shadow-md`
 
   return (
     <>
       <header className={headerClass}>
-        <div className="container mx-auto flex items-center justify-between px-4 h-full">
+        <div className="container mx-auto px-4 h-full flex items-center justify-between gap-4">
           
-          {/* LOGO - Her zaman orijinal renk */}
-          <Link href="/" className="flex items-center gap-3 min-w-fit group">
+          {/* LOGO */}
+          <Link href="/" className="flex items-center gap-3 shrink-0">
             <Image 
               src="/images/logo.png" 
-              alt="Farma Works Logo" 
-              width={220} 
-              height={88}
-              className="h-[85px] w-auto"
+              alt="FW İlaç Logo" 
+              width={120} 
+              height={40}
+              className={cn(
+                "h-10 w-auto transition-all",
+                isTransparent && !isScrolled ? "brightness-0 invert" : ""
+              )}
               priority
             />
           </Link>
@@ -184,13 +168,13 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
                           <ListItem href="/kurumsal/insan-kaynaklari" title="İnsan Kaynakları">Kariyer.</ListItem>
                         </ul>
                       </div>
-                      {/* SAĞ SÜTUN: KVKK */}
+                      {/* SAĞ SÜTUN: Kişisel Verileriniz Hakkında */}
                       <div className="border-l border-gray-200 pl-6" style={{ minWidth: '220px' }}>
                         <p className="text-xs font-bold text-[#ED6E2D] uppercase tracking-wider mb-3 px-2">Kişisel Verileriniz Hakkında</p>
                         <ul className="space-y-1">
-                          <ListItem href="/kurumsal/kvkk/aydinlatma-metni" title="Aydınlatma Metni">Bilgilendirme.</ListItem>
-                          <ListItem href="/kurumsal/kvkk/imha-ve-saklama-politikasi" title="İmha Politikası">Veri saklama.</ListItem>
-                          <ListItem href="/kurumsal/kvkk/basvuru-formu" title="Başvuru Formu">Talep formu.</ListItem>
+                          <ListItem href="/kisisel-verileriniz#aydinlatma" title="Aydınlatma Metni">Bilgilendirme.</ListItem>
+                          <ListItem href="/kisisel-verileriniz#saklama" title="Saklama Politikası">Veri saklama.</ListItem>
+                          <ListItem href="/kisisel-verileriniz#basvuru" title="Başvuru Formu">Talep formu.</ListItem>
                         </ul>
                       </div>
                     </div>
@@ -351,168 +335,88 @@ export function SiteHeader({ variant = "solid" }: SiteHeaderProps) {
               </div>
             </div>
           )}
-          
+
           {/* MOBİL MENÜ BUTONU */}
-          <div className="lg:hidden">
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 ${mobileIconColor}`}
-              aria-label="Menu"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          <button
+            className={`lg:hidden p-2 ${textColor}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menü"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
 
         </div>
-
-        {/* MOBİL MENÜ (Açılır Panel) */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden absolute top-24 left-0 right-0 bg-white border-b border-gray-100 shadow-lg z-40">
-            <nav className="container mx-auto px-4 py-4">
-              {/* MOBİL ARAMA */}
-              <form onSubmit={(e) => { handleSearchSubmit(e); setMobileMenuOpen(false); }} className="mb-4">
-                <div className="flex gap-2">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Ürün veya sayfa ara..."
-                      className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full focus:outline-none focus:border-[#1E40D8] text-sm"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="px-4 py-2.5 bg-[#ED6E2D] hover:bg-[#d55f24] text-white font-semibold rounded-full transition-colors text-sm"
-                  >
-                    Ara
-                  </button>
-                </div>
-              </form>
-
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
-                    Anasayfa
-                  </Link>
-                </li>
-                <li>
-                  <details className="group">
-                    <summary className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md cursor-pointer list-none">
-                      Kurumsal
-                    </summary>
-                    <ul className="ml-4 mt-2 space-y-2">
-                      <li><Link href="/kurumsal/hakkimizda" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Hakkımızda</Link></li>
-                      <li><Link href="/kurumsal/insan-kaynaklari" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İnsan Kaynakları</Link></li>
-                      <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-2">Kişisel Verileriniz Hakkında</li>
-                      <li><Link href="/kurumsal/kvkk/aydinlatma-metni" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Aydınlatma Metni</Link></li>
-                      <li><Link href="/kurumsal/kvkk/imha-ve-saklama-politikasi" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">İmha Politikası</Link></li>
-                      <li><Link href="/kurumsal/kvkk/basvuru-formu" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Başvuru Formu</Link></li>
-                    </ul>
-                  </details>
-                </li>
-                <li>
-                  <details className="group">
-                    <summary className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md cursor-pointer list-none">
-                      Ürünlerimiz
-                    </summary>
-                    <ul className="ml-4 mt-2 space-y-2">
-                      {/* Tüm Ürünler - Öne Çıkan */}
-                      <li>
-                        <Link href="/urunler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm font-semibold text-white bg-[#ED6E2D] hover:bg-[#d4612a] rounded-md">
-                          Tüm Ürünleri Gör
-                        </Link>
-                      </li>
-                      <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-2">Gıda Takviyesi</li>
-                      <li><Link href="/urunler/vitaminler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Vitaminler</Link></li>
-                      <li><Link href="/urunler/mineraller" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Mineraller</Link></li>
-                      <li><Link href="/urunler/multivitaminler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Multivitaminler</Link></li>
-                      <li><Link href="/urunler/probiyotikler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Probiyotikler</Link></li>
-                      <li><Link href="/urunler/balik-yaglari" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Balık Yağları</Link></li>
-                      <li><Link href="/urunler/bitkisel-ekstreler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Bitkisel Ekstreler</Link></li>
-                      <li><Link href="/urunler/ozel-takviyeler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Özel Takviyeler</Link></li>
-                      <li><Link href="/urunler/kisisel-bakim" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Kişisel Bakım</Link></li>
-                      <li className="text-xs font-bold text-[#ED6E2D] uppercase px-4 pt-4">Markalar</li>
-                      <li><Link href="/markalar/more-than" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">More Than</Link></li>
-                      <li><Link href="/markalar/smart-caps" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Smart Caps</Link></li>
-                      <li><Link href="/markalar/raw-material" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-sm hover:bg-[#F3EBE2] rounded-md">Raw Material</Link></li>
-                    </ul>
-                  </details>
-                </li>
-                <li>
-                  <Link href="/eczaneler" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
-                    Eczaneler
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/saglik-onerileri" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
-                    Sağlık Önerileri
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/bayimiz-ol" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
-                    Bayimiz Ol
-                  </Link>
-                </li>
-                <li>
-                  <Link href="https://bayi.fw.com.tr" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md">
-                    Bayi Girişi
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/iletisim" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-[#1E40D8] font-bold hover:bg-[#F3EBE2] rounded-md border border-[#1E40D8]">
-                    İletişim
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        )}
       </header>
-      
-      {/* Sayfa içeriği için boşluk - sadece solid modda (sticky header için gerekli değil ama güvenlik için) */}
+
+      {/* MOBİL MENÜ */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-40 bg-white overflow-y-auto" style={{ top: '96px' }}>
+          <nav className="container mx-auto px-4 py-6">
+            <ul className="space-y-2">
+              <li><Link href="/" className="block py-3 text-gray-800 hover:text-[#1E40D8] font-medium">Anasayfa</Link></li>
+              <li><Link href="/kurumsal/hakkimizda" className="block py-3 text-gray-800 hover:text-[#1E40D8]">Hakkımızda</Link></li>
+              <li><Link href="/kurumsal/insan-kaynaklari" className="block py-3 text-gray-800 hover:text-[#1E40D8]">İnsan Kaynakları</Link></li>
+              <li className="border-t pt-2">
+                <p className="text-xs font-bold text-[#ED6E2D] uppercase mb-2">Kişisel Verileriniz</p>
+                <Link href="/kisisel-verileriniz#aydinlatma" className="block py-2 pl-4 text-sm text-gray-700 hover:text-[#1E40D8]">Aydınlatma Metni</Link>
+                <Link href="/kisisel-verileriniz#saklama" className="block py-2 pl-4 text-sm text-gray-700 hover:text-[#1E40D8]">Saklama Politikası</Link>
+                <Link href="/kisisel-verileriniz#basvuru" className="block py-2 pl-4 text-sm text-gray-700 hover:text-[#1E40D8]">Başvuru Formu</Link>
+              </li>
+              <li className="border-t pt-2">
+                <p className="text-xs font-bold text-gray-500 uppercase mb-2">Ürünler</p>
+                <Link href="/urunler" className="block py-2 pl-4 text-sm font-semibold text-[#ED6E2D] hover:text-[#d55f24]">Tüm Ürünler</Link>
+                <Link href="/urunler/vitaminler" className="block py-2 pl-4 text-sm text-gray-700 hover:text-[#1E40D8]">Vitaminler</Link>
+                <Link href="/urunler/mineraller" className="block py-2 pl-4 text-sm text-gray-700 hover:text-[#1E40D8]">Mineraller</Link>
+                <Link href="/urunler/multivitaminler" className="block py-2 pl-4 text-sm text-gray-700 hover:text-[#1E40D8]">Multivitaminler</Link>
+                <Link href="/urunler/probiyotikler" className="block py-2 pl-4 text-sm text-gray-700 hover:text-[#1E40D8]">Probiyotikler</Link>
+              </li>
+              <li><Link href="/eczaneler" className="block py-3 text-gray-800 hover:text-[#1E40D8]">Eczaneler</Link></li>
+              <li><Link href="/saglik-onerileri" className="block py-3 text-gray-800 hover:text-[#1E40D8]">Sağlık Önerileri</Link></li>
+              <li><Link href="/bayimiz-ol" className="block py-3 text-gray-800 hover:text-[#1E40D8]">Bayimiz Ol</Link></li>
+              <li><Link href="/iletisim" className="block py-3 px-5 text-center bg-[#ED6E2D] text-white rounded-full font-semibold">İletişim</Link></li>
+            </ul>
+          </nav>
+        </div>
+      )}
     </>
   )
 }
 
-interface ListItemProps extends React.ComponentPropsWithoutRef<typeof Link> {
-  title: string
-}
+// Dropdown list item componentleri
+const ListItem = React.forwardRef<
+  React.ComponentRef<"a">,
+  React.ComponentPropsWithoutRef<"a"> & { title: string; href: string }
+>(({ className, title, children, href, ...props }, ref) => {
+  return (
+    <li className="list-none">
+      <Link
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        href={href}
+        className={cn(
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-50 hover:text-[#1E40D8] focus:bg-gray-50 focus:text-[#1E40D8]",
+          className
+        )}
+        {...props}
+      >
+        <div className="text-sm font-semibold leading-none text-gray-900">{title}</div>
+        <p className="line-clamp-2 text-xs leading-snug text-gray-500">
+          {children}
+        </p>
+      </Link>
+    </li>
+  )
+})
+ListItem.displayName = "ListItem"
 
-const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
-  ({ className, title, children, ...props }, ref) => {
-    return (
-      <li className="list-none">
-        <Link
-          ref={ref}
-          className={cn(
-            "block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-[#F3EBE2] focus:bg-[#F3EBE2] hover:text-[#1E40D8]",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none text-[#1E40D8] mb-1.5">{title}</div>
-          <p className="text-xs leading-snug text-slate-500">
-            {children}
-          </p>
-        </Link>
-      </li>
-    )
-  }
-)
-
-const ListItemSimple = ({ href, children }: { href: string; children: React.ReactNode }) => {
+const ListItemSimple: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => {
   return (
     <li className="list-none">
       <Link
         href={href}
-        className="block py-2 text-sm text-gray-600 hover:text-[#ED6E2D] transition-colors"
+        className="block py-2 px-3 text-sm text-gray-700 hover:text-[#1E40D8] hover:bg-gray-50 rounded-md transition-colors"
       >
         {children}
       </Link>
     </li>
   )
 }
-
-ListItem.displayName = "ListItem"

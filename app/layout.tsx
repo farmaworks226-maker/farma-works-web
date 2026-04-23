@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Comfortaa } from "next/font/google";
 import "./globals.css";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeaderLoader } from "@/components/site-header-loader";
+import { CookieConsent } from "@/components/cookie-consent";
 
 const comfortaa = Comfortaa({ 
   subsets: ['latin'],
@@ -86,6 +87,9 @@ export default function RootLayout({
         <SiteHeaderLoader />
         {children}
         <SiteFooter />
+        
+        {/* Çerez Onay Banner - Tüm sayfalarda */}
+        <CookieConsent />
       </body>
     </html>
   );

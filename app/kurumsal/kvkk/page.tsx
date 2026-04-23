@@ -1,84 +1,87 @@
-import type { Metadata } from "next"
+"use client"
 
-export const metadata: Metadata = {
-  title: "KVKK ve Aydınlatma Metni",
-  description: "Kişisel verilerin korunması kanunu kapsamında aydınlatma metni ve gizlilik politikamız.",
-}
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { ArrowRight, FileText, Lock, FileCheck } from "lucide-react"
 
 export default function KVKKPage() {
+  const router = useRouter()
+
+  // 3 saniye sonra otomatik yönlendir
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/kisisel-verileriniz#aydinlatma')
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [router])
+
   return (
-    <div className="min-h-screen bg-[#F3EBE2]">
-      {/* Hero Banner */}
-      <div className="bg-[#1E40D8] py-16 text-center text-white">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold">KVKK Aydınlatma Metni</h1>
-          <p className="text-lg opacity-90 mt-2">Kişisel Verilerin Korunması</p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
+      <div className="max-w-2xl w-full">
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 md:p-12 text-center">
+          {/* İkon */}
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#1E40D8] to-[#2a6ba0] rounded-full mb-6">
+            <FileText className="w-10 h-10 text-white" />
+          </div>
 
-      <div className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12">
-            <div className="space-y-8 text-gray-600 leading-relaxed">
-              <p>
-                <strong className="text-[#1E40D8]">FW İlaç A.Ş.</strong> olarak kişisel verilerinizin güvenliği hususuna azami hassasiyet göstermekteyiz. 
-                Kişisel verileriniz 6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;) kapsamında aşağıda açıklanan kapsamda işlenmektedir.
-              </p>
-              
-              <div>
-                <h3 className="text-xl font-bold text-[#1E40D8] mb-3">1. Veri Sorumlusu</h3>
-                <p>
-                  KVKK uyarınca, kişisel verileriniz; veri sorumlusu olarak FW İlaç tarafından aşağıda açıklanan kapsamda toplanacak ve işlenebilecektir.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-bold text-[#1E40D8] mb-3">2. Kişisel Verilerin İşlenme Amacı</h3>
-                <p>
-                  Toplanan kişisel verileriniz; şirketimiz tarafından sunulan ürün ve hizmetlerden sizleri faydalandırmak için gerekli çalışmaların iş birimlerimiz tarafından yapılması, 
-                  şirketimizin ticari ve iş stratejilerinin belirlenmesi ve uygulanması amaçlarıyla işlenecektir.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-bold text-[#1E40D8] mb-3">3. İşlenen Kişisel Verilerin Kimlere Aktarılabileceği</h3>
-                <p>
-                  Kişisel verileriniz; kanunen yetkili kamu kurumlarına ve özel kişilere, KVKK&apos;nın 8. ve 9. maddelerinde belirtilen kişisel veri işleme şartları ve amaçları çerçevesinde aktarılabilecektir.
-                </p>
-              </div>
+          {/* Başlık */}
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1E40D8] mb-4">
+            Sayfa Taşındı
+          </h1>
 
-              <div>
-                <h3 className="text-xl font-bold text-[#1E40D8] mb-3">4. Kişisel Veri Toplamanın Yöntemi ve Hukuki Sebebi</h3>
-                <p>
-                  Kişisel verileriniz, her türlü sözlü, yazılı ya da elektronik ortamda, yukarıda yer verilen amaçlar doğrultusunda şirketimiz tarafından sunulan hizmetlerin belirlenen yasal çerçevede sunulabilmesi ve bu kapsamda şirketimizin sözleşme ve yasadan doğan mesuliyetlerini eksiksiz ve doğru bir şekilde yerine getirebilmesi gayesi ile edinilir.
-                </p>
-              </div>
+          {/* Açıklama */}
+          <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+            KVKK ile ilgili tüm bilgilendirmelerimiz artık{" "}
+            <span className="font-semibold text-[#1E40D8]">
+              &quot;Kişisel Verileriniz Hakkında&quot;
+            </span>{" "}
+            sayfasında yer almaktadır.
+          </p>
 
-              <div>
-                <h3 className="text-xl font-bold text-[#1E40D8] mb-3">5. Kişisel Veri Sahibinin Hakları</h3>
-                <p className="mb-4">KVKK&apos;nın 11. maddesi uyarınca herkes, veri sorumlusuna başvurarak kendisiyle ilgili;</p>
-                <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Kişisel veri işlenip işlenmediğini öğrenme,</li>
-                  <li>Kişisel verileri işlenmişse buna ilişkin bilgi talep etme,</li>
-                  <li>Kişisel verilerin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,</li>
-                  <li>Yurt içinde veya yurt dışında kişisel verilerin aktarıldığı üçüncü kişileri bilme,</li>
-                  <li>Kişisel verilerin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme,</li>
-                  <li>KVKK&apos;nın 7. maddesinde öngörülen şartlar çerçevesinde kişisel verilerin silinmesini veya yok edilmesini isteme,</li>
-                  <li>İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle kişinin kendisi aleyhine bir sonucun ortaya çıkmasına itiraz etme,</li>
-                  <li>Kişisel verilerin kanuna aykırı olarak işlenmesi sebebiyle zarara uğraması hâlinde zararın giderilmesini talep etme,</li>
-                </ul>
-                <p className="mt-4">haklarına sahiptir.</p>
-              </div>
+          {/* Butonlar */}
+          <div className="space-y-4">
+            <Link
+              href="/kisisel-verileriniz#aydinlatma"
+              className="inline-flex items-center gap-3 bg-[#ED6E2D] hover:bg-[#d45a1e] text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg hover:shadow-xl group"
+            >
+              Yeni Sayfaya Git
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
 
-              <div className="bg-[#F3EBE2] p-6 rounded-xl border border-gray-200 mt-8">
-                <p className="text-center">
-                  Detaylı bilgi ve başvurularınız için{" "}
-                  <a href="mailto:info@farmaworks.com" className="text-[#ED6E2D] underline font-bold hover:text-[#d55f24]">
-                    info@farmaworks.com
-                  </a>{" "}
-                  adresinden bize ulaşabilirsiniz.
-                </p>
-              </div>
+            <p className="text-sm text-gray-500">
+              3 saniye içinde otomatik olarak yönlendirileceksiniz...
+            </p>
+          </div>
+
+          {/* Hızlı Erişim Linkleri */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <p className="text-sm font-semibold text-gray-600 mb-4">
+              Hızlı Erişim:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <Link
+                href="/kisisel-verileriniz#aydinlatma"
+                className="flex items-center gap-2 p-3 text-sm text-gray-700 hover:text-[#1E40D8] hover:bg-[#F3EBE2] rounded-lg transition-colors"
+              >
+                <FileText className="w-4 h-4" />
+                Aydınlatma Metni
+              </Link>
+              <Link
+                href="/kisisel-verileriniz#saklama"
+                className="flex items-center gap-2 p-3 text-sm text-gray-700 hover:text-[#1E40D8] hover:bg-[#F3EBE2] rounded-lg transition-colors"
+              >
+                <Lock className="w-4 h-4" />
+                Saklama Politikası
+              </Link>
+              <Link
+                href="/kisisel-verileriniz#basvuru"
+                className="flex items-center gap-2 p-3 text-sm text-gray-700 hover:text-[#1E40D8] hover:bg-[#F3EBE2] rounded-lg transition-colors"
+              >
+                <FileCheck className="w-4 h-4" />
+                Başvuru Formu
+              </Link>
             </div>
           </div>
         </div>

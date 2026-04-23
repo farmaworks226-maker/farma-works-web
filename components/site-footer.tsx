@@ -64,6 +64,7 @@ export function SiteFooter() {
             <ul className="space-y-3 text-sm">
               <li><Link href="/kurumsal/hakkimizda" className="hover:text-[#ED6E2D] transition flex items-center gap-2">› Hakkımızda</Link></li>
               <li><Link href="/kurumsal/insan-kaynaklari" className="hover:text-[#ED6E2D] transition flex items-center gap-2">› İnsan Kaynakları</Link></li>
+              <li><Link href="/kisisel-verileriniz" className="hover:text-[#ED6E2D] transition flex items-center gap-2">› Kişisel Verileriniz Hakkında</Link></li>
               <li className="pt-4"><Link href="/bayimiz-ol" className="text-[#ED6E2D] font-medium hover:text-white transition flex items-center gap-2">› Bayimiz Olun</Link></li>
             </ul>
           </div>
@@ -117,8 +118,7 @@ export function SiteFooter() {
         <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-300">
           <p>&copy; {new Date().getFullYear()} FW İlaç A.Ş. Tüm hakları saklıdır.</p>
           <div className="flex gap-6">
-            <Link href="/kurumsal/kvkk" className="hover:text-white transition">Gizlilik Politikası</Link>
-            <Link href="/kurumsal/kvkk" className="hover:text-white transition">Kullanım Koşulları</Link>
+            <Link href="/kisisel-verileriniz" className="hover:text-white transition">Kişisel Verileriniz Hakkında</Link>
           </div>
         </div>
 
