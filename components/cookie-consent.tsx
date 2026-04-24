@@ -41,7 +41,7 @@ export function CookieConsent() {
         })
       }, 100)
       
-    } catch (error) {
+    } catch {
       // Hata olsa bile banner'ı kapat
       setShow(false)
     }
@@ -80,7 +80,7 @@ export function CookieConsent() {
                 >
                   Çerezlere İlişkin Aydınlatma Metni
                 </Link>
-                'ni okuyabilirsiniz.
+                &apos;ni okuyabilirsiniz.
               </p>
             </div>
           </div>
@@ -100,7 +100,7 @@ export function CookieConsent() {
                 >
                   Çerezlere İlişkin Aydınlatma Metni
                 </Link>
-                'ni okudum, anladım.
+                &apos;ni okudum, anladım.
               </span>
             </div>
           </div>
