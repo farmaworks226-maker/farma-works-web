@@ -43,7 +43,7 @@ export function EczaneBul() {
           
           if (!data.stories || data.stories.length === 0) break
           
-          const pharmacies = data.stories.map((story: { uuid: string; content: { name?: string; pharmacist?: string; address?: string; city?: string; district?: string; phone?: string; location?: { lat?: number; lng?: number } } }) => ({
+          const pharmacies = data.stories.map((story: { uuid: string; content: { name?: string; pharmacist?: string; address?: string; city?: string; district?: string; phone?: string; latitude?: number; longitude?: number } }) => ({
             id: story.uuid,
             ad: story.content.name || "",
             eczaci: story.content.pharmacist || "",
@@ -51,8 +51,8 @@ export function EczaneBul() {
             il: story.content.city || "",
             ilce: story.content.district || "",
             telefon: story.content.phone || "",
-            lat: story.content.location?.lat ?? null,
-            lng: story.content.location?.lng ?? null
+            lat: story.content.latitude ?? null,
+            lng: story.content.longitude ?? null
           }))
           
           allPharmacies = [...allPharmacies, ...pharmacies]
