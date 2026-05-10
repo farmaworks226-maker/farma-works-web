@@ -81,7 +81,6 @@ export default async function ArticleDetailPage({ params }: Props) {
 
   // Veri yoksa 404
   if (!articleStory || !articleStory.content) {
-    console.error(`Makale bulunamadı. Aranan Slug: ${id}`);
     return notFound();
   }
 

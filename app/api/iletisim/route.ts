@@ -2,43 +2,46 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getCihazTipu, getClientIp, checkRateLimit } from '@/lib/api-utils'
 
-// Cihaz tipini belirle
-function getCihazTipu(userAgent: string): string {
-  const ua = userAgent.toLowerCase()
-  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-    return 'tablet'
-  }
-  if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
-    return 'mobile'
-  }
-  return 'desktop'
-}
-
-// IP adresini al
-function getClientIp(request: NextRequest): string {
-  const forwarded = request.headers.get('x-forwarded-for')
-  const realIp = request.headers.get('x-real-ip')
-  
-  if (forwarded) {
-    return forwarded.split(',')[0].trim()
-  }
-  if (realIp) {
-    return realIp
-  }
-  return 'unknown'
-}
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function POST(request: NextRequest) {
+  const ipAdresi = getClientIp(request)
+
+  if (!checkRateLimit(ipAdresi)) {
+    return NextResponse.json({ success: false, message: 'Çok fazla istek. Lütfen bir dakika bekleyin.' }, { status: 429 })
+  }
+
   try {
     const body = await request.json()
-    const {
-      formData,
-      consents
-    } = body
+    const { formData, consents } = body
 
-    // IP ve User Agent bilgilerini al
-    const ipAdresi = getClientIp(request)
+    if (!formData || !consents) {
+      return NextResponse.json({ success: false, message: 'Geçersiz istek.' }, { status: 400 })
+    }
+
+    const { adSoyad, telefon, email, konu, mesaj } = formData
+
+    if (!adSoyad?.trim() || adSoyad.trim().length > 100) {
+      return NextResponse.json({ success: false, message: 'Ad soyad geçersiz.' }, { status: 400 })
+    }
+    if (!telefon?.trim() || telefon.trim().length > 20) {
+      return NextResponse.json({ success: false, message: 'Telefon geçersiz.' }, { status: 400 })
+    }
+    if (!email?.trim() || !EMAIL_REGEX.test(email) || email.length > 254) {
+      return NextResponse.json({ success: false, message: 'E-posta geçersiz.' }, { status: 400 })
+    }
+    if (!konu?.trim() || konu.trim().length > 100) {
+      return NextResponse.json({ success: false, message: 'Konu geçersiz.' }, { status: 400 })
+    }
+    if (!mesaj?.trim() || mesaj.trim().length > 2000) {
+      return NextResponse.json({ success: false, message: 'Mesaj geçersiz (max 2000 karakter).' }, { status: 400 })
+    }
+    if (!consents.aydinlatmaMetni) {
+      return NextResponse.json({ success: false, message: 'Aydınlatma metni onayı zorunludur.' }, { status: 400 })
+    }
+
     const userAgent = request.headers.get('user-agent') || 'unknown'
     const cihazTipu = getCihazTipu(userAgent)
     const tarihSaat = new Date()
@@ -46,11 +49,11 @@ export async function POST(request: NextRequest) {
     // 1. İletişim formunu oluştur
     const iletisimFormu = await prisma.iletisimFormu.create({
       data: {
-        adSoyad: formData.adSoyad,
-        telefon: formData.telefon,
-        email: formData.email,
-        konu: formData.konu,
-        mesaj: formData.mesaj,
+        adSoyad: adSoyad.trim(),
+        telefon: telefon.trim(),
+        email: email.trim().toLowerCase(),
+        konu: konu.trim(),
+        mesaj: mesaj.trim(),
         status: 'pending'
       }
     })

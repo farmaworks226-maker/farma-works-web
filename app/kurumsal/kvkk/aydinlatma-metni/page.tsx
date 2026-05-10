@@ -21,7 +21,6 @@ async function fetchContent() {
     try {
       const { data } = await storyblokApi.get(`cdn/stories/${slug}`, { version: "draft" })
       if (data?.story) {
-        console.log(`✅ Tam Eşleşme Bulundu: ${slug}`)
         return data.story
       }
     } catch {
@@ -31,20 +30,17 @@ async function fetchContent() {
   
   // 2. YÖNTEM: İsminde "aydinlatma" geçen İLK sayfayı bul
   try {
-    console.log("🔍 Tam eşleşme bulunamadı, arama yapılıyor...")
     const { data } = await storyblokApi.get('cdn/stories', {
       version: "draft",
       search_term: "aydinlatma",
       per_page: 1
     })
-    
+
     if (data.stories && data.stories.length > 0) {
-      const foundStory = data.stories[0]
-      console.log(`✅ Arama Sonucu Bulundu: ${foundStory.full_slug}`)
-      return foundStory
+      return data.stories[0]
     }
-  } catch (error) {
-    console.error("Arama Hatası:", error)
+  } catch {
+    /* İçerik bulunamadı */
   }
   
   return null
@@ -54,7 +50,6 @@ export default async function AydinlatmaMetniPage() {
   const story = await fetchContent()
   
   if (!story) {
-    console.error("❌ HATA: Storyblok'ta 'aydinlatma' içeren bir hikaye bulunamadı.")
     return notFound()
   }
   

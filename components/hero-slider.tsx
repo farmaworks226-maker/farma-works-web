@@ -14,8 +14,6 @@ interface HeroSliderBlok extends SbBlokData {
 export function HeroSlider({ blok }: { blok: HeroSliderBlok }) {
   const [current, setCurrent] = useState(0)
 
-  console.log("HeroSlider Gelen Blok:", blok)
-
   const slides = blok?.slides || blok?.body || blok?.slaytlar || []
 
   // Otomatik geçiş

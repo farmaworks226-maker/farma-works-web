@@ -21,29 +21,29 @@ export function CookieConsent() {
 
   const handleAccept = () => {
     setLoading(true)
-    
+
     try {
       // 1. LocalStorage'a HEMEN kaydet
       window.localStorage.setItem('cookie_consent', 'true')
       window.localStorage.setItem('cookie_consent_date', new Date().toISOString())
-      
+
       // 2. Banner'ı HEMEN gizle
       setShow(false)
-      
+
       // 3. API'ye arka planda gönder (başarısız olsa da önemli değil)
-      setTimeout(() => {
-        fetch('/api/cookie-consent', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ consent: true })
-        }).catch(() => {
-          // Sessizce başarısız ol, kullanıcıyı etkileme
-        })
-      }, 100)
-      
+      fetch('/api/cookie-consent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ consent: true })
+      }).catch(() => {
+        // Sessizce başarısız ol, kullanıcıyı etkileme
+      })
+
     } catch {
       // Hata olsa bile banner'ı kapat
       setShow(false)
+    } finally {
+      setLoading(false)
     }
   }
 

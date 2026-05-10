@@ -1,0 +1,60 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "description": "Proje dosyalarına erişim"
+    },
+
+    "security-audit": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-shellexecutor"],
+      "env": {
+        "ALLOWED_COMMANDS": "npm audit,npm audit --json,pip audit,snyk test,snyk code test"
+      },
+      "description": "npm audit & Snyk ile bağımlılık güvenlik taraması"
+    },
+
+    "linter": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-shellexecutor"],
+      "env": {
+        "ALLOWED_COMMANDS": "npx eslint . --format json,npx eslint . --fix,npx prettier --check .,pylint src/,ruff check ."
+      },
+      "description": "ESLint, Prettier, Pylint — kod kalitesi ve standart kontrolü"
+    },
+
+    "test-runner": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-shellexecutor"],
+      "env": {
+        "ALLOWED_COMMANDS": "npx jest --coverage --json,npx vitest run --reporter=json,npx playwright test,pytest --tb=short -q,npx jest --testPathPattern="
+      },
+      "description": "Jest, Vitest, Playwright, Pytest — test çalıştırma ve coverage"
+    },
+
+    "git-audit": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-shellexecutor"],
+      "env": {
+        "ALLOWED_COMMANDS": "git log --oneline -20,git diff HEAD,git secrets --scan,git grep -r 'password\\|api_key\\|secret\\|token' --include=*.ts --include=*.js --include=*.py,git ls-files"
+      },
+      "description": "Git geçmişi ve kod içinde açıkta kalan sır taraması"
+    },
+
+    "bundle-analyzer": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-shellexecutor"],
+      "env": {
+        "ALLOWED_COMMANDS": "npx next build --no-lint,npx source-map-explorer 'build/static/js/*.js' --json,npx bundlephobia,du -sh node_modules/ .next/ dist/"
+      },
+      "description": "Bundle boyutu analizi ve Next.js build istatistikleri"
+    }
+  }
+}

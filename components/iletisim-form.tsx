@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Send, Check, ExternalLink } from "lucide-react"
+import { Send, Check, ExternalLink, Loader2 } from "lucide-react"
 
 export function IletisimFormComponent() {
   const [formData, setFormData] = useState({
@@ -21,6 +21,8 @@ export function IletisimFormComponent() {
     telefon: false
   })
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
@@ -38,16 +40,32 @@ export function IletisimFormComponent() {
       return
     }
 
-    // Form gönderme işlemi
-    console.log("Form Data:", formData)
-    console.log("Consents:", consents)
-    
-    // API çağrısı burada yapılacak
-    alert("Mesajınız alındı! En kısa sürede size dönüş yapacağız.")
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/iletisim', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formData, consents })
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        alert('Mesajınız başarıyla alındı! En kısa sürede size dönüş yapacağız.')
+        setFormData({ adSoyad: "", telefon: "", email: "", konu: "", mesaj: "" })
+        setConsents({ aydinlatmaMetni: false, ticariSMS: false, sosyalMedya: false, email: false, telefon: false })
+      } else {
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.')
+      }
+    } catch {
+      alert('Bağlantı hatası. Lütfen internet bağlantınızı kontrol edin.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  // Gönder butonu sadece aydınlatma metni onaylandığında aktif
-  const isSubmitDisabled = !consents.aydinlatmaMetni
+  const isSubmitDisabled = !consents.aydinlatmaMetni || isSubmitting
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -303,8 +321,17 @@ export function IletisimFormComponent() {
               : 'bg-[#ED6E2D] hover:bg-[#d45a1e] shadow-lg hover:shadow-xl'
           }`}
         >
-          <Send className="w-5 h-5" />
-          Mesajı Gönder
+          {isSubmitting ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              Gönderiliyor...
+            </>
+          ) : (
+            <>
+              <Send className="w-5 h-5" />
+              Mesajı Gönder
+            </>
+          )}
         </button>
 
         {isSubmitDisabled && (

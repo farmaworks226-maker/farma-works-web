@@ -17,25 +17,6 @@ async function fetchData() {
       sort_by: "created_at:desc",
     });
     
-    console.log("\n--------------------------------------------------");
-    console.log("🔍 MAKALE SLUG KONTROLÜ BAŞLADI");
-
-    if (data.stories.length > 0) {
-        // Makale listesini aldık
-        const makale = data.stories[0];
-        
-        // Next.js'in aradığı tam yolu yazdırıyoruz
-        console.log("--------------------------------------------------");
-        console.log("✅ BULUNAN İLK MAKALE:", makale.name);
-        console.log("🌐 TAM YOLU (full_slug):", makale.full_slug);
-        console.log("--------------------------------------------------");
-        console.log("İPUCU: Detay linkiniz şu şekilde OLMALIDIR:");
-        console.log(`/saglik-onerileri/${makale.full_slug.split('/').pop()}`); 
-        console.log("--------------------------------------------------\n");
-    } else {
-        console.log("❌ Storyblok'tan hiç makale gelmedi. Publish edildi mi?");
-    }
-
     return data.stories;
   } catch (error) {
     console.error("🚨 API Hatası:", error);

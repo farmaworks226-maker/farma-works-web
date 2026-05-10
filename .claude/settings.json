@@ -1,0 +1,71 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm audit*)",
+      "Bash(npx eslint*)",
+      "Bash(npx prettier*)",
+      "Bash(npx jest*)",
+      "Bash(npx vitest*)",
+      "Bash(pytest*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git grep*)",
+      "Bash(git ls-files*)",
+      "Bash(ruff check*)",
+      "Bash(pylint*)",
+      "Bash(npx next build*)",
+      "Bash(du -sh*)"
+    ],
+    "deny": [
+      "Bash(rm -rf*)",
+      "Bash(git push*)",
+      "Bash(npm publish*)",
+      "Bash(vercel --prod*)",
+      "Bash(curl * | bash*)"
+    ]
+  },
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[AUDIT HOOK] Komut çalıştırılıyor: $CLAUDE_TOOL_INPUT\" >> .claude/audit.log"
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[AUDIT HOOK] Dosya değiştirildi: $(date '+%Y-%m-%d %H:%M:%S')\" >> .claude/changes.log && npx eslint \"$CLAUDE_TOOL_INPUT_PATH\" --max-warnings 0 2>&1 | tail -5 || true"
+          }
+        ]
+      }
+    ],
+
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[SESSION END] $(date '+%Y-%m-%d %H:%M:%S') — Audit session tamamlandı\" >> .claude/audit.log"
+          }
+        ]
+      }
+    ]
+  },
+
+  "autoMemoryEnabled": true,
+
+  "env": {
+    "AUDIT_MODE": "true",
+    "NODE_ENV": "development"
+  }
+}
